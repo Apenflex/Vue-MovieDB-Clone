@@ -1,8 +1,11 @@
 <script setup>
-import { reactive, onMounted } from 'vue'
-import { moviesStore } from '@/stores/moviesStore'
-import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
+
+import { reactive, onMounted } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+import { moviesStore } from '@/stores/moviesStore'
+import MovieCard from './MovieCard.vue'
 
 const store = moviesStore()
 const activeMovies = reactive({ data: store.trandingMovies }, { trend: 'day' })
