@@ -13,7 +13,7 @@ export const moviesStore = defineStore('moviesDB', {
       const response = await fetch(`https://api.themoviedb.org/3/trending/all/${argDay}`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${import.meta.env.VUE_APP_MOVIE_API_KEY}`
+          'Authorization': `Bearer ${import.meta.env.VITE_API_MOVIE_API_KEY}`
         }
         
       })

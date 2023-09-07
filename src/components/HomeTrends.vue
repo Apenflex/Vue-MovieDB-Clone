@@ -17,15 +17,6 @@ const fetchTrends = (argDay) => {
 	activeMovies.data = store.trandingMoviesNow
 }
 
-const formatDate = (dateString) => {
-	if (dateString) {
-		const date = new Date(dateString)
-		const options = { day: '2-digit', month: 'short', year: 'numeric' }
-		return date.toLocaleDateString('eu', options)
-	}
-	return ''
-}
-
 onMounted(() => {
 	fetchTrends('day')
 })
@@ -35,7 +26,7 @@ onMounted(() => {
 	<section>
 		<div class="trend-wrapper">
 			<div class="trend-block">
-				<h3 class="trend-block-title"> У тренді </h3>
+				<h3 class="trend-block-title">У тренді</h3>
 				<div class="trend-block-name">
 					<h3
 						class="trend-block-name-title"
@@ -63,16 +54,7 @@ onMounted(() => {
 						v-for="movie in store.trandingMovies"
 						:key="movie.id"
 					>
-						<div class="trend-slide">
-							<img
-								:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-								alt="slide"
-							/>
-							<div class="trend-names-block">
-								<span>{{ movie.original_title || movie.original_name }}</span>
-								<span>{{ formatDate(movie.release_date || movie.first_air_date) }}</span>
-							</div>
-						</div>
+						<MovieCard :movie="movie" />
 					</swiper-slide>
 				</swiper>
 			</div>
