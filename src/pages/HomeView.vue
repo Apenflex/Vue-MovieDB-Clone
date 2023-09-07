@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import HomeSearch from '@/components/HomeSearch.vue'
+import HomeTrends from '../components/HomeTrends.vue';
+</script>
 
 <template>
-	<main>
-		<h1>Hello</h1>
+	<main class="container">
+		<HomeSearch />
+    <HomeTrends />
 	</main>
 </template>

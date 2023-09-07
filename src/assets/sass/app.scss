@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
+@import './header.scss';
+@import './components/search.scss';
+@import './components/trend.scss';
+
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+#app {
+	font-family: 'Source Sans 3', sans-serif;
+}
+
+.container {
+	width: min(100% - 55px, 1280px);
+	margin-inline: auto;
+}

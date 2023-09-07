@@ -1,0 +1,45 @@
+.search {
+	background-image: linear-gradient(to right, rgba(3,37,65, 0.8) 0%, rgba(3,37,65, 0.8) 100%),
+		url('/src/assets/bg-search.jpeg');
+	padding: 40px 40px;
+	&-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		
+	}
+	&-title {
+		color: #fff;
+		margin-bottom: 20px;
+		h1 {
+			font-size: 48px;
+		}
+	}
+	&-input {
+		display: flex;
+		align-items: center;
+		position: relative;
+		input {
+			border-radius: 50px;
+			border: none;
+			outline: none;
+			font-size: 18px;
+			width: 100%;
+			height: 46px;
+			padding: 0 20px;
+		}
+		button {
+			cursor: pointer;
+			height: 46px;
+			padding: 10px 26px;
+			border: 0;
+			background: linear-gradient(to right, rgba(30, 213, 169, 1) 0%, rgba(1, 180, 228, 1) 100%);
+			border-radius: 30px;
+			position: absolute;
+			top: 0;
+			right: -1px;
+			color: #fff;
+			font-size: 16px;
+		}
+	}
+}
