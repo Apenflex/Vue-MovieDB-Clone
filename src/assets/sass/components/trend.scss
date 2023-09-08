@@ -1,7 +1,12 @@
+.trend-slider {
+  .swiper {
+    padding: 10px 0;
+  }
+}
 .trend-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 0;
   gap: 20px;
 }
 .trend-block {
@@ -25,18 +30,6 @@
   border-radius: 20px;
   padding: 5px 25px;
   color: black;
-}
-.trend-slide {
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-}
-.trend-names-block {
-  display: flex;
-  flex-direction: column;
 }
 .trendActive {
   transition: 0.3s ease-in-out;

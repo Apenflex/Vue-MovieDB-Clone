@@ -1,7 +1,7 @@
 <script setup>
 import 'swiper/css'
 
-import { reactive, onMounted } from 'vue'
+import { reactive, onBeforeMount } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
 import { moviesStore } from '@/stores/moviesStore'
@@ -9,15 +9,15 @@ import MovieCard from './MovieCard.vue'
 
 const store = moviesStore()
 const activeMovies = reactive({ data: store.trandingMovies }, { trend: 'day' })
-// console.log(activeMovies)
 
-const fetchTrends = (argDay) => {
+const fetchTrends = async (argDay) => {
 	activeMovies.trend = argDay
-	store.fetchTrandingMovies(argDay)
+	await store.fetchTrandingMovies(argDay)
 	activeMovies.data = store.trandingMoviesNow
+	// console.log(store.trandingMovies)
 }
 
-onMounted(() => {
+onBeforeMount(() => {
 	fetchTrends('day')
 })
 </script>

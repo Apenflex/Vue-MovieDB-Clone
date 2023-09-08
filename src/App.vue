@@ -10,7 +10,7 @@ import IconHeart from './components/IconHeart.vue'
 				<div class="header-logo">
 					<RouterLink to="/">
 						<img
-							src="./assets/movie_logo.svg"
+							src="./assets/images/movie_logo.svg"
 							alt="logo"
 							class="header-logo__img"
 						/>
