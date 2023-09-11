@@ -13,6 +13,19 @@ const formatDate = (dateString) => {
 	}
 	return ''
 }
+
+const calcVoteColor = (vote) => {
+	switch (true) {
+		case vote >= 70:
+			return { border: '3px solid green' }
+		case vote >= 50:
+			return { border: '3px solid orange' }
+		case vote >= 0:
+			return { border: '3px solid red' }
+		default:
+			return { color: '#fff' }
+	}
+}
 </script>
 
 <template>
@@ -25,8 +38,11 @@ const formatDate = (dateString) => {
 			/>
 		</div>
 		<div class="movie-names-block">
-			<div class="movie-rating-icon">
-				<span class="movie-rating-icon-count"> 75 </span>
+			<div
+				class="movie-rating-icon"
+				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
+			>
+				<span class="movie-rating-icon-count"> {{ (movie.vote_average * 10).toFixed() }}</span>
 				<span class="movie-rating-icon-percentage"> % </span>
 			</div>
 

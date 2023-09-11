@@ -29,4 +29,20 @@
 			}
 		}
 	}
+	.burger-menu {
+		cursor: pointer;
+		display: none;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 30px;
+		height: 20px;
+		padding: 5px 0;
+		position: relative;
+		.bar {
+			width: 100%;
+			height: 3px;
+			background-color: #ffffff;
+			transition: transform 0.3s;
+		}
+	}
 }

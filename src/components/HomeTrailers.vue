@@ -10,6 +10,7 @@ import Modal from '@/components/Modal.vue'
 
 const store = moviesStore()
 const isModalOpen = ref(false)
+const backgroundImage = ref('')
 const trailerMovies = reactive({ data: store.trailerMovies, variant: 'now_playing' })
 const trailerLinks = [
 	{
@@ -29,6 +30,10 @@ const trailerLinks = [
 		popular: 'upcoming',
 	},
 ]
+
+const changeSectionBackground = (image) => {
+	backgroundImage.value = `https://image.tmdb.org/t/p/original${image}`
+}
 
 const handleModal = (movieId) => {
 	store.setTrailerMovieUrl(movieId)
@@ -51,7 +56,13 @@ onBeforeMount(() => {
 </script>
 
 <template>
-	<section class="trailers">
+	<section
+		class="trailers"
+		:style="{
+			background: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${backgroundImage})`,
+			backgroundSize: 'cover',
+		}"
+	>
 		<div class="trailers-tab">
 			<h3>Останні трейлери</h3>
 			<div class="trailers-tab__item">
@@ -77,6 +88,7 @@ onBeforeMount(() => {
 				<swiper-slide
 					v-for="movie in store.trailerMovies"
 					:key="movie.id"
+					@mouseover="changeSectionBackground(movie.backdrop_path)"
 				>
 					<div
 						class="image"

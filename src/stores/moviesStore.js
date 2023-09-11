@@ -31,6 +31,7 @@ export const moviesStore = defineStore('moviesDB', {
       securedAxios.get(`/trending/all/${argDay}`)
         .then((response) => {
           this.trandingMovies = response.data.results
+          console.log(this.trandingMovies);
         })
         .catch((error) => {
           console.log(error);
