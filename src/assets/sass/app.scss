@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
 @import './header.scss';
+@import './footer.scss';
+@import './components/moviecard.scss';
 @import './components/search.scss';
 @import './components/trend.scss';
-@import './components/moviecard.scss';
+@import './components/trailers.scss';
+@import './components/popular.scss';
+@import './components/modal.scss';
 
 body {
 	position: relative;

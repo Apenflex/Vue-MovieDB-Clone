@@ -1,48 +1,22 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import securedAxios from '@/composables/useApi.js'
 
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
     movies: [],
-    // trandingMoviesNow: [],
-    // trandingMoviesWeek: [],
-    trandingMovies: [],
     randomPosterURL: '',
+    trandingMovies: [],
+    trailerMovies: [],
+    trailerMovieUrl: { title: '', url: '' },
+    popularMovies: [],
   }),
   getters: {
     getTrendingMovies: state => state.trandingMovies,
   },
   actions: {
-    async fetchMovies() { },
-    async fetchTrandingMovies(argDay) {
-      axios.get(`${import.meta.env.VITE_API_BASE_URL}/trending/all/${argDay}`, {
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_API_MOVIE_API_KEY}`
-        }
-      })
-        .then((response) => {
-          this.trandingMovies = response.data.results
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      // const response = await fetch(`https://api.themoviedb.org/3/trending/all/${argDay}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${import.meta.env.VITE_API_MOVIE_API_KEY}`
-      //   }
-
-      // })
-      // const data = await response.json()
-      // // console.log(data.results)
-      // this.trandingMovies = data.results
-    },
+    // async fetchMovies() { },
     async getRandomPoster() {
-      axios.get(`${import.meta.env.VITE_API_MOVIE_BASE_URL}/movie/popular`, {
-        params: {
-          api_key: import.meta.env.VITE_API_MOVIE_API_KEY,
-        }
-      })
+      securedAxios.get(`/movie/popular`)
         .then((response) => {
           const randomPosters = response.data.results.map((item) => `https://image.tmdb.org/t/p/w500${item.backdrop_path}`);
           const randomIndex = Math.floor(Math.random() * randomPosters.length);
@@ -53,6 +27,43 @@ export const moviesStore = defineStore('moviesDB', {
           console.log(error);
         })
     },
+    async fetchTrandingMovies(argDay) {
+      securedAxios.get(`/trending/all/${argDay}`)
+        .then((response) => {
+          this.trandingMovies = response.data.results
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
+    async fetchPopularMovies(popular) {
+      securedAxios.get(`/movie/${popular}`)
+        .then((response) => {
+          this.popularMovies = response.data.results
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
+    async fetchTrailerMovies(category) {
+      securedAxios.get(`/movie/${category}`)
+        .then((response) => {
+          this.trailerMovies = response.data.results
+          // console.log(this.trailerMovies);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    },
+    async setTrailerMovieUrl(movieId) {
+      securedAxios.get(`/movie/${movieId}/videos`)
+        .then((response) => {
+          this.trailerMovieUrl.title = this.trailerMovies.find((movie) => movie.id === movieId).original_title;
+          this.trailerMovieUrl.url = response.data.results[0].key
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
   },
-
 })

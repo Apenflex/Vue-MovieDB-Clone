@@ -22,7 +22,7 @@ onBeforeMount(() => {
 				<h1>Ласкаво просимо.</h1>
 				<h2>Мільйони фільмів, серіалів і персон. Досліджуйте зараз.</h2>
 			</div>
-			<form class="search-input">
+			<form class="search-form">
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."

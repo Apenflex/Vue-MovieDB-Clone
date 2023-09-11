@@ -1,0 +1,79 @@
+.trailers {
+	background-image: linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%),
+		url('src/assets/images/bg_trailer.jpg');
+	padding-top: 30px;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	padding-top: 30px;
+	gap: 20px;
+	&-tab {
+		display: flex;
+		gap: 20px;
+		padding: 0 40px;
+		> h3 {
+			font-size: 24px;
+			font-weight: 600;
+			color: #fff;
+		}
+		&__item {
+			display: flex;
+			border-radius: 20px;
+			border: 1px solid #89f9e4;
+			gap: 5px;
+			cursor: pointer;
+			h3 {
+				align-self: center;
+				font-size: 16px;
+				border-radius: 20px;
+				padding: 5px 25px;
+				color: #fff;
+			}
+			.trailersActive {
+				transition: 0.3s ease-in-out;
+				background-color: #89f9e4;
+				color: black;
+			}
+		}
+	}
+	.video {
+		margin-left: 40px;
+		.swiper {
+			padding: 10px 0;
+			&-slide {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				.image {
+					position: relative;
+					width: 300px;
+					height: 190px;
+					cursor: pointer;
+					&:hover {
+						scale: 1.05;
+						transition: 0.3s ease-in-out;
+					}
+					img {
+						border-radius: 5px;
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+					svg {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+					}
+				}
+				h3 {
+					font-size: 16px;
+					font-weight: 600;
+					color: #fff;
+					margin-top: 10px;
+				}
+			}
+		}
+	}
+}

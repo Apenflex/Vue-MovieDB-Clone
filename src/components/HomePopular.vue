@@ -1,103 +1,76 @@
 <script setup>
-import { reactive, onMounted } from 'vue'
+import 'swiper/css'
+
+import { reactive, onBeforeMount } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore } from '@/stores/moviesStore'
 import MovieCard from './MovieCard.vue'
 
+const store = moviesStore()
+const popularMovies = reactive({ data: store.trandingMovies, popular: 'now_playing' })
 const popularLinks = [
 	{
 		title: 'Наживо',
-		popular: 'day',
+		popular: 'now_playing',
 	},
 	{
 		title: 'На ТБ',
-		popular: '1',
+		popular: 'popular',
 	},
 	{
 		title: 'Для прокату',
-		popular: '2',
+		popular: 'top_rated',
 	},
 	{
 		title: 'У кінотеатрах',
-		popular: '3',
+		popular: 'upcoming',
 	},
 ]
 
-const store = moviesStore()
-const popularMovies = reactive({ data: store.trandingMovies }, { popular: 'day' })
-
-const fetchTrends = (argDay) => {
-	// console.log('fetchTrends', argDay)
+const fetchPopular = (argDay) => {
 	popularMovies.popular = argDay
-	// store.fetchTrandingMovies(argDay)
-	// activeMovies.data = store.trandingMoviesNow
+	store.fetchPopularMovies(argDay)
+	popularMovies.data = store.popularMovies
 }
 
-onMounted(() => {
-	// console.log('onMounted')
-	fetchTrends('day')
+onBeforeMount(() => {
+	fetchPopular('now_playing')
 })
 </script>
 
 <template>
-	<section>
-		<div class="trend-wrapper">
-			<div class="trend-block">
-				<h3 class="trend-block-title">Що популярне</h3>
-				<div class="trend-block-name">
-					<h3
-						v-for="link of popularLinks"
-						:key="link.title"
-						:class="['trend-block-name-title', { trendActive: popularMovies.popular === link.popular }]"
-						@click="fetchTrends(link.popular)"
-					>
-						{{ link.title }}
-					</h3>
-					<!-- <h3
-						class="trend-block-name-title"
-						:class="{ trendActive: activeMovies.trend === 'day' }"
-						@click="() => fetchTrends('day')"
-					>
-						Наживо
-					</h3>
-					<h3
-						class="trend-block-name-title"
-						:class="{ trendActive: activeMovies.trend === 'week' }"
-						@click="() => fetchTrends('week')"
-					>
-						На ТБ
-					</h3>
-					<h3
-						class="trend-block-name-title"
-						:class="{ trendActive: activeMovies.trend === 'week' }"
-						@click="() => fetchTrends('week')"
-					>
-						Для прокату
-					</h3>
-					<h3
-						class="trend-block-name-title"
-						:class="{ trendActive: activeMovies.trend === 'week' }"
-						@click="() => fetchTrends('week')"
-					>
-						У кінотеатрах
-					</h3> -->
-				</div>
-			</div>
-
-			<div class="trend-slider">
-				<swiper
-					:slides-per-view="7"
-					:space-between="20"
+	<section class="popular">
+		<div class="popular-tab">
+			<h3>Що популярне</h3>
+			<div class="popular-tab__item">
+				<h3
+					v-for="link of popularLinks"
+					:key="link.title"
+					:class="{ popularActive: popularMovies.popular === link.popular }"
+					@click="fetchPopular(link.popular)"
 				>
-					<!-- <swiper-slide
-						v-for="movie in store.trandingMovies"
+					{{ link.title }}
+				</h3>
+			</div>
+		</div>
+
+		<div>
+			<swiper
+				:slides-per-view="7"
+				:space-between="20"
+				:freeMode="true"
+				:mousewheel="true"
+				:modules="[Mousewheel, FreeMode]"
+			>
+				<swiper-slide
+						v-for="movie in store.popularMovies"
 						:key="movie.id"
 					>
 						<MovieCard :movie="movie" />
-					</swiper-slide> -->
-				</swiper>
-			</div>
+					</swiper-slide>
+			</swiper>
 		</div>
 	</section>
 </template>

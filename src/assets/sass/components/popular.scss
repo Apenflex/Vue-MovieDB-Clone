@@ -1,4 +1,4 @@
-.trend {
+.popular {
 	display: flex;
 	flex-direction: column;
 	padding: 20px 0;
@@ -23,14 +23,14 @@
 				padding: 5px 25px;
 				color: black;
 			}
-			.trendActive {
+      .popularActive {
 				transition: 0.3s ease-in-out;
 				background-color: rgb(3, 37, 65);
 				color: #89f9e4;
 			}
-		}
-	}
-	.swiper {
-		padding: 10px 0;
-	}
+    }
+  }
+  .swiper { 
+    padding: 10px 0;
+  }
 }
