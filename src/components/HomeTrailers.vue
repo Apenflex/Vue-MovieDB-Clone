@@ -35,13 +35,13 @@ const changeSectionBackground = (image) => {
 	backgroundImage.value = `https://image.tmdb.org/t/p/original${image}`
 }
 
-const handleModal = (movieId) => {
-	store.setTrailerMovieUrl(movieId)
-	isModalOpen.value = true
-}
-
-const handleModalClose = () => {
-	isModalOpen.value = false
+const handleToggleModal = (movieId) => {
+	if (isModalOpen.value) {
+		isModalOpen.value = false
+	} else {
+		isModalOpen.value = true
+		store.setTrailerMovieUrl(movieId)
+	}
 }
 
 const fetchTrailers = (argDay) => {
@@ -59,8 +59,10 @@ onBeforeMount(() => {
 	<section
 		class="trailers"
 		:style="{
-			background: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${backgroundImage})`,
+			background: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%),
+			url(${backgroundImage})`,
 			backgroundSize: 'cover',
+			backgroundPosition: 'center',
 		}"
 	>
 		<div class="trailers-tab">
@@ -92,7 +94,7 @@ onBeforeMount(() => {
 				>
 					<div
 						class="image"
-						@click="handleModal(movie.id)"
+						@click="handleToggleModal(movie.id)"
 					>
 						<img
 							:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
@@ -117,7 +119,7 @@ onBeforeMount(() => {
 		<Modal
 			v-if="isModalOpen"
 			:movie="store.trailerMovieUrl"
-			@close-modal="handleModalClose()"
+			@toggle-modal="handleToggleModal()"
 		/>
 	</section>
 </template>

@@ -15,6 +15,8 @@ onBeforeMount(() => {
 		class="search"
 		:style="{
 			backgroundImage: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${store.randomPosterURL})`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
 		}"
 	>
 		<div class="search-wrapper">

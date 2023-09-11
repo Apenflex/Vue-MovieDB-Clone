@@ -3,7 +3,7 @@ const props = defineProps({
   movie: Object,
   isOpen: Boolean,
 })
-defineEmits(['close-modal'])
+defineEmits(['toggle-modal'])
 </script>
 
 <template>
@@ -13,7 +13,7 @@ defineEmits(['close-modal'])
 				<h3>{{ movie.title  }} </h3>
 				<button
 					class="modal-close"
-					@click="$emit('close-modal')"
+					@click="$emit('toggle-modal')"
 				>
 					X
 				</button>
