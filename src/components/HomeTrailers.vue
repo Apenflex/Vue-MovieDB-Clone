@@ -76,6 +76,19 @@ onBeforeMount(() => {
 				>
 					{{ link.title }}
 				</h3>
+				<!-- <select
+					v-model="trailerLinks[0].title"
+					@change="fetchTrailers(selectedOption)"
+					class="trailers-tab__item"
+				>
+					<option
+						v-for="link of trailerLinks"
+						:key="link.title"
+						:value="link.popular"
+					>
+						{{ link.title }}
+					</option>
+				</select> -->
 			</div>
 		</div>
 
@@ -86,6 +99,21 @@ onBeforeMount(() => {
 				:freeMode="true"
 				:mousewheel="true"
 				:modules="[Mousewheel, FreeMode]"
+				:breakpoints="{
+					320: {
+						slidesPerView: 1,
+					},
+					480: {
+						slidesPerView: 2,
+						spaceBetween: 110,
+					},
+					768: {
+						slidesPerView: 2,
+					},
+					1024: {
+						slidesPerView: 4,
+					},
+				}"
 			>
 				<swiper-slide
 					v-for="movie in store.trailerMovies"

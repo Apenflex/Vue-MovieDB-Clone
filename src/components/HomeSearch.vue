@@ -8,9 +8,9 @@ const searchQuery = ref('')
 const router = useRouter()
 
 const handleSearch = () => {
-	if(!searchQuery.value) return
+	if (!searchQuery.value) return
 	store.fetchSearch({ query: searchQuery.value, page: 1 })
-	router.push({ name: 'search', query: { query: searchQuery.value, page: store.searchPage }})
+	router.push({ name: 'search', query: { query: searchQuery.value } })
 }
 
 onBeforeMount(() => {

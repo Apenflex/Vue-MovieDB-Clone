@@ -12,7 +12,7 @@ export const moviesStore = defineStore('moviesDB', {
     trailerMovieUrl: { title: '', url: '' },
     persons: [],
     searchMovies: [],
-    searcQuery: { query: '', page: 1 },
+    searchQuery: { query: '', page: 1 },
   }),
   getters: {
     // getTrendingMovies: state => state.trandingMovies,
@@ -75,7 +75,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/person/popular?&page=${page}`);
         this.persons = response.data.results;
-        console.log(this.persons);
+        // console.log(this.persons);
       } catch (error) {
         console.error(error);
       }
@@ -84,8 +84,8 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
         this.searchMovies = response.data.results;
-        this.searcQuery.query = query;
-        console.log(this.searchMovies);
+        this.searchQuery.query = query;
+        // console.log(this.searchQuery.query)
       } catch (error) {
         console.error(error);
       }

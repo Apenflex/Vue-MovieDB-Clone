@@ -63,6 +63,26 @@ onBeforeMount(() => {
 				:freeMode="true"
 				:mousewheel="true"
 				:modules="[Mousewheel, FreeMode]"
+				:breakpoints="{
+					320: {
+						slidesPerView: 2,
+					},
+					480: {
+						slidesPerView: 3,
+					},
+					640: {
+						slidesPerView: 4,
+					},
+					768: {
+						slidesPerView: 5,
+					},
+					1024: {
+						slidesPerView: 6,
+					},
+					1280: {
+						slidesPerView: 7,
+					},
+				}"
 			>
 				<swiper-slide
 					v-for="movie in store.popularMovies"
