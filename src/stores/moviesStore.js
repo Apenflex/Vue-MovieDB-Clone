@@ -9,6 +9,7 @@ export const moviesStore = defineStore('moviesDB', {
     trailerMovies: [],
     trailerMovieUrl: { title: '', url: '' },
     popularMovies: [],
+    persons: [],
   }),
   getters: {
     getTrendingMovies: state => state.trandingMovies,
@@ -60,6 +61,15 @@ export const moviesStore = defineStore('moviesDB', {
       } catch (error) {
         console.error(error);
       }
-    }
+    },
+    async fetchPersons(page) {
+      try {
+        const response = await securedAxios.get(`/person/popular?&page=${page}`);
+        this.persons = response.data.results;
+        console.log(this.persons);
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 })

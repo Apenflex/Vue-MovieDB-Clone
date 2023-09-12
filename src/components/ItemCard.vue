@@ -3,6 +3,8 @@ import IconHeart from './IconHeart.vue'
 
 const props = defineProps({
 	movie: Object,
+	person: Object,
+	type: String,
 })
 
 const formatDate = (dateString) => {
@@ -31,14 +33,24 @@ const calcVoteColor = (vote) => {
 <template>
 	<div class="movie-card">
 		<div>
-			<IconHeart class="movie-card-heart" />
+			<IconHeart
+				v-if="type === 'movie'"
+				class="movie-card-heart"
+			/>
 			<img
+				v-if="type === 'movie'"
 				:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+				alt="slide"
+			/>
+			<img
+				v-if="type === 'person'"
+				:src="`https://image.tmdb.org/t/p/w500${person.profile_path}`"
 				alt="slide"
 			/>
 		</div>
 		<div class="movie-names-block">
 			<div
+				v-if="type === 'movie'"
 				class="movie-rating-icon"
 				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
 			>
@@ -46,8 +58,15 @@ const calcVoteColor = (vote) => {
 				<span class="movie-rating-icon-percentage"> % </span>
 			</div>
 
-			<h4>{{ movie.original_title || movie.original_name }}</h4>
-			<span>{{ formatDate(movie.release_date || movie.first_air_date) }}</span>
+			<div v-if="type === 'movie'">
+				<h4>{{ movie.original_title || movie.original_name }}</h4>
+				<span>{{ formatDate(movie.release_date || movie.first_air_date) }}</span>
+			</div>
+
+			<div v-if="type === 'person'">
+				<h4>{{ person.name }}</h4>
+				<span>{{ person.known_for[0].original_title || 'no data' }}</span>
+			</div>
 		</div>
 	</div>
 </template>

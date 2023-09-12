@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore } from '@/stores/moviesStore'
-import MovieCard from './MovieCard.vue'
+import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
 const popularMovies = reactive({ data: store.trandingMovies, popular: 'now_playing' })
@@ -65,11 +65,11 @@ onBeforeMount(() => {
 				:modules="[Mousewheel, FreeMode]"
 			>
 				<swiper-slide
-						v-for="movie in store.popularMovies"
-						:key="movie.id"
-					>
-						<MovieCard :movie="movie" />
-					</swiper-slide>
+					v-for="movie in store.popularMovies"
+					:key="movie.id"
+				>
+					<ItemCard :movie="movie" :type="'movie'"/>
+				</swiper-slide>
 			</swiper>
 		</div>
 	</section>
