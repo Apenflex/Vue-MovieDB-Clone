@@ -1,4 +1,6 @@
 <script setup>
+import { moviesStore } from '@/stores/moviesStore'
+
 import IconHeart from './IconHeart.vue'
 
 const props = defineProps({
@@ -6,6 +8,8 @@ const props = defineProps({
 	person: Object,
 	type: String,
 })
+
+const store = moviesStore()
 
 const formatDate = (dateString) => {
 	if (dateString) {
@@ -28,6 +32,7 @@ const calcVoteColor = (vote) => {
 			return { color: '#fff' }
 	}
 }
+
 </script>
 
 <template>
@@ -36,6 +41,7 @@ const calcVoteColor = (vote) => {
 			<IconHeart
 				v-if="type === 'movie'"
 				class="movie-card-heart"
+				@click="store.addFavouriteMovie(movie)"
 			/>
 			<img
 				v-if="type === 'movie'"

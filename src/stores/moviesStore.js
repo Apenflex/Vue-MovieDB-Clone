@@ -4,6 +4,7 @@ import securedAxios from '@/composables/useApi.js'
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
     movies: [],
+    favouriteMovies: [],
     randomPosterURL: '',
     trandingMovies: [],
     trailerMovies: [],
@@ -12,10 +13,16 @@ export const moviesStore = defineStore('moviesDB', {
     persons: [],
   }),
   getters: {
-    getTrendingMovies: state => state.trandingMovies,
+    // getTrendingMovies: state => state.trandingMovies,
   },
   actions: {
-    // async fetchMovies() { },
+    async addFavouriteMovie(movie) {
+      if (this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
+        return;
+      }
+      this.favouriteMovies.push(movie);
+      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
+    },
     async getRandomPoster() {
       securedAxios.get(`/movie/popular`)
         .then((response) => {

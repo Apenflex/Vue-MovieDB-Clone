@@ -24,7 +24,7 @@ const footerlinks = [
 <template>
   <footer class="footer">
 		<nav>
-			<div class="logo">
+			<div class="logo footer-links">
 				<img
 					src="src/assets/images/footer_logo.svg"
 					alt=""
