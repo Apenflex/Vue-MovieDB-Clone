@@ -5,6 +5,7 @@ import FavouriteView from '../pages/FavouriteView.vue'
 import MoviesView from '../pages/MoviesView.vue'
 import TvShowsView from '../pages/TvShowsView.vue'
 import PersonsView from '../pages/PersonsView.vue'
+import SearchView from '../pages/SearchView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/persons',
       name: 'persons',
       component: PersonsView
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView
     }
   ]
 })

@@ -3,14 +3,16 @@ import securedAxios from '@/composables/useApi.js'
 
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
-    movies: [],
-    favouriteMovies: [],
+    // movies: [],
     randomPosterURL: '',
+    favouriteMovies: [],
     trandingMovies: [],
+    popularMovies: [],
     trailerMovies: [],
     trailerMovieUrl: { title: '', url: '' },
-    popularMovies: [],
     persons: [],
+    searchMovies: [],
+    searcQuery: { query: '', page: 1 },
   }),
   getters: {
     // getTrendingMovies: state => state.trandingMovies,
@@ -78,5 +80,15 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
+    async fetchSearch({ query, page }) {
+      try {
+        const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
+        this.searchMovies = response.data.results;
+        this.searcQuery.query = query;
+        console.log(this.searchMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
 })

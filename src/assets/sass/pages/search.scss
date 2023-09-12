@@ -1,0 +1,30 @@
+.search {
+  // padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    .page-item {
+      padding: 6px 10px;
+      border-radius: 5px;
+      background-color: rgb(3, 37, 65);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      color: #fff;
+      &:hover {
+        background-color: rgb(4, 49, 78);
+        box-shadow: 0 0 5px rgb(6, 97, 158);
+      }
+    }
+  }
+}

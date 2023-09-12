@@ -1,13 +1,21 @@
 <script setup>
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
+import { useRouter } from 'vue-router'
 
 const store = moviesStore()
+const searchQuery = ref('')
+const router = useRouter()
+
+const handleSearch = () => {
+	if(!searchQuery.value) return
+	store.fetchSearch({ query: searchQuery.value, page: 1 })
+	router.push({ name: 'search', query: { query: searchQuery.value, page: store.searchPage }})
+}
 
 onBeforeMount(() => {
-  store.getRandomPoster()
+	store.getRandomPoster()
 })
-
 </script>
 
 <template>
@@ -28,8 +36,14 @@ onBeforeMount(() => {
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."
+					v-model="searchQuery"
 				/>
-				<button>Search</button>
+				<button
+					type="submit"
+					@click.prevent="handleSearch"
+				>
+					Search
+				</button>
 			</form>
 		</div>
 	</section>
