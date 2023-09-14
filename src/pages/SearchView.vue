@@ -13,6 +13,7 @@ const currentPage = ref(1)
 const handleSearch = () => {
 	if (!searchQuery.value) return
 	store.fetchSearch({ query: searchQuery.value, page: 1 })
+	currentPage.value = 1
 	router.push({ name: 'search', query: { query: searchQuery.value } })
 }
 

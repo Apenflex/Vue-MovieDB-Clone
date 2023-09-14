@@ -8,6 +8,7 @@ export const moviesStore = defineStore('moviesDB', {
     tvShows: [],
     tvShowsSortBy: '',
     persons: [],
+    mediaDetails: [],
     randomPosterURL: '',
     favouriteMovies: [],
     trandingMovies: [],
@@ -61,6 +62,15 @@ export const moviesStore = defineStore('moviesDB', {
           break;
         default:
           break;
+      }
+    },
+    async fetchMediaDetails({ mediaType, id }) {
+      try {
+        const response = await securedAxios.get(`/${mediaType}/${id}`);
+        this.mediaDetails = response.data;
+        console.log(this.mediaDetails);
+      } catch (error) {
+        console.error(error);
       }
     },
     async fetchTvShows() {
@@ -146,6 +156,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/trending/all/${argDay}`);
         this.trandingMovies = response.data.results;
+        // console.log(this.trandingMovies);
       } catch (error) {
         console.error(error);
       }
@@ -154,6 +165,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/movie/${popular}`);
         this.popularMovies = response.data.results;
+        // console.log(this.popularMovies);
       } catch (error) {
         console.error(error);
       }

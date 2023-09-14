@@ -2,6 +2,7 @@
 import 'swiper/css'
 
 import { reactive, onBeforeMount } from 'vue'
+import { RouterLink } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -104,7 +105,12 @@ onBeforeMount(() => {
 					v-for="movie in store.popularMovies"
 					:key="movie.id"
 				>
-					<ItemCard :movie="movie" :type="'movie'"/>
+					<RouterLink :to="{ name: 'item-details', params: { mediaType: 'movie', id: movie.id } }">
+						<ItemCard
+							:movie="movie"
+							:type="'movie'"
+						/>
+					</RouterLink>
 				</swiper-slide>
 			</swiper>
 		</div>

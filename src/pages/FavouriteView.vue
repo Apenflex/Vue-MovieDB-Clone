@@ -3,7 +3,7 @@ import { onBeforeMount } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
 
-import ItemCard from '../components/ItemCard.vue'
+import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
