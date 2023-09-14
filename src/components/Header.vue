@@ -17,7 +17,7 @@ const isMenuOpen = ref(false)
 				>
 					<RouterLink to="/">
 						<img
-							src="../assets/images/movie_logo.svg"
+							src="/public/images/movie_logo.svg"
 							alt="logo"
 							class="header-logo__img"
 						/>

@@ -1,21 +1,30 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import ItemCard from '../components/ItemCard.vue'
+import ItemCard from '@/components/ItemCard.vue'
 import { moviesStore } from '@/stores/moviesStore'
 
 const store = moviesStore()
+const searchQuery = ref('')
+const router = useRouter()
 const currentPage = ref(1)
+
+const handleSearch = () => {
+	if (!searchQuery.value) return
+	store.fetchSearch({ query: searchQuery.value, page: 1 })
+	router.push({ name: 'search', query: { query: searchQuery.value } })
+}
 
 const nextPage = () => {
   currentPage.value += 1
-  store.fetchSearch({ query: store.searchQuery, page: currentPage.value })
+  store.fetchSearch({ query: store.searchQuery.query, page: currentPage.value })
 }
 
 const prevPage = () => {
   if (currentPage.value > 1) {
     currentPage.value -= 1
-    store.fetchSearch({ query: store.searchQuery, page: currentPage.value })
+    store.fetchSearch({ query: store.searchQuery.query, page: currentPage.value })
   }
 }
 </script>

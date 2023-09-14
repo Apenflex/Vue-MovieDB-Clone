@@ -1,7 +1,35 @@
 .search {
-  // padding: 20px 0;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  &-form {
+		display: flex;
+		align-items: center;
+		position: relative;
+		input {
+			border-radius: 50px;
+			border: 1px solid #ccc;
+			outline: none;
+			font-size: 18px;
+			width: 100%;
+			height: 45px;
+			padding: 0 20px;
+		}
+		button {
+			cursor: pointer;
+			height: 46px;
+			padding: 10px 26px;
+			border: 1px solid transparent;
+			background: linear-gradient(to right, rgba(30, 213, 169, 1) 0%, rgba(1, 180, 228, 1) 100%);
+			border-radius: 30px;
+			position: absolute;
+			top: 0;
+			right: -1px;
+			color: #fff;
+			font-size: 16px;
+		}
+	}
   .items {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

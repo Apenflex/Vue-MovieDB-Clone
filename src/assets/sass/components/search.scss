@@ -1,17 +1,17 @@
-.search {
+.home-search {
 	// background-image: linear-gradient(to right, rgba(3,37,65, 0.8) 0%, rgba(3,37,65, 0.8) 100%),
 	// 	url('/src/assets/images/bg-search.jpeg');
 	padding: 40px 40px;
 	@media (max-width: 768px) {
 		padding: 40px 20px;
 	}
-	&-wrapper {
+	.wrapper {
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
 		
 	}
-	&-title {
+	.title {
 		color: #fff;
 		margin-bottom: 20px;
 		h1 {

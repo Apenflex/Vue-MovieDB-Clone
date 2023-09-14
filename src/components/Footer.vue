@@ -26,7 +26,7 @@ const footerlinks = [
 		<nav>
 			<div class="logo footer-links">
 				<img
-					src="src/assets/images/footer_logo.svg"
+					src="/public/images/footer_logo.svg"
 					alt=""
 				/>
 			</div>
