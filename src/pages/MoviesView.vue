@@ -17,7 +17,6 @@ watch(
 	() => {
 		isFilterSearchBtnOpen.value = true
 	},
-	// { immediate: true }
 )
 
 const handleFilterSearch = () => {

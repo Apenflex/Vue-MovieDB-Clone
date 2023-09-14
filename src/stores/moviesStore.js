@@ -19,6 +19,7 @@ export const moviesStore = defineStore('moviesDB', {
   }),
   getters: {
     getMovies: state => state.movies,
+    getTvShows: state => state.tvShows,
   },
   actions: {
     async fetchMovies() {
@@ -57,6 +58,47 @@ export const moviesStore = defineStore('moviesDB', {
           break;
         case 'titleAsc':
           this.movies.sort((a, b) => a.original_title.localeCompare(b.original_title));
+          break;
+        default:
+          break;
+      }
+    },
+    async fetchTvShows() {
+      try {
+        const response = await securedAxios.get(`/tv/popular`);
+        this.tvShows = response.data.results;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async fetchTvShowsMore(page) {
+      try {
+        const response = await securedAxios.get(`/tv/popular?page=${page}`);
+        this.tvShows.push(...response.data.results);
+        await this.TvShowsSortBy();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async TvShowsSortBy() {
+      switch (this.tvShowsSortBy) {
+        case 'popularAsc':
+          this.tvShows.sort((a, b) => a.popularity - b.popularity);
+          break;
+        case 'voteDesc':
+          this.tvShows.sort((a, b) => b.vote_average - a.vote_average);
+          break;
+        case 'voteAsc':
+          this.tvShows.sort((a, b) => a.vote_average - b.vote_average);
+          break;
+        case 'releaseDesc':
+          this.tvShows.sort((a, b) => new Date(b.first_air_date) - new Date(a.first_air_date));
+          break;
+        case 'releaseAsc':
+          this.tvShows.sort((a, b) => new Date(a.first_air_date) - new Date(b.first_air_date));
+          break;
+        case 'titleAsc':
+          this.tvShows.sort((a, b) => a.original_name.localeCompare(b.original_name));
           break;
         default:
           break;

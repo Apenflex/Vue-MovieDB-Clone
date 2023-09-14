@@ -28,23 +28,23 @@ const isMenuOpen = ref(false)
 				<div :class="['header-nav', { 'menu-active': isMenuOpen }]">
 					<RouterLink
 						to="/favourite"
-						@click="isMenuOpen = !isMenuOpen"
+						@click="isMenuOpen ? (isMenuOpen = false) : null"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
 						to="/movies"
-						@click="isMenuOpen = !isMenuOpen"
+						@click="isMenuOpen ? (isMenuOpen = false) : null"
 						>Movies</RouterLink
 					>
 					<RouterLink
 						to="/tv-shows"
-						@click="isMenuOpen = !isMenuOpen"
+						@click="isMenuOpen ? (isMenuOpen = false) : null"
 						>TV Shows</RouterLink
 					>
 					<RouterLink
 						to="/persons"
-						@click="isMenuOpen = !isMenuOpen"
+						@click="isMenuOpen ? (isMenuOpen = false) : null"
 						>Persons</RouterLink
 					>
 				</div>
