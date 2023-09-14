@@ -44,6 +44,7 @@ onBeforeMount(() => {
 	<section class="popular">
 		<div class="popular-tab">
 			<h3>Що популярне</h3>
+			<!-- Desktop -->
 			<div class="popular-tab__item">
 				<h3
 					v-for="link of popularLinks"
@@ -54,6 +55,21 @@ onBeforeMount(() => {
 					{{ link.title }}
 				</h3>
 			</div>
+			<!-- Mobile Select -->
+			<select
+				class="popular-tab__mobile"
+				v-model="popularMovies.popular"
+				@change="fetchPopular(popularMovies.popular)"
+			>
+				<option
+					v-for="link of popularLinks"
+					:key="link.title"
+					:value="link.popular"
+					:selected="popularMovies.popular === link.popular"
+				>
+					{{ link.title }}
+				</option>
+			</select>
 		</div>
 
 		<div>
@@ -65,16 +81,16 @@ onBeforeMount(() => {
 				:modules="[Mousewheel, FreeMode]"
 				:breakpoints="{
 					320: {
-						slidesPerView: 2,
+						slidesPerView: 1,
 					},
 					480: {
-						slidesPerView: 3,
+						slidesPerView: 2,
 					},
 					640: {
-						slidesPerView: 4,
+						slidesPerView: 3,
 					},
 					768: {
-						slidesPerView: 5,
+						slidesPerView: 4,
 					},
 					1024: {
 						slidesPerView: 6,

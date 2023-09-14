@@ -40,6 +40,26 @@ onBeforeMount(() => {
 					Цього тижня
 				</h3>
 			</div>
+
+			<!-- Mobile Select -->
+			<select
+				class="trend-tab__mobile"
+				v-model="activeMovies.trend"
+				@change="fetchTrends(activeMovies.trend)"
+			>
+				<option
+					value="day"
+					:selected="activeMovies.trend === 'day'"
+				>
+					Сьогодні
+				</option>
+				<option
+					value="week"
+					:selected="activeMovies.trend === 'week'"
+				>
+					Цього тижня
+				</option>
+			</select>
 		</div>
 
 		<div>
@@ -51,16 +71,16 @@ onBeforeMount(() => {
 				:modules="[Mousewheel, FreeMode]"
 				:breakpoints="{
 					320: {
-						slidesPerView: 2,
+						slidesPerView: 1,
 					},
 					480: {
-						slidesPerView: 3,
+						slidesPerView: 2,
 					},
 					640: {
-						slidesPerView: 4,
+						slidesPerView: 3,
 					},
 					768: {
-						slidesPerView: 5,
+						slidesPerView: 4,
 					},
 					1024: {
 						slidesPerView: 6,
@@ -74,7 +94,10 @@ onBeforeMount(() => {
 					v-for="movie in store.trandingMovies"
 					:key="movie.id"
 				>
-					<ItemCard :movie="movie" :type="'movie'"/>
+					<ItemCard
+						:movie="movie"
+						:type="'movie'"
+					/>
 				</swiper-slide>
 			</swiper>
 		</div>

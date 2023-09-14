@@ -16,6 +16,9 @@
 			border: 1px solid black;
 			gap: 5px;
 			cursor: pointer;
+			@media (max-width: 860px) {
+				display: none;
+			}
 			h3 {
 				align-self: center;
 				font-size: 16px;
@@ -29,7 +32,20 @@
 				color: #89f9e4;
 			}
 		}
+		&__mobile {
+			display: none;
+			@media (max-width: 860px) {
+				display: flex;
+				border-radius: 20px;
+				padding: 0 10px;
+				background: linear-gradient(to right, rgb(30, 213, 169) 0%, rgb(1, 180, 228) 100%);
+				color: black;
+				font-weight: 600;
+				font-size: 14px;
+			}
+		}
 	}
+
 	.swiper {
 		padding: 10px 0;
 	}
