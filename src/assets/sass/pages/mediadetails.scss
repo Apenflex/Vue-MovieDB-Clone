@@ -18,11 +18,11 @@
 		}
 	}
 	.content {
-    display: flex;
-    flex-direction: column;
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		color: #fff;
-    gap: 25px;
+		gap: 25px;
 		.head {
 			display: flex;
 			flex-direction: column;
@@ -45,11 +45,11 @@
 			}
 		}
 		.actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: flex-start;
-      
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			justify-content: flex-start;
+
 			.rating {
 				display: flex;
 				align-items: center;
@@ -74,26 +74,52 @@
 				}
 				.title {
 				}
-				
 			}
-      .tooltip {
-					background: rgb(3,37,65);
-					border-radius: 50%;
-					width: 46px;
-					height: 46px;
+			.tooltip {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: rgb(3, 37, 65);
+				border-radius: 50%;
+				width: 46px;
+				height: 46px;
+        cursor: pointer;
+				svg {
+					width: 18px;
+					height: 18px;
+					fill: #fff;
 				}
-      .play {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        &:hover {
-          color: rgba(255, 255, 255, 0.5);
-        }
-        >span {
-          display: flex;
-        }
-      }
+			}
+			.play {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 5px;
+        cursor: pointer;
+				&:hover {
+					color: rgba(255, 255, 255, 0.5);
+				}
+				> span {
+					display: flex;
+					svg {
+            fill: rgba(255, 255, 255, 1);
+					}
+				}
+			}
 		}
+    .info {
+      display: flex;
+      flex-direction: column;
+      .tagline {
+        font-size: 20px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .title {
+        font-weight: 500;
+        font-size: 20px;
+        margin: 10px 0;
+      }
+    }
 	}
 }

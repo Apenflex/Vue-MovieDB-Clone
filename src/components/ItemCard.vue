@@ -2,11 +2,13 @@
 import { moviesStore } from '@/stores/moviesStore'
 
 import IconHeart from './IconHeart.vue'
+import IconTrash from './IconTrash.vue'
 
 const props = defineProps({
 	movie: Object,
 	person: Object,
 	type: String,
+	favourite: Boolean,
 })
 
 const store = moviesStore()
@@ -39,9 +41,14 @@ const calcVoteColor = (vote) => {
 	<div class="movie-card">
 		<div>
 			<IconHeart
-				v-if="type === 'movie'"
+				v-if="type === 'movie' && !favourite"
 				class="movie-card-heart"
 				@click="store.addFavouriteMovie(movie)"
+			/>
+			<IconTrash
+				v-if="favourite"
+				class="movie-card-trash"
+				@click="store.removeFavouriteMovie(movie)"
 			/>
 			<img
 				v-if="type === 'movie'"

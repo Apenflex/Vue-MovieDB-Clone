@@ -140,6 +140,10 @@ export const moviesStore = defineStore('moviesDB', {
       this.favouriteMovies.push(movie);
       localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
     },
+    async removeFavouriteMovie(movie) {
+      this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
+      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
+    },
     async getRandomPoster() {
       securedAxios.get(`/movie/popular`)
         .then((response) => {
