@@ -20,7 +20,7 @@ onBeforeMount(() => {
 
 <template>
 	<section
-		class="home-search"
+		class="home-search container"
 		:style="{
 			backgroundImage: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${store.randomPosterURL})`,
 			backgroundSize: 'cover',
@@ -32,7 +32,7 @@ onBeforeMount(() => {
 				<h1>Ласкаво просимо.</h1>
 				<h2>Мільйони фільмів, серіалів і персон. Досліджуйте зараз.</h2>
 			</div>
-			<form class="home-search-form">
+			<form class="form">
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."

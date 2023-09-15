@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
+@import './variables.scss';
+@import './mixins.scss';
 @import './header.scss';
 @import './footer.scss';
 @import './pages/persons.scss';
@@ -47,6 +49,6 @@ a {
 }
 
 .container {
-	width: min(100% - 55px, 1280px);
+	width: min(100% - 40px, 1300px);
 	margin-inline: auto;
 }

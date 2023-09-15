@@ -42,12 +42,12 @@ const calcVoteColor = (vote) => {
 		<div>
 			<IconHeart
 				v-if="type === 'movie' && !favourite"
-				class="movie-card-heart"
+				class="icon-heart"
 				@click="store.addFavouriteMovie(movie)"
 			/>
 			<IconTrash
 				v-if="favourite"
-				class="movie-card-trash"
+				class="icon-trash"
 				@click="store.removeFavouriteMovie(movie)"
 			/>
 			<img
@@ -61,14 +61,14 @@ const calcVoteColor = (vote) => {
 				alt="slide"
 			/>
 		</div>
-		<div class="movie-names-block">
+		<div class="description">
 			<div
 				v-if="type === 'movie'"
-				class="movie-rating-icon"
+				class="icon-rating"
 				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
 			>
-				<span class="movie-rating-icon-count"> {{ (movie.vote_average * 10).toFixed() }}</span>
-				<span class="movie-rating-icon-percentage"> % </span>
+				<span class="icon-count"> {{ (movie.vote_average * 10).toFixed() }}</span>
+				<span class="icon-percentage"> % </span>
 			</div>
 
 			<div v-if="type === 'movie'">

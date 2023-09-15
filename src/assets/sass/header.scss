@@ -1,55 +1,54 @@
 .header {
-	background-color: rgb(3, 37, 65);
+	background-color: $primary;
 	display: flex;
 	height: 64px;
 	justify-content: center;
 	align-items: center;
-	&-wrapper {
+	.wrapper {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
-	&-logo {
+	.logo {
 		display: flex;
 		&__mobile {
-		position: fixed;
-		z-index: 3;
+			position: fixed;
+			z-index: 3;
 		}
-		&__img {
+		img {
 			width: 150px;
 			height: 100%;
 		}
 	}
-	&-nav {
+	.links {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		gap: 30px;
-		@media (max-width: 768px) {
+		@include media($md) {
 			position: fixed;
 			flex-direction: column;
 			top: 0;
 			right: -105%;
 			width: 100%;
 			height: 100vh;
-			padding: 20px 15px;
-			background-color: rgb(3, 37, 65);
+			background-color: $primary;
 			transition: 0.6s all;
 			z-index: 2;
 		}
 		a {
-			color: #fff;
+			color: $white;
 			font-weight: 600;
-			@media (max-width: 768px) {
+			@include media($md) {
 				font-size: 21px;
 			}
 			&:hover {
-				color: rgb(0, 255, 255);
+				color: $hover;
 			}
 		}
 	}
 	.menu-active {
-		@media (max-width: 993px) {
+		@include media($mdPlus) {
 			display: flex;
 			right: 0;
 		}
@@ -79,15 +78,17 @@
 		&:hover {
 			opacity: 0.7;
 		}
-	}
-	.hamburger.is-active:hover {
+		.is-active:hover {
 		opacity: 0.7;
 		position: fixed;
 	}
+	}
+	
+
 	.hamburger.is-active .hamburger-inner,
 	.hamburger.is-active .hamburger-inner::before,
 	.hamburger.is-active .hamburger-inner::after {
-		background-color: #fff;
+		background-color: $burgerColor;
 	}
 	.hamburger-box {
 		width: 40px;
@@ -106,7 +107,7 @@
 	.hamburger-inner::after {
 		width: 35px;
 		height: 3px;
-		background-color: #fff;
+		background-color: $burgerColor;
 		border-radius: 4px;
 		position: absolute;
 		transition-property: transform;

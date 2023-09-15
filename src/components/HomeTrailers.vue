@@ -65,9 +65,9 @@ onBeforeMount(() => {
 			backgroundPosition: 'center',
 		}"
 	>
-		<div class="trailers-tab">
-			<h3>Останні трейлери</h3>
-			<div class="trailers-tab__item">
+		<div class="tab">
+			<h2>Останні трейлери</h2>
+			<div class="tab__item">
 				<!-- Desktop -->
 				<h3
 					v-for="link of trailerLinks"
@@ -80,7 +80,7 @@ onBeforeMount(() => {
 			</div>
 			<!-- Mobile -->
 			<select
-				class="trailers-tab__mobile"
+				class="tab__mobile"
 				v-model="trailerMovies.variant"
 				@change="fetchTrailers(trailerMovies.variant)"
 			>
@@ -129,7 +129,7 @@ onBeforeMount(() => {
 					>
 						<img
 							:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-							alt="poster"
+							alt="movie.title"
 						/>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

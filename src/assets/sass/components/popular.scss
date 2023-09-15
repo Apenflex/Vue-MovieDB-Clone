@@ -3,13 +3,13 @@
 	flex-direction: column;
 	padding: 20px 0;
 	gap: 20px;
-	&-tab {
+	.tabs {
 		display: flex;
 		gap: 20px;
 		@media (max-width: 480px) {
 			flex-direction: column;
 		}
-		> h3 {
+		h2 {
 			font-size: 24px;
 			font-weight: 600;
 		}
@@ -29,9 +29,9 @@
 				padding: 5px 25px;
 				color: black;
 			}
-			.popularActive {
+			.active {
 				transition: 0.3s ease-in-out;
-				background-color: rgb(3, 37, 65);
+				background-color: $primary;
 				color: #89f9e4;
 			}
 		}

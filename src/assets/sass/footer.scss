@@ -2,7 +2,7 @@
 	padding: 70px 0;
 	max-width: 100%;
 	width: 100vw;
-	background-color: rgb(3, 37, 65);
+	background-color: $primary;
 	nav {
 		justify-items: center;
 		display: grid;
@@ -22,7 +22,7 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 10px;
-		color: #fff;
+		color: $white;
 		font-size: 20px;
 		width: 100%;
 		li {
@@ -31,7 +31,7 @@
 			padding: 2px 0;
 			&:hover {
 				transition: 0.3s ease-in-out;
-				color: #4ecef9;
+				color: $hover;
 			}
 		}
 	}

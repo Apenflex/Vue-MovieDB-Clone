@@ -6,7 +6,7 @@ import HomeTrailers from '@/components/HomeTrailers.vue';
 </script>
 
 <template>
-	<main class="container">
+	<main>
 		<HomeSearch />
     <HomeTrends />
 		<HomeTrailers />

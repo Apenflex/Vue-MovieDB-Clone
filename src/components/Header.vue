@@ -5,46 +5,49 @@ import { RouterLink } from 'vue-router'
 import IconHeart from '@/components/IconHeart.vue'
 
 const isMenuOpen = ref(false)
+
+const toggleMenu = () => {
+	isMenuOpen.value = !isMenuOpen.value
+}
 </script>
 
 <template>
 	<header class="header">
 		<div class="container">
-			<div class="header-wrapper">
+			<div class="wrapper">
 				<div
-					:class="['header-logo', { 'header-logo__mobile': isMenuOpen }]"
+					:class="['logo', { 'logo__mobile': isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
 				>
 					<RouterLink to="/">
 						<img
 							src="/public/images/movie_logo.svg"
 							alt="logo"
-							class="header-logo__img"
 						/>
 					</RouterLink>
 				</div>
 
 				<!-- Desktop Menu -->
-				<div :class="['header-nav', { 'menu-active': isMenuOpen }]">
+				<div :class="['links', { 'menu-active': isMenuOpen }]">
 					<RouterLink
 						to="/favourite"
-						@click="isMenuOpen ? (isMenuOpen = false) : null"
+						@click="toggleMenu"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
 						to="/movies"
-						@click="isMenuOpen ? (isMenuOpen = false) : null"
+						@click="toggleMenu"
 						>Movies</RouterLink
 					>
 					<RouterLink
 						to="/tv-shows"
-						@click="isMenuOpen ? (isMenuOpen = false) : null"
+						@click="toggleMenu"
 						>TV Shows</RouterLink
 					>
 					<RouterLink
 						to="/persons"
-						@click="isMenuOpen ? (isMenuOpen = false) : null"
+						@click="toggleMenu"
 						>Persons</RouterLink
 					>
 				</div>
