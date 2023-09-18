@@ -16,7 +16,9 @@ export const moviesStore = defineStore('moviesDB', {
     trailerMovies: [],
     trailerMovieUrl: { title: '', url: '' },
     searchMovies: [],
-    searchQuery: { query: '', page: 1 },
+    searchMoviesIds: [],
+    hasNewMovies: true,
+    searchQuery: { query: '', page: 1, lastSearchQuery: '' },
   }),
   getters: {
     getMovies: state => state.movies,
@@ -123,12 +125,30 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
-    async fetchSearch({ query, page }) {
+    async fetchSearch() {
       try {
-        const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
-        this.searchMovies = response.data.results;
-        this.searchQuery.query = query;
-        // console.log(this.searchQuery.query)
+        // Перевіряємо, чи змінився запит
+        if (this.searchQuery.query !== this.searchQuery.lastSearchQuery) {
+          // Якщо так, то скидаємо сторінку на 1
+          this.searchQuery.page = 1;
+        }
+
+        const response = await securedAxios.get(`/search/multi?query=${this.searchQuery.query}&page=${this.searchQuery.page}`);
+        const newMovies = response.data.results;
+        const newMovieIds = newMovies.map(item => item.id);
+        // Записуємо новий запит
+        this.searchQuery.lastSearchQuery = this.searchQuery.query;
+        // Перевіряємо, чи є нові фільми (з іншими id) у нових даних
+        this.hasNewMovies = newMovieIds.some(id => !this.searchMoviesIds.includes(id));
+        
+        // Якщо є, то додаємо їх до списку
+        if (this.hasNewMovies) {
+          this.searchMovies = newMovies;
+          
+          // Оновлюємо список id фільмів для порівняння в майбутньому
+          this.searchMoviesIds = newMovieIds;
+
+        }
       } catch (error) {
         console.error(error);
       }

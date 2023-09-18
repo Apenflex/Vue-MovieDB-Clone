@@ -3,20 +3,20 @@
 	flex-direction: column;
 	padding: 20px 0;
 	gap: 20px;
-	&-tab {
+	.tabs {
 		display: flex;
 		gap: 20px;
 		h2 {
 			font-size: 24px;
 			font-weight: 600;
 		}
-		&__item {
+		.item {
 			display: flex;
 			border-radius: 20px;
 			border: 1px solid black;
 			gap: 5px;
 			cursor: pointer;
-			@media (max-width: 860px) {
+			@include media($mdPlus) {
 				display: none;
 			}
 			h3 {
@@ -26,27 +26,26 @@
 				padding: 5px 25px;
 				color: black;
 			}
-			.trendActive {
+			.active {
 				transition: 0.3s ease-in-out;
-				background-color: rgb(3, 37, 65);
-				color: #89f9e4;
+				background-color: $primary;
+				color: $lightGreen;
 			}
 		}
-		&__mobile {
+		.mobile {
 			display: none;
-			@media (max-width: 860px) {
+			@include media($mdPlus) {
 				display: flex;
 				border-radius: 20px;
 				padding: 0 10px;
-				background: linear-gradient(to right, rgb(30, 213, 169) 0%, rgb(1, 180, 228) 100%);
+				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
 				color: black;
 				font-weight: 600;
 				font-size: 14px;
 			}
 		}
 	}
-
 	.swiper {
-		padding: 10px 0;
+		padding: 10px 3px;
 	}
 }

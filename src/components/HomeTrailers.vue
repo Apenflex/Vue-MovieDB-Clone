@@ -67,12 +67,12 @@ onBeforeMount(() => {
 	>
 		<div class="tab">
 			<h2>Останні трейлери</h2>
-			<div class="tab__item">
+			<div class="item">
 				<!-- Desktop -->
 				<h3
 					v-for="link of trailerLinks"
 					:key="link.title"
-					:class="{ trailersActive: trailerMovies.variant === link.popular }"
+					:class="{ active: trailerMovies.variant === link.popular }"
 					@click="fetchTrailers(link.popular)"
 				>
 					{{ link.title }}
@@ -80,7 +80,7 @@ onBeforeMount(() => {
 			</div>
 			<!-- Mobile -->
 			<select
-				class="tab__mobile"
+				class="mobile"
 				v-model="trailerMovies.variant"
 				@change="fetchTrailers(trailerMovies.variant)"
 			>
@@ -106,15 +106,21 @@ onBeforeMount(() => {
 					320: {
 						slidesPerView: 1,
 					},
-					480: {
+					576: {
 						slidesPerView: 2,
 						spaceBetween: 110,
 					},
-					768: {
-						slidesPerView: 2,
+					993: {
+						slidesPerView: 3,
+						spaceBetween: 30,
 					},
-					1024: {
+					1280: {
 						slidesPerView: 4,
+						spaceBetween: 30,
+					},
+					1600: {
+						slidesPerView: 5,
+						spaceBetween: 30,
 					},
 				}"
 			>

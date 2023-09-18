@@ -16,22 +16,22 @@
 				width: 150px;
 			}
 		}
-	}
-	&-links {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 10px;
-		color: $white;
-		font-size: 20px;
-		width: 100%;
-		li {
-			cursor: pointer;
-			font-size: 17px;
-			padding: 2px 0;
-			&:hover {
-				transition: 0.3s ease-in-out;
-				color: $hover;
+		.links {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
+			color: $white;
+			font-size: 20px;
+			width: 100%;
+			li {
+				cursor: pointer;
+				font-size: 17px;
+				padding: 2px 0;
+				&:hover {
+					transition: 0.3s ease-in-out;
+					color: $lightBlue;
+				}
 			}
 		}
 	}

@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '@/pages/HomeView.vue'
-import FavouriteView from '@/pages/FavouriteView.vue'
-import MoviesView from '@/pages/MoviesView.vue'
-import TvShowsView from '@/pages/TvShowsView.vue'
-import PersonsView from '@/pages/PersonsView.vue'
-import SearchView from '@/pages/SearchView.vue'
-import DetailsView from '@/pages/DetailsView.vue'
+import HomePage from '@/pages/HomePage.vue'
+import FavouritePage from '@/pages/FavouritePage.vue'
+import MoviesPage from '@/pages/MoviesPage.vue'
+import TvShowsPage from '@/pages/TvShowsPage.vue'
+import PersonsPage from '@/pages/PersonsPage.vue'
+import SearchPage from '@/pages/SearchPage.vue'
+import DetailsPage from '@/pages/DetailsPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,37 +14,37 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomePage
     },
     {
       path: '/favourite',
       name: 'favourite',
-      component: FavouriteView
+      component: FavouritePage
     },
     {
       path: '/movies',
       name: 'movies',
-      component: MoviesView
+      component: MoviesPage
     },
     {
       path: '/tv-shows',
       name: 'tv-shows',
-      component: TvShowsView
+      component: TvShowsPage
     },
     {
       path: '/persons',
       name: 'persons',
-      component: PersonsView
+      component: PersonsPage
     },
     {
       path: '/search',
       name: 'search',
-      component: SearchView
+      component: SearchPage
     },
     {
       path: '/:mediaType/:id',
       name: 'item-details',
-      component: DetailsView,
+      component: DetailsPage,
       props: true
     },
   ]

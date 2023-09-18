@@ -26,11 +26,11 @@ onBeforeMount(() => {
 <template>
 	<section class="trend">
 		<div class="container">
-			<div class="trend-tab">
+			<div class="tabs">
 				<h2>У тренді</h2>
-				<div class="trend-tab__item">
+				<div class="item">
 					<h3
-						:class="{ trendActive: activeMovies.trend === 'day' }"
+						:class="{ active: activeMovies.trend === 'day' }"
 						@click="() => fetchTrends('day')"
 					>
 						Сьогодні
@@ -45,7 +45,7 @@ onBeforeMount(() => {
 
 				<!-- Mobile Select -->
 				<select
-					class="trend-tab__mobile"
+					class="mobile"
 					v-model="activeMovies.trend"
 					@change="fetchTrends(activeMovies.trend)"
 				>

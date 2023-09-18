@@ -6,20 +6,20 @@
 	.tabs {
 		display: flex;
 		gap: 20px;
-		@media (max-width: 480px) {
+		@include media($sm) {
 			flex-direction: column;
 		}
 		h2 {
 			font-size: 24px;
 			font-weight: 600;
 		}
-		&__item {
+		.item {
 			display: flex;
 			border-radius: 20px;
-			border: 1px solid black;
+			border: 1px solid $primary;
 			gap: 5px;
 			cursor: pointer;
-			@media (max-width: 860px) {
+			@include media($mdPlus) {
 				display: none;
 			}
 			h3 {
@@ -27,28 +27,28 @@
 				font-size: 16px;
 				border-radius: 20px;
 				padding: 5px 25px;
-				color: black;
+				color: $primary;
 			}
 			.active {
 				transition: 0.3s ease-in-out;
 				background-color: $primary;
-				color: #89f9e4;
+				color: $lightGreen;
 			}
 		}
-		&__mobile {
+		.mobile {
 			display: none;
-			@media (max-width: 860px) {
+			@include media($mdPlus) {
 				display: flex;
 				border-radius: 20px;
 				padding: 10px 10px;
-				background: linear-gradient(to right, rgb(30, 213, 169) 0%, rgb(1, 180, 228) 100%);
-				color: black;
+				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
+				color: $primary;
 				font-weight: 600;
 				font-size: 14px;
 			}
 		}
 	}
 	.swiper {
-		padding: 10px 0;
+		padding: 10px 3px;
 	}
 }

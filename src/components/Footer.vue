@@ -24,7 +24,7 @@ const footerlinks = [
 <template>
   <footer class="footer">
 		<nav>
-			<div class="logo footer-links">
+			<div class="logo links">
 				<img
 					src="/public/images/footer_logo.svg"
 					alt=""
@@ -33,7 +33,7 @@ const footerlinks = [
 			<div
 				v-for="category in footerlinks"
 				:key="category.category"
-				class="footer-links"
+				class="links"
 			>
 				<h4>{{ category.category }}</h4>
 				<ul>

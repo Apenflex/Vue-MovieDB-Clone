@@ -46,7 +46,7 @@ onBeforeMount(() => {
 		<div class="tabs">
 			<h2>Що популярне</h2>
 			<!-- Desktop -->
-			<div class="tabs__item">
+			<div class="item">
 				<h3
 					v-for="link of popularLinks"
 					:key="link.title"
@@ -58,7 +58,7 @@ onBeforeMount(() => {
 			</div>
 			<!-- Mobile Select -->
 			<select
-				class="tabs__mobile"
+				class="mobile"
 				v-model="popularMovies.popular"
 				@change="fetchPopular(popularMovies.popular)"
 			>

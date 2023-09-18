@@ -1,33 +1,48 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import ItemCard from '@/components/ItemCard.vue'
 import { moviesStore } from '@/stores/moviesStore'
 
 const store = moviesStore()
-const searchQuery = ref('')
 const router = useRouter()
-const currentPage = ref(1)
+
+const isLoading = ref(false)
 
 const handleSearch = () => {
-	if (!searchQuery.value) return
-	store.fetchSearch({ query: searchQuery.value, page: 1 })
-	currentPage.value = 1
-	router.push({ name: 'search', query: { query: searchQuery.value } })
+	if (!store.searchQuery.query) return
+	isLoading.value = true
+	store.fetchSearch()
+	router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
+	isLoading.value = false
 }
 
 const nextPage = () => {
-  currentPage.value += 1
-  store.fetchSearch({ query: store.searchQuery.query, page: currentPage.value })
+	if (store.hasNewMovies) {
+		store.searchQuery.page = Number(router.currentRoute.value.query.page) + 1
+
+		store.fetchSearch()
+		router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
+	}
 }
 
 const prevPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value -= 1
-    store.fetchSearch({ query: store.searchQuery.query, page: currentPage.value })
-  }
+	if (store.searchQuery.page > 1) {
+		store.searchQuery.page = Number(router.currentRoute.value.query.page) - 1
+
+		store.fetchSearch()
+		router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
+	}
 }
+
+onMounted(() => {
+	if (router.currentRoute.value.query.query) {
+		store.searchQuery.query = router.currentRoute.value.query.query
+		store.searchQuery.page = router.currentRoute.value.query.page
+		store.fetchSearch()
+	}
+})
 </script>
 
 <template>
@@ -38,11 +53,12 @@ const prevPage = () => {
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."
-					v-model="searchQuery"
+					v-model="store.searchQuery.query"
 				/>
 				<button
 					type="submit"
 					@click.prevent="handleSearch"
+					:disabled="isLoading"
 				>
 					Search
 				</button>
@@ -60,15 +76,16 @@ const prevPage = () => {
 				<div class="pagination">
 					<button
 						@click="prevPage"
-						:disabled="currentPage === 1"
+						:disabled="isLoading && store.searchQuery.page === 1"
 						class="page-item"
 					>
 						<span class="page-link">Prev</span>
 					</button>
-					<span>{{ currentPage }}</span>
+					<span>{{ store.searchQuery.page }}</span>
 					<button
 						@click="nextPage"
 						class="page-item"
+						:disabled="isLoading && !store.hasNewMovies"
 					>
 						<span class="page-link">Next</span>
 					</button>

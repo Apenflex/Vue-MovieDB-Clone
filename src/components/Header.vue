@@ -4,10 +4,16 @@ import { RouterLink } from 'vue-router'
 
 import IconHeart from '@/components/IconHeart.vue'
 
+const links = [
+	{ name: 'Movies', path: '/movies' },
+	{ name: 'TV Shows', path: '/tv-shows' },
+	{ name: 'Persons', path: '/persons' },
+]
+
 const isMenuOpen = ref(false)
 
 const toggleMenu = () => {
-	isMenuOpen.value = !isMenuOpen.value
+	if (isMenuOpen.value) isMenuOpen.value = false
 }
 </script>
 
@@ -16,7 +22,7 @@ const toggleMenu = () => {
 		<div class="container">
 			<div class="wrapper">
 				<div
-					:class="['logo', { 'logo__mobile': isMenuOpen }]"
+					:class="['logo', { logo__mobile: isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
 				>
 					<RouterLink to="/">
@@ -28,7 +34,7 @@ const toggleMenu = () => {
 				</div>
 
 				<!-- Desktop Menu -->
-				<div :class="['links', { 'menu-active': isMenuOpen }]">
+				<nav :class="{ 'menu-active': isMenuOpen }">
 					<RouterLink
 						to="/favourite"
 						@click="toggleMenu"
@@ -36,21 +42,14 @@ const toggleMenu = () => {
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
-						to="/movies"
+						v-for="link in links"
+						:key="link.name"
+						:to="link.path"
 						@click="toggleMenu"
-						>Movies</RouterLink
 					>
-					<RouterLink
-						to="/tv-shows"
-						@click="toggleMenu"
-						>TV Shows</RouterLink
-					>
-					<RouterLink
-						to="/persons"
-						@click="toggleMenu"
-						>Persons</RouterLink
-					>
-				</div>
+						{{ link.name }}
+					</RouterLink>
+				</nav>
 
 				<!-- Mobile Menu -->
 				<div

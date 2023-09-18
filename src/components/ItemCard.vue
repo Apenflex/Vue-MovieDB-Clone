@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
 
 import IconHeart from './IconHeart.vue'
@@ -35,6 +36,13 @@ const calcVoteColor = (vote) => {
 	}
 }
 
+const moviePoster = computed(() => {
+	if (props.movie.poster_path !== null && props.movie.poster_path !== undefined) {
+		return `https://image.tmdb.org/t/p/w500${props.movie.poster_path}`
+	}
+	return '../public/images/no-image.png'
+})
+
 </script>
 
 <template>
@@ -52,13 +60,13 @@ const calcVoteColor = (vote) => {
 			/>
 			<img
 				v-if="type === 'movie'"
-				:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-				alt="slide"
+				:src="moviePoster"
+				:alt="movie.original_title || movie.original_name"
 			/>
 			<img
 				v-if="type === 'person'"
 				:src="`https://image.tmdb.org/t/p/w500${person.profile_path}`"
-				alt="slide"
+				:alt="person.name"
 			/>
 		</div>
 		<div class="description">

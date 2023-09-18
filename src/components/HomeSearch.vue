@@ -4,13 +4,16 @@ import { moviesStore } from '@/stores/moviesStore'
 import { useRouter } from 'vue-router'
 
 const store = moviesStore()
-const searchQuery = ref('')
 const router = useRouter()
 
+const isLoading = ref(false)
+
 const handleSearch = () => {
-	if (!searchQuery.value) return
-	store.fetchSearch({ query: searchQuery.value, page: 1 })
-	router.push({ name: 'search', query: { query: searchQuery.value } })
+	if (!store.searchQuery.query) return
+	isLoading.value = true
+	store.fetchSearch()
+	router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page} })
+	isLoading.value = false
 }
 
 onBeforeMount(() => {
@@ -36,11 +39,12 @@ onBeforeMount(() => {
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."
-					v-model="searchQuery"
+					v-model="store.searchQuery.query"
 				/>
 				<button
 					type="submit"
 					@click.prevent="handleSearch"
+					:disabled="isLoading"
 				>
 					Search
 				</button>
