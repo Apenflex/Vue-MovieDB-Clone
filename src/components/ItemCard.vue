@@ -43,6 +43,13 @@ const moviePoster = computed(() => {
 	return '../public/images/no-image.png'
 })
 
+const personPoster = computed(() => {
+	if (props.person.profile_path !== null && props.person.profile_path !== undefined) {
+		return `https://image.tmdb.org/t/p/w500${props.person.profile_path}`
+	}
+	return '../public/images/no-image.png'
+})
+
 </script>
 
 <template>
@@ -65,7 +72,7 @@ const moviePoster = computed(() => {
 			/>
 			<img
 				v-if="type === 'person'"
-				:src="`https://image.tmdb.org/t/p/w500${person.profile_path}`"
+				:src="personPoster"
 				:alt="person.name"
 			/>
 		</div>
@@ -86,7 +93,7 @@ const moviePoster = computed(() => {
 
 			<div v-if="type === 'person'">
 				<h4>{{ person.name }}</h4>
-				<span>{{ person.known_for[0].original_title || 'no data' }}</span>
+				<span>{{ person.known_for[0].original_title || '' }}</span>
 			</div>
 		</div>
 	</div>

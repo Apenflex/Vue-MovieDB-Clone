@@ -44,7 +44,7 @@ const toggleMenu = () => {
 					<RouterLink
 						v-for="link in links"
 						:key="link.name"
-						:to="link.path"
+						:to="link.path + (link.path === '/persons' ? '?page=' + 1 : '')"
 						@click="toggleMenu"
 					>
 						{{ link.name }}

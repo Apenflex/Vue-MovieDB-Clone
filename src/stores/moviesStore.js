@@ -8,6 +8,9 @@ export const moviesStore = defineStore('moviesDB', {
     tvShows: [],
     tvShowsSortBy: '',
     persons: [],
+    personsIds: [],
+    hasNewPersons: true,
+    personsQueryPage: 1,
     mediaDetails: [],
     randomPosterURL: '',
     favouriteMovies: [],
@@ -116,11 +119,22 @@ export const moviesStore = defineStore('moviesDB', {
           break;
       }
     },
-    async fetchPersons(page) {
+    async fetchPersons() {
       try {
-        const response = await securedAxios.get(`/person/popular?&page=${page}`);
-        this.persons = response.data.results;
-        // console.log(this.persons);
+        const response = await securedAxios.get(`/person/popular?&page=${this.personsQueryPage}`);
+        const newPersons = response.data.results;
+        const newPersonIds = newPersons.map(item => item.id);
+
+        // Перевіряємо, чи є нові персони (з іншими id) у нових даних
+        this.hasNewPersons = newPersonIds.some(id => !this.personsIds.includes(id));
+        // console.log(this.hasNewPersons);
+        // Якщо є, то додаємо їх до списку
+        if (this.hasNewPersons) {
+          this.persons = newPersons;
+
+          // Оновлюємо список id персон для порівняння в майбутньому
+          this.personsIds = newPersonIds;
+        }
       } catch (error) {
         console.error(error);
       }

@@ -1,26 +1,41 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue'
-import { moviesStore } from '@/stores/moviesStore'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-import ItemCard from '../components/ItemCard.vue'
+import { moviesStore } from '@/stores/moviesStore'
+import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
-const currentPage = ref(1)
+const router = useRouter()
+
+const isLoading = ref(false)
 
 const nextPage = () => {
-	currentPage.value += 1
-	store.fetchPersons(currentPage.value)
+	isLoading.value = true
+	if(store.personsQueryPage >= 1) {
+		store.personsQueryPage = Number(router.currentRoute.value.query.page) + 1
+		store.fetchPersons()
+		router.push({ name: 'persons', query: { page: store.personsQueryPage } })
+	}
+	isLoading.value = false
 }
 
 const prevPage = () => {
-	if (currentPage.value > 1) {
-		currentPage.value -= 1
-		store.fetchPersons(currentPage.value)
+	isLoading.value = true
+	if(store.personsQueryPage > 1) {
+		store.personsQueryPage = Number(router.currentRoute.value.query.page) - 1
+		store.fetchPersons()
+		router.push({ name: 'persons', query: { page: store.personsQueryPage } })
 	}
+	isLoading.value = false
 }
 
-onBeforeMount(() => {
-	store.fetchPersons(currentPage.value)
+onMounted(() => {
+	// console.log(router.currentRoute.value.query.page)
+	if(router.currentRoute.value.query.page) {
+		store.personsQueryPage = router.currentRoute.value.query.page
+		store.fetchPersons()
+	}
 })
 </script>
 
@@ -41,15 +56,16 @@ onBeforeMount(() => {
 				<div class="pagination">
 					<button
 						@click="prevPage"
-						:disabled="currentPage === 1"
-						class="page-item"
+						:disabled="isLoading && router.currentRoute.value.query.page <= 1"
+						:class="['page-item', { disabled: router.currentRoute.value.query.page <= 1 }]"
 					>
 						<span class="page-link">Prev</span>
 					</button>
-					<span>{{ currentPage }}</span>
+					<span>{{ store.personsQueryPage }}</span>
 					<button
 						@click="nextPage"
-						class="page-item"
+						:disabled="isLoading && !store.hasNewPersons"
+						:class="['page-item', { disabled: !store.hasNewPersons }]"
 					>
 						<span class="page-link">Next</span>
 					</button>
