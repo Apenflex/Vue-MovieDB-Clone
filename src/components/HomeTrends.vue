@@ -24,88 +24,81 @@ onBeforeMount(() => {
 </script>
 
 <template>
-	<section class="trend">
-		<div class="container">
-			<div class="tabs">
-				<h2>У тренді</h2>
-				<div class="item">
-					<h3
-						:class="{ active: activeMovies.trend === 'day' }"
-						@click="() => fetchTrends('day')"
-					>
-						Сьогодні
-					</h3>
-					<h3
-						:class="{ trendActive: activeMovies.trend === 'week' }"
-						@click="() => fetchTrends('week')"
-					>
-						Цього тижня
-					</h3>
-				</div>
-
-				<!-- Mobile Select -->
-				<select
-					class="mobile"
-					v-model="activeMovies.trend"
-					@change="fetchTrends(activeMovies.trend)"
+	<section class="trend container">
+		<div class="tabs">
+			<h2>У тренді</h2>
+			<!-- Descktop Select -->
+			<div class="item">
+				<h3
+					:class="{ active: activeMovies.trend === 'day' }"
+					@click="() => fetchTrends('day')"
 				>
-					<option
-						value="day"
-						:selected="activeMovies.trend === 'day'"
-					>
-						Сьогодні
-					</option>
-					<option
-						value="week"
-						:selected="activeMovies.trend === 'week'"
-					>
-						Цього тижня
-					</option>
-				</select>
-			</div>
-			<!-- Item Card -->
-
-			<div>
-				<swiper
-					:slides-per-view="7"
-					:space-between="20"
-					:freeMode="true"
-					:mousewheel="true"
-					:modules="[Mousewheel, FreeMode]"
-					:breakpoints="{
-						320: {
-							slidesPerView: 1,
-						},
-						480: {
-							slidesPerView: 2,
-						},
-						640: {
-							slidesPerView: 3,
-						},
-						768: {
-							slidesPerView: 4,
-						},
-						1024: {
-							slidesPerView: 6,
-						},
-						1280: {
-							slidesPerView: 7,
-						},
-					}"
+					Сьогодні
+				</h3>
+				<h3
+					:class="{ active: activeMovies.trend === 'week' }"
+					@click="() => fetchTrends('week')"
 				>
-					<swiper-slide
-						v-for="movie in store.trandingMovies"
-						:key="movie.id"
-					>
-						<RouterLink :to="{ name: 'item-details', params: { mediaType: movie.media_type, id: movie.id } }">
-							<ItemCard
-								:movie="movie"
-								type="movie"
-							/>
-						</RouterLink>
-					</swiper-slide>
-				</swiper>
+					Цього тижня
+				</h3>
 			</div>
+
+			<!-- Mobile Select -->
+			<Dropdown
+				v-model="activeMovies.trend"
+				:options="[
+					{ name: 'Сьогодні', value: 'day' },
+					{ name: 'Цього тижня', value: 'week' },
+				]"
+				optionValue="value"
+				optionLabel="name"
+				placeholder="Сьогодні"
+				@change="fetchTrends(activeMovies.trend)"
+				class="mobile"
+			/>
+		</div>
+
+		<!-- Item Card -->
+		<div>
+			<swiper
+				:slides-per-view="7"
+				:space-between="20"
+				:freeMode="true"
+				:mousewheel="true"
+				:modules="[Mousewheel, FreeMode]"
+				:breakpoints="{
+					320: {
+						slidesPerView: 1,
+					},
+					480: {
+						slidesPerView: 2,
+					},
+					640: {
+						slidesPerView: 3,
+					},
+					768: {
+						slidesPerView: 4,
+					},
+					1024: {
+						slidesPerView: 6,
+					},
+					1280: {
+						slidesPerView: 7,
+					},
+				}"
+			>
+				<swiper-slide
+					v-for="movie in store.trandingMovies"
+					:key="movie.id"
+				>
+					<RouterLink :to="{ name: 'item-details', params: { mediaType: movie.media_type, id: movie.id } }">
+						<ItemCard
+							:movie="movie"
+							type="movie"
+						/>
+					</RouterLink>
+				</swiper-slide>
+			</swiper>
 		</div>
 	</section>
 </template>

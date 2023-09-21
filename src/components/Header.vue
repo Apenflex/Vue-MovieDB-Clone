@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import IconHeart from '@/components/IconHeart.vue'
@@ -15,6 +15,9 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
 }
+watch(isMenuOpen, (newValue) => {
+	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
+})
 </script>
 
 <template>

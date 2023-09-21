@@ -52,9 +52,7 @@ onBeforeMount(() => {
 			<div class="image">
 				<img
 					:src="`https://image.tmdb.org/t/p/original/${store.mediaDetails.poster_path}`"
-					alt=" 
-				{{ store.mediaDetails.title }}
-				"
+					:alt="store.mediaDetails.title"
 				/>
 			</div>
 			<div class="content">

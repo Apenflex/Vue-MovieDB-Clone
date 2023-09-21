@@ -5,6 +5,7 @@
 	gap: 20px;
 	.tabs {
 		display: flex;
+		align-items: center;
 		gap: 20px;
 		@include media($sm) {
 			flex-direction: column;
@@ -50,5 +51,20 @@
 	}
 	.swiper {
 		padding: 10px 3px;
+	}
+	.p-dropdown {
+		background-color: $lightGreen;
+		border-radius: 20px;
+		&-label {
+			margin: auto;
+			font-size: 16px;
+			padding: 2px 15px;
+			&:focus-visible {
+				outline: none;
+			}
+		}
+		&.p-overlay-open {
+			border-radius: 20px 20px 0 0;
+		}
 	}
 }

@@ -1,6 +1,6 @@
 .movies {
 	padding: 20px 0;
-	> h2 {
+	> h1 {
 		margin-bottom: 20px;
 	}
 	.content {
@@ -40,6 +40,13 @@
 					padding-right: 10px;
 					width: 100%;
 				}
+				svg {
+					transform: rotate(90deg);
+					transition: all 0.3s ease-in-out;
+				}
+				.rotate {
+					transform: rotate(270deg);
+				}
 			}
 			.closed {
 				display: none;
@@ -56,7 +63,7 @@
 					font-weight: 300;
 					margin-bottom: 10px;
 				}
-				select {
+				.select {
 					width: 100%;
 					padding: 8px 10px;
 					border-radius: 5px;
@@ -67,6 +74,12 @@
 					transition: all 0.3s ease-in-out;
 					&:hover {
 						background-color: #f3f3f3;
+					}
+					.p-inputtext {
+						&:focus {
+							border: none;
+							outline: none;
+						}
 					}
 				}
 			}

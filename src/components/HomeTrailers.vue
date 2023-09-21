@@ -68,7 +68,7 @@ onBeforeMount(() => {
 		<div class="tab">
 			<h2>Останні трейлери</h2>
 			<div class="item">
-				<!-- Desktop -->
+				<!-- Desktop Select -->
 				<h3
 					v-for="link of trailerLinks"
 					:key="link.title"
@@ -78,21 +78,22 @@ onBeforeMount(() => {
 					{{ link.title }}
 				</h3>
 			</div>
-			<!-- Mobile -->
-			<select
-				class="mobile"
+			
+			<!-- Mobile Select -->
+			<Dropdown
 				v-model="trailerMovies.variant"
+				:options="[
+					{ name: 'Наживо', value: 'now_playing' },
+					{ name: 'На ТБ', value: 'popular' },
+					{ name: 'Для прокату', value: 'top_rated' },
+					{ name: 'У кінотеатрах', value: 'upcoming' },
+				]"
+				optionValue="value"
+				optionLabel="name"
+				placeholder="Наживо"
 				@change="fetchTrailers(trailerMovies.variant)"
-			>
-				<option
-					v-for="link of trailerLinks"
-					:key="link.title"
-					:value="link.popular"
-					:selected="trailerMovies.variant === link.popular"
-				>
-					{{ link.title }}
-				</option>
-			</select>
+				class="mobile"
+			/>
 		</div>
 
 		<div class="video">
@@ -108,11 +109,9 @@ onBeforeMount(() => {
 					},
 					576: {
 						slidesPerView: 2,
-						spaceBetween: 110,
 					},
 					993: {
 						slidesPerView: 3,
-						spaceBetween: 30,
 					},
 					1280: {
 						slidesPerView: 4,
@@ -135,7 +134,7 @@ onBeforeMount(() => {
 					>
 						<img
 							:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
-							alt="movie.title"
+							:alt="movie.title"
 						/>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

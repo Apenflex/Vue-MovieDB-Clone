@@ -8,6 +8,7 @@
 	gap: 20px;
 	.tab {
 		display: flex;
+		align-items: center;
 		gap: 20px;
 		padding: 0 40px;
 		@include media($sm) {
@@ -64,6 +65,10 @@
 				position: relative;
 				width: 300px;
 				height: 200px;
+				@include media($sm) {
+					width: calc(100% - 35px);
+					height: 310px;
+				}
 				cursor: pointer;
 				transition: 0.3s ease-in-out;
 				&:hover {
@@ -89,6 +94,21 @@
 				color: #fff;
 				margin-top: 10px;
 			}
+		}
+	}
+	.p-dropdown {
+		background-color: $lightGreen;
+		border-radius: 20px;
+		&-label {
+			margin: auto;
+			font-size: 16px;
+			padding: 2px 15px;
+			&:focus-visible {
+				outline: none;
+			}
+		}
+		&.p-overlay-open {
+			border-radius: 20px 20px 0 0;
 		}
 	}
 }

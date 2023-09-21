@@ -4,7 +4,6 @@ import securedAxios from '@/composables/useApi.js'
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
     movies: [],
-    moviesSortBy: '',
     tvShows: [],
     tvShowsSortBy: '',
     persons: {
@@ -44,8 +43,8 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
-    async MoviesSortBy() {
-      switch (this.moviesSortBy) {
+    async MoviesSortBy(sortBy) {
+      switch (sortBy) {
         case 'popularAsc':
           this.movies.sort((a, b) => a.popularity - b.popularity);
           break;

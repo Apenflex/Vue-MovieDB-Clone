@@ -27,7 +27,7 @@ const footerlinks = [
 			<div class="logo links">
 				<img
 					src="/public/images/footer_logo.svg"
-					alt=""
+					alt="logo"
 				/>
 			</div>
 			<div

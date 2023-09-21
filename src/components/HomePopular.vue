@@ -45,7 +45,7 @@ onBeforeMount(() => {
 	<section class="popular container">
 		<div class="tabs">
 			<h2>Що популярне</h2>
-			<!-- Desktop -->
+			<!-- Desktop Select -->
 			<div class="item">
 				<h3
 					v-for="link of popularLinks"
@@ -57,20 +57,20 @@ onBeforeMount(() => {
 				</h3>
 			</div>
 			<!-- Mobile Select -->
-			<select
-				class="mobile"
+			<Dropdown
 				v-model="popularMovies.popular"
+				:options="[
+					{ name: 'Наживо', value: 'now_playing' },
+					{ name: 'На ТБ', value: 'popular' },
+					{ name: 'Для прокату', value: 'top_rated' },
+					{ name: 'У кінотеатрах', value: 'upcoming' },
+				]"
+				optionValue="value"
+				optionLabel="name"
+				:selected="popularMovies.popular"
 				@change="fetchPopular(popularMovies.popular)"
-			>
-				<option
-					v-for="link of popularLinks"
-					:key="link.title"
-					:value="link.popular"
-					:selected="popularMovies.popular === link.popular"
-				>
-					{{ link.title }}
-				</option>
-			</select>
+				class="mobile"
+			/>
 		</div>
 
 		<div>

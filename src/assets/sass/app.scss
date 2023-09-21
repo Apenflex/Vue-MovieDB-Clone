@@ -16,13 +16,6 @@
 @import './components/popular.scss';
 @import './components/modal.scss';
 
-body {
-	position: relative;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 h1,
 h2,
 h3,
@@ -44,7 +37,11 @@ a {
 	color: inherit;
 }
 
-#app {
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 	font-family: 'Source Sans 3', sans-serif;
 }
 

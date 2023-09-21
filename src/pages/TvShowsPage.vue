@@ -40,7 +40,7 @@ onBeforeMount(() => {
 <template>
 	<main class="container">
 		<section class="tvshows">
-			<h2>Популярні фільми</h2>
+			<h1>Популярні фільми</h1>
 			<div class="content">
 				<!-- Filters -->
 				<div class="filter-panel">
