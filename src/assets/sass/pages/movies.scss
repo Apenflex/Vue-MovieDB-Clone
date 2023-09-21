@@ -22,9 +22,9 @@
 			overflow: hidden;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			background-color: #fff;
-      @media (max-width: 768px) {
-        width: 100%;
-      }
+			@media (max-width: 768px) {
+				width: 100%;
+			}
 			.name {
 				cursor: pointer;
 				width: 100%;
@@ -94,16 +94,15 @@
 				background-color: rgb(1, 180, 228);
 				cursor: pointer;
 				transition: all 0.3s ease-in-out;
+				color: #fff;
+				font-size: 24px;
+				font-weight: 600;
+				border: none;
 				&.loading {
 					animation: blink 1s ease-in-out infinite alternate;
 				}
 				&:hover {
 					background-color: rgb(2, 141, 180);
-				}
-				p {
-					color: #fff;
-					font-size: 24px;
-					font-weight: 600;
 				}
 			}
 			.fixed {

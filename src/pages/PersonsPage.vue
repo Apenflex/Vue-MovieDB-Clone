@@ -8,34 +8,19 @@ import ItemCard from '@/components/ItemCard.vue'
 const store = moviesStore()
 const router = useRouter()
 
+const currentPage = ref(Number(router.currentRoute.value.query.page))
 const isLoading = ref(false)
 
-const nextPage = () => {
+const handleChangePage = (direction) => {
 	isLoading.value = true
-	if(store.personsQueryPage >= 1) {
-		store.personsQueryPage = Number(router.currentRoute.value.query.page) + 1
-		store.fetchPersons()
-		router.push({ name: 'persons', query: { page: store.personsQueryPage } })
-	}
-	isLoading.value = false
-}
-
-const prevPage = () => {
-	isLoading.value = true
-	if(store.personsQueryPage > 1) {
-		store.personsQueryPage = Number(router.currentRoute.value.query.page) - 1
-		store.fetchPersons()
-		router.push({ name: 'persons', query: { page: store.personsQueryPage } })
-	}
+	currentPage.value = direction === 'next' ? currentPage.value + 1 : currentPage.value - 1
+	store.fetchPersons(currentPage.value)
+	router.push({ name: 'persons', query: { page: currentPage.value } })
 	isLoading.value = false
 }
 
 onMounted(() => {
-	// console.log(router.currentRoute.value.query.page)
-	if(router.currentRoute.value.query.page) {
-		store.personsQueryPage = router.currentRoute.value.query.page
-		store.fetchPersons()
-	}
+	store.fetchPersons(currentPage.value)
 })
 </script>
 
@@ -46,28 +31,28 @@ onMounted(() => {
 				<h2>Популярні</h2>
 				<div class="items">
 					<ItemCard
-						v-for="person in store.persons"
+						v-for="person in store.persons.data"
 						:key="person.id"
 						:person="person"
-						:type="'person'"
+						type="person"
 					/>
 				</div>
 				<!-- Pagination -->
 				<div class="pagination">
 					<button
-						@click="prevPage"
-						:disabled="isLoading && router.currentRoute.value.query.page <= 1"
-						:class="['page-item', { disabled: router.currentRoute.value.query.page <= 1 }]"
+						@click="handleChangePage('prev')"
+						:disabled="isLoading || currentPage.valueOf() === 1"
+						:class="{ disabled: currentPage === 1 || isLoading }"
 					>
-						<span class="page-link">Prev</span>
+						Prev
 					</button>
-					<span>{{ store.personsQueryPage }}</span>
+					<span>{{ currentPage }}</span>
 					<button
-						@click="nextPage"
-						:disabled="isLoading && !store.hasNewPersons"
-						:class="['page-item', { disabled: !store.hasNewPersons }]"
+						@click="handleChangePage('next')"
+						:disabled="isLoading || store.persons.totalPages === currentPage.valueOf()"
+						:class="{ disabled: isLoading || store.persons.totalPages === currentPage.valueOf() }"
 					>
-						<span class="page-link">Next</span>
+						Next
 					</button>
 				</div>
 			</div>

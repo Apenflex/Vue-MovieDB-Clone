@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { moviesStore } from '@/stores/moviesStore'
+import { useFavouritesStore } from '@/stores/moviesStore'
 
 import IconHeart from './IconHeart.vue'
 import IconTrash from './IconTrash.vue'
@@ -12,16 +12,21 @@ const props = defineProps({
 	favourite: Boolean,
 })
 
-const store = moviesStore()
+// const store = moviesStore()
+const favouriteStore = useFavouritesStore()
 
-const formatDate = (dateString) => {
-	if (dateString) {
-		const date = new Date(dateString)
+const isFavouriteColor = computed(() => {
+	return favouriteStore.favouriteMovies.find((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
+})
+
+const formatDate = computed(() => {
+	if (props.movie.release_date || props.movie.first_air_date) {
+		const date = new Date(props.movie.release_date || props.movie.first_air_date)
 		const options = { day: '2-digit', month: 'short', year: 'numeric' }
 		return date.toLocaleDateString('eu', options)
 	}
 	return ''
-}
+})
 
 const calcVoteColor = (vote) => {
 	switch (true) {
@@ -49,7 +54,11 @@ const personPoster = computed(() => {
 	}
 	return '../public/images/no-image.png'
 })
-
+const handleAddFavourite = (e) => {
+	console.log(e.currentTarget)
+	
+	// favouriteStore.addFavouriteMovie(props.movie)
+}
 </script>
 
 <template>
@@ -58,22 +67,25 @@ const personPoster = computed(() => {
 			<IconHeart
 				v-if="type === 'movie' && !favourite"
 				class="icon-heart"
-				@click="store.addFavouriteMovie(movie)"
+				@click="handleAddFavourite($event)"
+				:color="isFavouriteColor"
 			/>
 			<IconTrash
 				v-if="favourite"
 				class="icon-trash"
-				@click="store.removeFavouriteMovie(movie)"
+				@click="favouriteStore.removeFavouriteMovie(movie)"
 			/>
 			<img
 				v-if="type === 'movie'"
 				:src="moviePoster"
 				:alt="movie.original_title || movie.original_name"
+				loading="lazy"
 			/>
 			<img
 				v-if="type === 'person'"
 				:src="personPoster"
 				:alt="person.name"
+				loading="lazy"
 			/>
 		</div>
 		<div class="description">
@@ -88,7 +100,7 @@ const personPoster = computed(() => {
 
 			<div v-if="type === 'movie'">
 				<h4>{{ movie.original_title || movie.original_name }}</h4>
-				<span>{{ formatDate(movie.release_date || movie.first_air_date) }}</span>
+				<span>{{ formatDate }}</span>
 			</div>
 
 			<div v-if="type === 'person'">

@@ -82,25 +82,25 @@ onBeforeMount(() => {
 							v-for="movie in store.getMovies"
 							:key="movie.id"
 							:movie="movie"
-							:type="'movie'"
+							type="movie"
 						/>
 					</div>
 					<!-- Pagination Button -->
-					<div
+					<button
 						class="pagination"
 						:class="{ loading: isLoading }"
 						@click="handleLoadMore"
 					>
-						<p>Завантажити більше</p>
-					</div>
+						Завантажити більше
+					</button>
 					<!-- Filters Search Button -->
-					<div
+					<button
 						v-if="isFilterSearchBtnOpen"
 						class="pagination fixed"
 						@click="handleFilterSearch"
 					>
-						<p>Шукати</p>
-					</div>
+						Шукати
+					</button>
 				</div>
 			</div>
 		</section>

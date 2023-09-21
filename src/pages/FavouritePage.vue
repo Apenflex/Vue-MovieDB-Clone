@@ -1,11 +1,12 @@
 <script setup>
 import { onBeforeMount } from 'vue'
 
-import { moviesStore } from '@/stores/moviesStore'
+import { useFavouritesStore } from '@/stores/moviesStore'
 
 import ItemCard from '@/components/ItemCard.vue'
 
-const store = moviesStore()
+const store = useFavouritesStore()
+
 
 onBeforeMount(() => {
 	const storedFavouriteMovies = localStorage.getItem('favouriteMovies')
@@ -29,7 +30,7 @@ onBeforeMount(() => {
 					>
 						<ItemCard
 							:movie="movie"
-							:type="'movie'"
+							type="movie"
 							:favourite="true"
 						/>
 					</RouterLink>
@@ -39,7 +40,7 @@ onBeforeMount(() => {
 						v-for="movie in store.favouriteMovies"
 						:key="movie.id"
 						:movie="movie"
-						:type="'movie'"
+						type="movie"
 						:favourite="true"
 					/>
 				</div>

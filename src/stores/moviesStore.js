@@ -7,21 +7,20 @@ export const moviesStore = defineStore('moviesDB', {
     moviesSortBy: '',
     tvShows: [],
     tvShowsSortBy: '',
-    persons: [],
-    personsIds: [],
-    hasNewPersons: true,
-    personsQueryPage: 1,
+    persons: {
+      data: [],
+      totalPages: 0,
+    },
     mediaDetails: [],
     randomPosterURL: '',
-    favouriteMovies: [],
     trandingMovies: [],
     popularMovies: [],
     trailerMovies: [],
     trailerMovieUrl: { title: '', url: '' },
-    searchMovies: [],
-    searchMoviesIds: [],
-    hasNewMovies: true,
-    searchQuery: { query: '', page: 1, lastSearchQuery: '' },
+    searchMovies: {
+      data: [],
+      totalPages: 0,
+    },
   }),
   getters: {
     getMovies: state => state.movies,
@@ -73,7 +72,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         this.mediaDetails = response.data;
-        console.log(this.mediaDetails);
+        // console.log(this.mediaDetails);
       } catch (error) {
         console.error(error);
       }
@@ -119,64 +118,23 @@ export const moviesStore = defineStore('moviesDB', {
           break;
       }
     },
-    async fetchPersons() {
+    async fetchPersons(page) {
       try {
-        const response = await securedAxios.get(`/person/popular?&page=${this.personsQueryPage}`);
-        const newPersons = response.data.results;
-        const newPersonIds = newPersons.map(item => item.id);
-
-        // Перевіряємо, чи є нові персони (з іншими id) у нових даних
-        this.hasNewPersons = newPersonIds.some(id => !this.personsIds.includes(id));
-        // console.log(this.hasNewPersons);
-        // Якщо є, то додаємо їх до списку
-        if (this.hasNewPersons) {
-          this.persons = newPersons;
-
-          // Оновлюємо список id персон для порівняння в майбутньому
-          this.personsIds = newPersonIds;
-        }
+        const response = await securedAxios.get(`/person/popular?&page=${page}`);
+        this.persons.data = response.data.results;
+        this.persons.totalPages = response.data.total_pages;
       } catch (error) {
         console.error(error);
       }
     },
-    async fetchSearch() {
+    async fetchSearch({ query, page }) {
       try {
-        // Перевіряємо, чи змінився запит
-        if (this.searchQuery.query !== this.searchQuery.lastSearchQuery) {
-          // Якщо так, то скидаємо сторінку на 1
-          this.searchQuery.page = 1;
-        }
-
-        const response = await securedAxios.get(`/search/multi?query=${this.searchQuery.query}&page=${this.searchQuery.page}`);
-        const newMovies = response.data.results;
-        const newMovieIds = newMovies.map(item => item.id);
-        // Записуємо новий запит
-        this.searchQuery.lastSearchQuery = this.searchQuery.query;
-        // Перевіряємо, чи є нові фільми (з іншими id) у нових даних
-        this.hasNewMovies = newMovieIds.some(id => !this.searchMoviesIds.includes(id));
-        
-        // Якщо є, то додаємо їх до списку
-        if (this.hasNewMovies) {
-          this.searchMovies = newMovies;
-          
-          // Оновлюємо список id фільмів для порівняння в майбутньому
-          this.searchMoviesIds = newMovieIds;
-
-        }
+        const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
+        this.searchMovies.data = response.data.results;
+        this.searchMovies.totalPages = response.data.total_pages;
       } catch (error) {
         console.error(error);
       }
-    },
-    async addFavouriteMovie(movie) {
-      if (this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
-        return;
-      }
-      this.favouriteMovies.push(movie);
-      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
-    },
-    async removeFavouriteMovie(movie) {
-      this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
-      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
     },
     async getRandomPoster() {
       securedAxios.get(`/movie/popular`)
@@ -228,3 +186,26 @@ export const moviesStore = defineStore('moviesDB', {
     },
   },
 })
+
+export const useFavouritesStore = defineStore('favouritesDB', {
+  state: () => ({
+    favouriteMovies: [],
+  }),
+  actions: {
+    async addFavouriteMovie(movie) {
+      if (this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
+        return;
+      }
+      this.favouriteMovies.push(movie);
+      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
+    },
+    async removeFavouriteMovie(movie) {
+      this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
+      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
+    },
+  },
+  persist: {
+    enabled: true,
+  },
+},
+)

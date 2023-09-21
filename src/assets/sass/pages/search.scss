@@ -32,7 +32,7 @@
 	}
   .items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     grid-gap: 20px;
   }
   .pagination {
@@ -41,7 +41,7 @@
     align-items: center;
     margin-top: 20px;
     gap: 10px;
-    .page-item {
+    .btn {
       padding: 6px 10px;
       border-radius: 5px;
       background-color: rgb(3, 37, 65);
@@ -52,6 +52,10 @@
       &:hover {
         background-color: rgb(4, 49, 78);
         box-shadow: 0 0 5px rgb(6, 97, 158);
+      }
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
   }

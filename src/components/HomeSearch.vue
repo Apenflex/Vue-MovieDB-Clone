@@ -1,18 +1,20 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, reactive, ref } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
 import { useRouter } from 'vue-router'
 
 const store = moviesStore()
 const router = useRouter()
 
+const searchQuery = reactive({ query: '', page: 1 })
 const isLoading = ref(false)
 
 const handleSearch = () => {
-	if (!store.searchQuery.query) return
+	if (!searchQuery.query) return
 	isLoading.value = true
 	store.fetchSearch()
-	router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page} })
+	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
+	searchQuery.query = ''
 	isLoading.value = false
 }
 
@@ -39,7 +41,7 @@ onBeforeMount(() => {
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."
-					v-model="store.searchQuery.query"
+					v-model="searchQuery.query"
 				/>
 				<button
 					type="submit"

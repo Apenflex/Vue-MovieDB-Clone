@@ -100,7 +100,7 @@ onBeforeMount(() => {
 						<RouterLink :to="{ name: 'item-details', params: { mediaType: movie.media_type, id: movie.id } }">
 							<ItemCard
 								:movie="movie"
-								:type="'movie'"
+								type="movie"
 							/>
 						</RouterLink>
 					</swiper-slide>

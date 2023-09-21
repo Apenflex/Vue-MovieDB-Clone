@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 import ItemCard from '@/components/ItemCard.vue'
@@ -8,40 +8,31 @@ import { moviesStore } from '@/stores/moviesStore'
 const store = moviesStore()
 const router = useRouter()
 
+const searchQuery = reactive({
+	query: router.currentRoute.value.query.query,
+	page: Number(router.currentRoute.value.query.page),
+})
 const isLoading = ref(false)
 
 const handleSearch = () => {
-	if (!store.searchQuery.query) return
+	if (!searchQuery.query) return
+	searchQuery.page = 1
 	isLoading.value = true
-	store.fetchSearch()
-	router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
+	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
+	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
 	isLoading.value = false
 }
 
-const nextPage = () => {
-	if (store.hasNewMovies) {
-		store.searchQuery.page = Number(router.currentRoute.value.query.page) + 1
-
-		store.fetchSearch()
-		router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
-	}
-}
-
-const prevPage = () => {
-	if (store.searchQuery.page > 1) {
-		store.searchQuery.page = Number(router.currentRoute.value.query.page) - 1
-
-		store.fetchSearch()
-		router.push({ name: 'search', query: { query: store.searchQuery.query, page: store.searchQuery.page } })
-	}
+const handleChangePage = (direction) => {
+	isLoading.value = true
+	searchQuery.page = direction === 'next' ? searchQuery.page + 1 : searchQuery.page - 1
+	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
+	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
+	isLoading.value = false
 }
 
 onMounted(() => {
-	if (router.currentRoute.value.query.query) {
-		store.searchQuery.query = router.currentRoute.value.query.query
-		store.searchQuery.page = router.currentRoute.value.query.page
-		store.fetchSearch()
-	}
+	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
 })
 </script>
 
@@ -53,7 +44,7 @@ onMounted(() => {
 				<input
 					type="text"
 					placeholder="Пошук фільму, серіалу, персони..."
-					v-model="store.searchQuery.query"
+					v-model="searchQuery.query"
 				/>
 				<button
 					type="submit"
@@ -66,28 +57,28 @@ onMounted(() => {
 			<div class="content">
 				<div class="items">
 					<ItemCard
-						v-for="movie in store.searchMovies"
+						v-for="movie in store.searchMovies.data"
 						:key="movie.id"
 						:movie="movie"
-						:type="'movie'"
+						type="movie"
 					/>
 				</div>
 				<!-- Pagination -->
 				<div class="pagination">
 					<button
-						@click="prevPage"
-						:disabled="isLoading && store.searchQuery.page === 1"
-						class="page-item"
+						@click="handleChangePage('prev')"
+						:disabled="isLoading || searchQuery.page === 1"
+						:class="['btn', { disabled: isLoading || searchQuery.page === 1 }]"
 					>
-						<span class="page-link">Prev</span>
+						Prev
 					</button>
-					<span>{{ store.searchQuery.page }}</span>
+					<span>{{ searchQuery.page }}</span>
 					<button
-						@click="nextPage"
-						class="page-item"
-						:disabled="isLoading && !store.hasNewMovies"
+						@click="handleChangePage('next')"
+						:disabled="isLoading || store.searchMovies.totalPages === searchQuery.page"
+						:class="['btn', { disabled: isLoading || store.searchMovies.totalPages === searchQuery.page }]"
 					>
-						<span class="page-link">Next</span>
+						Next
 					</button>
 				</div>
 			</div>
