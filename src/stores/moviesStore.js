@@ -190,13 +190,17 @@ export const useFavouritesStore = defineStore('favouritesDB', {
   state: () => ({
     favouriteMovies: [],
   }),
+  getters: {
+    // getFavouriteMovies: (state) =>
+    //   state.favouriteMovies.map((item) => ({ ...item, favourite: true })),
+    getFavouriteMovies: (state) => state.favouriteMovies,
+  },
   actions: {
     async addFavouriteMovie(movie) {
-      if (this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
-        return;
+      if (!this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
+        this.favouriteMovies.push(movie);
+        localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
       }
-      this.favouriteMovies.push(movie);
-      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
     },
     async removeFavouriteMovie(movie) {
       this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);

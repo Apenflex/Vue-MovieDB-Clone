@@ -1,18 +1,17 @@
 <script setup>
-import { onBeforeMount, ref, reactive } from 'vue'
+import { onBeforeMount, ref, reactive, watch } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
-// import { delay } from '@/composables/delay'
 import ItemCard from '@/components/ItemCard.vue'
-
-import VueMultiselect from 'vue-multiselect'
 
 const store = moviesStore()
 
 const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: 'popularAsc' })
 const isLoading = ref(false)
 const currentPage = ref(1)
-
+watch(filter, () => {
+	console.log(filter.sortBy)
+})
 const handleFilterSearch = () => {
 	store.MoviesSortBy(filter.sortBy)
 	filter.searchBtnOpen = false
@@ -21,7 +20,6 @@ const handleFilterSearch = () => {
 const handleLoadMore = async () => {
 	currentPage.value++
 	isLoading.value = true
-	// await delay(4000)
 	store.fetchMoviesMore(currentPage.value)
 	isLoading.value = false
 }
@@ -59,40 +57,47 @@ onBeforeMount(() => {
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
-						<Dropdown
+						<!-- value="['Непопулярні', 'Рейтинг високий', 'Рейтинг низький', 'Реліз свіжий', 'Реліз давній', 'Назва (А - Я)']"
+						:options="['popularAsc', 'voteDesc', 'voteAsc', 'releaseDesc', 'releaseAsc', 'titleAsc']" -->
+						<VueMultiselect
 							v-model="filter.sortBy"
 							:options="[
 								{
-									name: 'Непопулярні',
+									label: 'Непопулярні',
 									value: 'popularAsc',
 								},
 								{
-									name: 'Рейтинг високий',
+									label: 'Рейтинг високий',
 									value: 'voteDesc',
 								},
 								{
-									name: 'Рейтинг низький',
+									label: 'Рейтинг низький',
 									value: 'voteAsc',
 								},
 								{
-									name: 'Реліз свіжий',
+									label: 'Реліз свіжий',
 									value: 'releaseDesc',
 								},
 								{
-									name: 'Реліз давній',
+									label: 'Реліз давній',
 									value: 'releaseAsc',
 								},
 								{
-									name: 'Назва (А - Я)',
+									label: 'Назва (А - Я)',
 									value: 'titleAsc',
 								},
 							]"
-							optionValue="value"
-							optionLabel="name"
-							placeholder="Непопулярні"
-							@change="filter.searchBtnOpen = true"
-							class="select"
+							:searchable="false"
+							:hide-selected="true"
+							openDirection="bottom"
+							label="label"
+							track-by="value"
+							
+							@select="filter.searchBtnOpen = true"
+							placeholder="Сортувати за"
+							selectLabel=""
 						/>
+						<!-- </VueMultiselect> -->
 						<!-- <select v-model="store.moviesSortBy">
 							<option value="popularAsc">Непопулярні</option>
 							<option value="voteDesc">Рейтинг високий</option>

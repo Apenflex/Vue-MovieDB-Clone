@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, watch, ref, onMounted } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
 import IconHeart from './IconHeart.vue'
@@ -12,12 +12,9 @@ const props = defineProps({
 	favourite: Boolean,
 })
 
-// const store = moviesStore()
 const favouriteStore = useFavouritesStore()
-
-const isFavouriteColor = computed(() => {
-	return favouriteStore.favouriteMovies.find((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
-})
+const heartColor = ref('#fff')
+const addedToFavourite = ref(false)
 
 const formatDate = computed(() => {
 	if (props.movie.release_date || props.movie.first_air_date) {
@@ -54,11 +51,29 @@ const personPoster = computed(() => {
 	}
 	return '../public/images/no-image.png'
 })
-const handleAddFavourite = (e) => {
-	console.log(e.currentTarget)
-	
-	// favouriteStore.addFavouriteMovie(props.movie)
+
+const favouriteColor = computed(() => {
+	return favouriteStore.favouriteMovies.find((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
+})
+
+const handleAddFavourite = (movie) => {
+	// console.log('add')
+	addedToFavourite.value = true
+	favouriteStore.addFavouriteMovie(movie)
+	setTimeout(() => {
+		addedToFavourite.value = false
+	}, 3000)
 }
+
+watch(favouriteStore.getFavouriteMovies, () => {
+	// console.log('watch')
+	heartColor.value = favouriteColor.value
+})
+
+onMounted(() => {
+	// console.log('mounted')
+	heartColor.value = favouriteColor.value
+})
 </script>
 
 <template>
@@ -66,10 +81,11 @@ const handleAddFavourite = (e) => {
 		<div>
 			<IconHeart
 				v-if="type === 'movie' && !favourite"
-				class="icon-heart"
-				@click="handleAddFavourite($event)"
-				:color="isFavouriteColor"
+				@click.prevent="handleAddFavourite(movie)"
+				:color="heartColor"
+				:class="['icon-heart', {'animate': addedToFavourite}]"
 			/>
+			
 			<IconTrash
 				v-if="favourite"
 				class="icon-trash"

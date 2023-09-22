@@ -10,6 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import PrimeVue from 'primevue/config';
 import Dropdown from 'primevue/dropdown';
+import VueMultiselect from 'vue-multiselect'
 
 const app = createApp(App)
 // Pinia
@@ -23,5 +24,8 @@ app.use(VueAxios, axios)
 // PrimeVue
 app.use(PrimeVue);
 app.component('Dropdown', Dropdown);
+
+// Vue Multiselect
+app.component('VueMultiselect', VueMultiselect)
 
 app.mount('#app')
