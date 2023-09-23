@@ -21,7 +21,6 @@ onBeforeMount(() => {
 		<section class="favourite">
 			<div class="content">
 				<h2>Улюбленні</h2>
-				<!-- <div class="items"> -->
 				<TransitionGroup
 					tag="div"
 					name="fade"
@@ -39,16 +38,6 @@ onBeforeMount(() => {
 						/>
 					</RouterLink>
 				</TransitionGroup>
-				<!-- </div> -->
-				<!-- <div class="items">
-					<ItemCard
-						v-for="movie in store.favouriteMovies"
-						:key="movie.id"
-						:movie="movie"
-						type="movie"
-						:favourite="true"
-					/>
-				</div> -->
 			</div>
 		</section>
 	</main>

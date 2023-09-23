@@ -6,21 +6,21 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
-const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: 'popularAsc' })
+const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { value: 'popularAsc' } })
 const isLoading = ref(false)
 const currentPage = ref(1)
 watch(filter, () => {
-	console.log(filter.sortBy)
+	console.log(filter.sortBy.value)
 })
 const handleFilterSearch = () => {
-	store.MoviesSortBy(filter.sortBy)
+	store.MoviesSortBy(filter.sortBy.value)
 	filter.searchBtnOpen = false
 }
 
 const handleLoadMore = async () => {
 	currentPage.value++
 	isLoading.value = true
-	store.fetchMoviesMore(currentPage.value)
+	store.fetchMoviesMore({page: currentPage.value, sortBy: filter.sortBy.value})
 	isLoading.value = false
 }
 
@@ -52,13 +52,12 @@ onBeforeMount(() => {
 							/>
 						</svg>
 					</div>
+					<!-- Filter Panel -->
 					<div
 						class="filter"
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
-						<!-- value="['Непопулярні', 'Рейтинг високий', 'Рейтинг низький', 'Реліз свіжий', 'Реліз давній', 'Назва (А - Я)']"
-						:options="['popularAsc', 'voteDesc', 'voteAsc', 'releaseDesc', 'releaseAsc', 'titleAsc']" -->
 						<VueMultiselect
 							v-model="filter.sortBy"
 							:options="[
@@ -92,31 +91,26 @@ onBeforeMount(() => {
 							openDirection="bottom"
 							label="label"
 							track-by="value"
-							
 							@select="filter.searchBtnOpen = true"
 							placeholder="Сортувати за"
 							selectLabel=""
 						/>
-						<!-- </VueMultiselect> -->
-						<!-- <select v-model="store.moviesSortBy">
-							<option value="popularAsc">Непопулярні</option>
-							<option value="voteDesc">Рейтинг високий</option>
-							<option value="voteAsc">Рейтинг низький</option>
-							<option value="releaseDesc">Реліз свіжий</option>
-							<option value="releaseAsc">Реліз давній</option>
-							<option value="titleAsc">Назва (А - Я)</option>
-						</select> -->
 					</div>
 				</div>
+				<!-- Item Cards -->
 				<div class="items-wrapper">
-					<div class="items">
+					<TransitionGroup
+						tag="div"
+						name="fade"
+						class="items"
+					>
 						<ItemCard
 							v-for="movie in store.getMovies"
 							:key="movie.id"
 							:movie="movie"
 							type="movie"
 						/>
-					</div>
+					</TransitionGroup>
 
 					<!-- Pagination Button -->
 					<button
