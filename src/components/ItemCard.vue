@@ -89,7 +89,7 @@ onMounted(() => {
 			<IconTrash
 				v-if="favourite"
 				class="icon-trash"
-				@click="favouriteStore.removeFavouriteMovie(movie)"
+				@click.prevent="favouriteStore.removeFavouriteMovie(movie)"
 			/>
 			<img
 				v-if="type === 'movie'"

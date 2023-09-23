@@ -1,8 +1,22 @@
 .favourite {
-  padding: 20px 0;
-  .items {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
-  }
+	padding: 20px 0;
+	.items {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		grid-gap: 20px;
+		position: relative;
+	}
+	.fade-move,
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+	}
+	.fade-enter-from,
+	.fade-leave-to {
+		opacity: 0;
+		transform: scaleX(0.01) translate(30px, 0);
+	}
+	.fade-leave-active {
+		position: absolute;
+	}
 }
