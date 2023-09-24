@@ -9,7 +9,10 @@ const props = defineProps({
 	movie: Object,
 	person: Object,
 	type: String,
-	favourite: Boolean,
+	filmCard: Boolean,
+	tvShowCard: Boolean,
+	personCard: Boolean,
+	favouriteCard: Boolean,
 })
 
 const favouriteStore = useFavouritesStore()
@@ -67,27 +70,31 @@ const handleAddFavourite = (movie) => {
 
 watch(favouriteStore.getFavouriteMovies, () => {
 	// console.log('watch')
-	heartColor.value = favouriteColor.value
+	if(!props.personCard) {
+		heartColor.value = favouriteColor.value
+	}
 })
 
 onMounted(() => {
 	// console.log('mounted')
-	heartColor.value = favouriteColor.value
+	if(!props.personCard) {
+		heartColor.value = favouriteColor.value
+	}
 })
 </script>
 
 <template>
-	<div class="movie-card">
+	<div :class="['movie-card', {'box-shadow': filmCard || tvShowCard || personCard || favouriteCard}]">
 		<div>
 			<IconHeart
-				v-if="type === 'movie' && !favourite"
+				v-if="type === 'movie' && !favouriteCard"
 				@click.prevent="handleAddFavourite(movie)"
 				:color="heartColor"
-				:class="['icon-heart', {'animate': addedToFavourite}]"
+				:class="['icon-heart', { animate: addedToFavourite }]"
 			/>
-			
+
 			<IconTrash
-				v-if="favourite"
+				v-if="favouriteCard"
 				class="icon-trash"
 				@click.prevent="favouriteStore.removeFavouriteMovie(movie)"
 			/>

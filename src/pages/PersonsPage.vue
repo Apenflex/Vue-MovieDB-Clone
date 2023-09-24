@@ -35,6 +35,7 @@ onMounted(() => {
 						:key="person.id"
 						:person="person"
 						type="person"
+						:personCard="true"
 					/>
 				</div>
 				<!-- Pagination -->

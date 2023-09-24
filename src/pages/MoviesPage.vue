@@ -110,6 +110,7 @@ onBeforeMount(() => {
 							:key="movie.id"
 							:movie="movie"
 							type="movie"
+							:filmCard="true"
 						/>
 					</TransitionGroup>
 

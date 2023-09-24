@@ -4,12 +4,6 @@ import { RouterLink } from 'vue-router'
 
 import IconHeart from '@/components/IconHeart.vue'
 
-const links = [
-	{ name: 'Movies', path: '/movies' },
-	{ name: 'TV Shows', path: '/tv-shows' },
-	{ name: 'Persons', path: '/persons' },
-]
-
 const isMenuOpen = ref(false)
 
 const toggleMenu = () => {
@@ -39,18 +33,28 @@ watch(isMenuOpen, (newValue) => {
 				<!-- Desktop Menu -->
 				<nav :class="{ 'menu-active': isMenuOpen }">
 					<RouterLink
-						to="/favourite"
+						:to="{ name: 'favourite', path: '/favourite' }"
 						@click="toggleMenu"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
-						v-for="link in links"
-						:key="link.name"
-						:to="link.path + (link.path === '/persons' ? '?page=1' : '')"
+						:to="{ name: 'movies', path: '/movies' }"
 						@click="toggleMenu"
 					>
-						{{ link.name }}
+						Movies
+					</RouterLink>
+					<RouterLink
+						:to="{ name: 'tv-shows', path: '/tv-shows' }"
+						@click="toggleMenu"
+					>
+						TV Shows
+					</RouterLink>
+					<RouterLink
+						:to="{ name: 'persons' , query: { page: 1 }}"
+						@click="toggleMenu"
+					>
+						Persons
 					</RouterLink>
 				</nav>
 

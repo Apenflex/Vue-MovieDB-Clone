@@ -34,7 +34,7 @@ onBeforeMount(() => {
 						<ItemCard
 							:movie="movie"
 							type="movie"
-							:favourite="true"
+							:favouriteCard="true"
 						/>
 					</RouterLink>
 				</TransitionGroup>

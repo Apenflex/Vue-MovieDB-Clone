@@ -83,6 +83,7 @@ onBeforeMount(() => {
 							:key="movie.id"
 							:movie="movie"
 							type="movie"
+							:tvShowCard="true"
 						/>
 					</div>
 					<!-- Pagination Button -->
