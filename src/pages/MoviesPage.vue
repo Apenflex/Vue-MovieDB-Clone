@@ -58,6 +58,7 @@ onBeforeMount(() => {
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
+						<!-- TODO: Default select value -->
 						<VueMultiselect
 							v-model="filter.sortBy"
 							:options="[
