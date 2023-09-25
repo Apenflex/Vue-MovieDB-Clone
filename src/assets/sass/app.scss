@@ -3,6 +3,7 @@
 @import './mixins.scss';
 @import './header.scss';
 @import './footer.scss';
+@import './multiselect.scss';
 @import './pages/persons.scss';
 @import './pages/favourite.scss';
 @import './pages/search.scss';
@@ -15,7 +16,6 @@
 @import './components/trailers.scss';
 @import './components/popular.scss';
 @import './components/modal.scss';
-@import 'vue-multiselect/dist/vue-multiselect.css';
 
 h1,
 h2,

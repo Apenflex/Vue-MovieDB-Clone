@@ -5,7 +5,6 @@ export const moviesStore = defineStore('moviesDB', {
   state: () => ({
     movies: [],
     tvShows: [],
-    // tvShowsSortBy: '',
     persons: {
       data: [],
       totalPages: 0,
@@ -84,11 +83,11 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
-    async fetchTvShowsMore(page) {
+    async fetchTvShowsMore({ page, sortBy }) {
       try {
         const response = await securedAxios.get(`/tv/popular?page=${page}`);
         this.tvShows.push(...response.data.results);
-        await this.TvShowsSortBy();
+        await this.TvShowsSortBy(sortBy);
       } catch (error) {
         console.error(error);
       }

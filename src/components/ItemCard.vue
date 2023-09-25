@@ -105,7 +105,7 @@ onMounted(() => {
 				loading="lazy"
 			/>
 			<img
-				v-if="type === 'person'"
+				v-if="personCard"
 				:src="personPoster"
 				:alt="person.name"
 				loading="lazy"
@@ -126,7 +126,7 @@ onMounted(() => {
 				<span>{{ formatDate }}</span>
 			</div>
 
-			<div v-if="type === 'person'">
+			<div v-if="personCard">
 				<h4>{{ person.name }}</h4>
 				<span>{{ person.known_for[0].original_title || '' }}</span>
 			</div>

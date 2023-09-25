@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, ref, reactive, watch } from 'vue'
+import { onBeforeMount, ref, reactive } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from '@/components/ItemCard.vue'
@@ -9,9 +9,7 @@ const store = moviesStore()
 const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { value: 'popularAsc' } })
 const isLoading = ref(false)
 const currentPage = ref(1)
-watch(filter, () => {
-	console.log(filter.sortBy.value)
-})
+
 const handleFilterSearch = () => {
 	store.MoviesSortBy(filter.sortBy.value)
 	filter.searchBtnOpen = false

@@ -34,7 +34,6 @@ onMounted(() => {
 						v-for="person in store.persons.data"
 						:key="person.id"
 						:person="person"
-						type="person"
 						:personCard="true"
 					/>
 				</div>

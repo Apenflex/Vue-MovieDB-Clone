@@ -1,34 +1,24 @@
 <script setup>
-import { onBeforeMount, ref, watch } from 'vue'
+import { onBeforeMount, ref, reactive } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
-import { delay } from '@/composables/delay'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
-const isFilterPanelOpen = ref(false)
-const isFilterSearchBtnOpen = ref(false)
+const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { value: 'popularAsc' } })
 const isLoading = ref(false)
 const currentPage = ref(1)
 
-watch(
-	() => store.tvShowsSortBy,
-	() => {
-		isFilterSearchBtnOpen.value = true
-	},
-)
-
 const handleFilterSearch = () => {
-	store.TvShowsSortBy()
-	isFilterSearchBtnOpen.value = false
+	store.TvShowsSortBy(filter.sortBy.value)
+	filter.searchBtnOpen = false
 }
 
 const handleLoadMore = async () => {
 	currentPage.value++
 	isLoading.value = true
-	await delay(4000)
-	store.fetchTvShowsMore(currentPage.value)
+	store.fetchTvShowsMore({ page: currentPage.value, sortBy: filter.sortBy.value })
 	isLoading.value = false
 }
 
@@ -46,38 +36,74 @@ onBeforeMount(() => {
 				<div class="filter-panel">
 					<div
 						class="name"
-						@click="() => (isFilterPanelOpen = !isFilterPanelOpen)"
+						@click="filter.panelOpen = !filter.panelOpen"
 					>
 						<h2>Сортування</h2>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="1em"
 							viewBox="0 0 320 512"
+							:class="{ rotate: filter.panelOpen }"
 						>
 							<path
 								d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
 							/>
 						</svg>
 					</div>
+					<!-- Filter Panel -->
 					<div
 						class="filter"
-						:class="{ closed: !isFilterPanelOpen }"
+						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
-						<span>
-							<select v-model="store.tvShowsSortBy">
-								<option value="popularAsc">Непопулярні</option>
-								<option value="voteDesc">Рейтинг високий</option>
-								<option value="voteAsc">Рейтинг низький</option>
-								<option value="releaseDesc">Реліз свіжий</option>
-								<option value="releaseAsc">Реліз давній</option>
-								<option value="titleAsc">Назва (А - Я)</option>
-							</select>
-						</span>
+						<!-- TODO: Default select value -->
+						<VueMultiselect
+							v-model="filter.sortBy"
+							:options="[
+								{
+									label: 'Непопулярні',
+									value: 'popularAsc',
+								},
+								{
+									label: 'Рейтинг високий',
+									value: 'voteDesc',
+								},
+								{
+									label: 'Рейтинг низький',
+									value: 'voteAsc',
+								},
+								{
+									label: 'Реліз свіжий',
+									value: 'releaseDesc',
+								},
+								{
+									label: 'Реліз давній',
+									value: 'releaseAsc',
+								},
+								{
+									label: 'Назва (А - Я)',
+									value: 'titleAsc',
+								},
+							]"
+							:searchable="false"
+							:hide-selected="true"
+							openDirection="bottom"
+							label="label"
+							track-by="value"
+							@select="filter.searchBtnOpen = true"
+							placeholder="Сортувати за"
+							selectLabel=""
+						/>
 					</div>
 				</div>
+
+				<!-- Item Cards -->
 				<div class="items-wrapper">
-					<div class="items">
+					<TransitionGroup
+						tag="div"
+						name="fade"
+						class="items"
+					>
 						<ItemCard
 							v-for="movie in store.getTvShows"
 							:key="movie.id"
@@ -85,7 +111,7 @@ onBeforeMount(() => {
 							type="movie"
 							:tvShowCard="true"
 						/>
-					</div>
+					</TransitionGroup>
 					<!-- Pagination Button -->
 					<button
 						class="pagination"
@@ -96,7 +122,7 @@ onBeforeMount(() => {
 					</button>
 					<!-- Filters Search Button -->
 					<button
-						v-if="isFilterSearchBtnOpen"
+						v-if="filter.searchBtnOpen"
 						class="pagination fixed"
 						@click="handleFilterSearch"
 					>
