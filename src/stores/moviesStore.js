@@ -13,8 +13,10 @@ export const moviesStore = defineStore('moviesDB', {
     randomPosterURL: '',
     trandingMovies: [],
     popularMovies: [],
-    trailerMovies: [],
-    trailerMovieUrl: { title: '', url: '' },
+    trailerMovies: {
+      data: [],
+      url: { title: '', path: ''}
+    },
     searchMovies: {
       data: [],
       totalPages: 0,
@@ -167,7 +169,7 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchTrailerMovies(category) {
       try {
         const response = await securedAxios.get(`/movie/${category}`);
-        this.trailerMovies = response.data.results;
+        this.trailerMovies.data = response.data.results;
         // console.log(this.trailerMovies[0].backdrop_path);
       } catch (error) {
         console.error(error);
@@ -176,8 +178,8 @@ export const moviesStore = defineStore('moviesDB', {
     async setTrailerMovieUrl(movieId) {
       try {
         const response = await securedAxios.get(`/movie/${movieId}/videos`);
-        this.trailerMovieUrl.title = this.trailerMovies.find((movie) => movie.id === movieId).original_title;
-        this.trailerMovieUrl.url = response.data.results[0].key;
+        this.trailerMovies.url.title = this.trailerMovies.data.find((movie) => movie.id === movieId).original_title;
+        this.trailerMovies.url.path = response.data.results[0].key;
       } catch (error) {
         console.error(error);
       }

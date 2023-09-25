@@ -1,6 +1,10 @@
 <script setup>
 const props = defineProps({
-  movie: Object,
+	movie: {
+		type: Object,
+		title: String,
+		path: String,
+	},
   isOpen: Boolean,
 })
 defineEmits(['toggle-modal'])
@@ -22,7 +26,7 @@ defineEmits(['toggle-modal'])
         <iframe
           width="100%"
           height="100%"
-          :src="`https://www.youtube.com/embed/${movie.url}`"
+          :src="`https://www.youtube.com/embed/${movie.path}`"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen

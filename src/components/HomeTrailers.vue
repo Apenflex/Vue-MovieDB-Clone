@@ -11,7 +11,7 @@ import Modal from '@/components/Modal.vue'
 const store = moviesStore()
 const isModalOpen = ref(false)
 const backgroundImage = ref('')
-const trailerMovies = reactive({ data: store.trailerMovies, variant: 'now_playing' })
+const trailerMovies = reactive({ data: store.trailerMovies.data, variant: {value: '' } })
 const trailerLinks = [
 	{
 		title: 'Наживо',
@@ -45,9 +45,9 @@ const handleToggleModal = (movieId) => {
 }
 
 const fetchTrailers = (argDay) => {
-	trailerMovies.variant = argDay
+	trailerMovies.variant.value = argDay
 	store.fetchTrailerMovies(argDay)
-	trailerMovies.data = store.trailerMovies
+	trailerMovies.data = store.trailerMovies.data
 }
 
 onBeforeMount(() => {
@@ -72,27 +72,43 @@ onBeforeMount(() => {
 				<h3
 					v-for="link of trailerLinks"
 					:key="link.title"
-					:class="{ active: trailerMovies.variant === link.popular }"
+					:class="{ active: trailerMovies.variant.value === link.popular }"
 					@click="fetchTrailers(link.popular)"
 				>
 					{{ link.title }}
 				</h3>
 			</div>
-			
+
 			<!-- Mobile Select -->
-			<Dropdown
+			<VueMultiselect
 				v-model="trailerMovies.variant"
 				:options="[
-					{ name: 'Наживо', value: 'now_playing' },
-					{ name: 'На ТБ', value: 'popular' },
-					{ name: 'Для прокату', value: 'top_rated' },
-					{ name: 'У кінотеатрах', value: 'upcoming' },
+					{
+						label: 'Наживо',
+						value: 'now_playing',
+					},
+					{
+						label: 'На ТБ',
+						value: 'popular',
+					},
+					{
+						label: 'Для прокату',
+						value: 'top_rated',
+					},
+					{
+						label: 'У кінотеатрах',
+						value: 'upcoming',
+					},
 				]"
-				optionValue="value"
-				optionLabel="name"
-				placeholder="Наживо"
-				@change="fetchTrailers(trailerMovies.variant)"
-				class="mobile"
+				:searchable="false"
+				:hide-selected="true"
+				:close-on-select="true"
+				openDirection="bottom"
+				label="label"
+				track-by="value"
+				@select="fetchTrailers(trailerMovies.variant.value)"
+				placeholder="Сортувати за"
+				selectLabel=""
 			/>
 		</div>
 
@@ -124,7 +140,7 @@ onBeforeMount(() => {
 				}"
 			>
 				<swiper-slide
-					v-for="movie in store.trailerMovies"
+					v-for="movie in store.trailerMovies.data"
 					:key="movie.id"
 					@mouseover="changeSectionBackground(movie.backdrop_path)"
 				>
@@ -154,7 +170,7 @@ onBeforeMount(() => {
 		</div>
 		<Modal
 			v-if="isModalOpen"
-			:movie="store.trailerMovieUrl"
+			:movie="store.trailerMovies.url"
 			@toggle-modal="handleToggleModal()"
 		/>
 	</section>
