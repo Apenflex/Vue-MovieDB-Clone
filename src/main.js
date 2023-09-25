@@ -2,10 +2,10 @@ import './assets/sass/app.scss'
 
 import App from './App.vue'
 import { createApp } from 'vue'
-
 import { createPinia } from 'pinia'
-import router from './router'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import router from './router'
+import { RouterLink } from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import PrimeVue from 'primevue/config';
@@ -19,12 +19,12 @@ pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 // Router
 app.use(router)
+app.use(RouterLink)
 // Axios
 app.use(VueAxios, axios)
 // PrimeVue
 app.use(PrimeVue);
 app.component('Dropdown', Dropdown);
-
 // Vue Multiselect
 app.component('VueMultiselect', VueMultiselect)
 

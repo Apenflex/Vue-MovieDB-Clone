@@ -1,5 +1,5 @@
 .footer {
-	padding: 70px 0;
+	padding: 70px 10px;
 	max-width: 100%;
 	width: 100vw;
 	background-color: $primary;
@@ -8,6 +8,9 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 		gap: 20px;
+		@media (min-width: 1360px) {
+			grid-template-columns: repeat(5, minmax(210px, 1fr));
+		}
 		.links {
 			display: flex;
 			flex-direction: column;

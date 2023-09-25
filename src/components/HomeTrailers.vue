@@ -1,6 +1,4 @@
 <script setup>
-import 'swiper/css'
-
 import { ref, reactive, onBeforeMount } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
@@ -11,23 +9,23 @@ import Modal from '@/components/Modal.vue'
 const store = moviesStore()
 const isModalOpen = ref(false)
 const backgroundImage = ref('')
-const trailerMovies = reactive({ data: store.trailerMovies.data, variant: {value: '' } })
+const trailerMovies = reactive({ data: store.trailerMovies.data, variant: {label: 'Наживо',value: '' } })
 const trailerLinks = [
 	{
 		title: 'Наживо',
-		popular: 'now_playing',
+		value: 'now_playing',
 	},
 	{
 		title: 'На ТБ',
-		popular: 'popular',
+		value: 'popular',
 	},
 	{
 		title: 'Для прокату',
-		popular: 'top_rated',
+		value: 'top_rated',
 	},
 	{
 		title: 'У кінотеатрах',
-		popular: 'upcoming',
+		value: 'upcoming',
 	},
 ]
 
@@ -72,8 +70,8 @@ onBeforeMount(() => {
 				<h3
 					v-for="link of trailerLinks"
 					:key="link.title"
-					:class="{ active: trailerMovies.variant.value === link.popular }"
-					@click="fetchTrailers(link.popular)"
+					:class="{ active: trailerMovies.variant.value === link.value }"
+					@click="fetchTrailers(link.value)"
 				>
 					{{ link.title }}
 				</h3>

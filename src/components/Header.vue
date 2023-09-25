@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { RouterLink } from 'vue-router'
 
 import IconHeart from '@/components/IconHeart.vue'
 

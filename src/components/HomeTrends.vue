@@ -1,8 +1,5 @@
 <script setup>
-import 'swiper/css'
-
 import { reactive, onBeforeMount } from 'vue'
-import { RouterLink } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -10,7 +7,7 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const activeMovies = reactive({ data: store.trandingMovies, variant: {value: '' } })
+const activeMovies = reactive({ data: store.trandingMovies, variant: {label: 'Сьогодні', value: '' } })
 
 const fetchTrends = async (argDay) => {
 	activeMovies.variant.value = argDay

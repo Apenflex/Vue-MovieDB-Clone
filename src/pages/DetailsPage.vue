@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { moviesStore } from '@/stores/moviesStore'
@@ -9,17 +9,26 @@ const store = moviesStore()
 const router = useRouter()
 const isModalOpen = ref(false)
 
-const id = router.currentRoute.value.params.id
-const mediaType = router.currentRoute.value.params.mediaType
+const detailsQuery = reactive({
+	mediaType: router.currentRoute.value.params.mediaType,
+	id: router.currentRoute.value.params.id,
+})
 
-const handleToggleModal = (movieId) => {
-	if (isModalOpen.value) {
-		isModalOpen.value = false
-	} else {
-		isModalOpen.value = true
-		store.setTrailerMovieUrl(movieId)
-	}
-}
+const mediaDetailsPoster = computed(() => {
+	return `https://image.tmdb.org/t/p/original/${store.mediaDetails.poster_path}`
+})
+
+const mediaDetailsRelease = computed(() => {
+	return store.mediaDetails.release_date?.split('-').reverse().join('-')
+})
+
+const mediaDetailsGenres = computed(() => {
+	return store.mediaDetails.genres?.map((genre) => genre.name).join(', ')
+})
+
+const mediaDetailsRuntime = computed(() => {
+	return `${Math.floor(store.mediaDetails.runtime / 60)}h ${store.mediaDetails.runtime % 60}m`
+})
 
 const calcVoteColor = (vote) => {
 	switch (true) {
@@ -34,8 +43,17 @@ const calcVoteColor = (vote) => {
 	}
 }
 
+const handleToggleModal = (movieId) => {
+	if (isModalOpen.value) {
+		isModalOpen.value = false
+	} else {
+		isModalOpen.value = true
+		store.setTrailerMovieUrl(movieId)
+	}
+}
+
 onBeforeMount(() => {
-	store.fetchMediaDetails({ mediaType, id })
+	store.fetchMediaDetails({ mediaType: detailsQuery.mediaType, id: detailsQuery.id })
 })
 </script>
 
@@ -51,7 +69,7 @@ onBeforeMount(() => {
 		<div class="wrapper">
 			<div class="image">
 				<img
-					:src="`https://image.tmdb.org/t/p/original/${store.mediaDetails.poster_path}`"
+					:src="mediaDetailsPoster"
 					:alt="store.mediaDetails.title"
 				/>
 			</div>
@@ -59,17 +77,17 @@ onBeforeMount(() => {
 				<div class="head">
 					<div class="block">
 						<h2>{{ store.mediaDetails.title }}</h2>
-						<span> ({{ store.mediaDetails.release_date.split('-')[0] }}) </span>
+						<span> ({{ store.mediaDetails.release_date?.split('-')[0] }}) </span>
 					</div>
 					<div class="facts">
 						<span class="release">
-							{{ store.mediaDetails.release_date.split('-').reverse().join('-') }}
+							{{ mediaDetailsRelease }}
 						</span>
 						<span class="genres">
-							{{ store.mediaDetails.genres.map((genre) => genre.name).join(', ') }}
+							{{ mediaDetailsGenres }}
 						</span>
 						<span class="runtime">
-							{{ Math.floor(store.mediaDetails.runtime / 60) }}h {{ store.mediaDetails.runtime % 60 }}m
+							{{ mediaDetailsRuntime }}
 						</span>
 					</div>
 				</div>

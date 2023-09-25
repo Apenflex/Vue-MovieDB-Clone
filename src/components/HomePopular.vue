@@ -1,8 +1,5 @@
 <script setup>
-import 'swiper/css'
-
 import { reactive, onBeforeMount } from 'vue'
-import { RouterLink } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -10,28 +7,28 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const popularMovies = reactive({ data: store.trandingMovies, popular: 'now_playing' })
+const popularMovies = reactive({ data: store.trandingMovies, variant: {label: 'Наживо', value: '' } })
 const popularLinks = [
 	{
 		title: 'Наживо',
-		popular: 'now_playing',
+		value: 'now_playing',
 	},
 	{
 		title: 'На ТБ',
-		popular: 'popular',
+		value: 'popular',
 	},
 	{
 		title: 'Для прокату',
-		popular: 'top_rated',
+		value: 'top_rated',
 	},
 	{
 		title: 'У кінотеатрах',
-		popular: 'upcoming',
+		value: 'upcoming',
 	},
 ]
 
 const fetchPopular = (argDay) => {
-	popularMovies.popular = argDay
+	popularMovies.variant.value = argDay
 	store.fetchPopularMovies(argDay)
 	popularMovies.data = store.popularMovies
 }
@@ -50,29 +47,45 @@ onBeforeMount(() => {
 				<h3
 					v-for="link of popularLinks"
 					:key="link.title"
-					:class="{ active: popularMovies.popular === link.popular }"
-					@click="fetchPopular(link.popular)"
+					:class="{ active: popularMovies.variant.value === link.value }"
+					@click="fetchPopular(link.value)"
 				>
 					{{ link.title }}
 				</h3>
 			</div>
 			<!-- Mobile Select -->
-			<Dropdown
-				v-model="popularMovies.popular"
+			<VueMultiselect
+				v-model="popularMovies.variant"
 				:options="[
-					{ name: 'Наживо', value: 'now_playing' },
-					{ name: 'На ТБ', value: 'popular' },
-					{ name: 'Для прокату', value: 'top_rated' },
-					{ name: 'У кінотеатрах', value: 'upcoming' },
+					{
+						label: 'Наживо',
+						value: 'now_playing',
+					},
+					{
+						label: 'На ТБ',
+						value: 'popular',
+					},
+					{
+						label: 'Для прокату',
+						value: 'top_rated',
+					},
+					{
+						label: 'У кінотеатрах',
+						value: 'upcoming',
+					},
 				]"
-				optionValue="value"
-				optionLabel="name"
-				:selected="popularMovies.popular"
-				@change="fetchPopular(popularMovies.popular)"
-				class="mobile"
+				:searchable="false"
+				:hide-selected="true"
+				:close-on-select="true"
+				openDirection="bottom"
+				label="label"
+				track-by="value"
+				@select="fetchPopular(popularMovies.variant.value)"
+				selectLabel=""
 			/>
 		</div>
 
+		<!-- Slider -->
 		<div>
 			<swiper
 				:slides-per-view="7"
