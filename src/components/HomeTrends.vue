@@ -10,10 +10,10 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const activeMovies = reactive({ data: store.trandingMovies, trend: 'day' })
+const activeMovies = reactive({ data: store.trandingMovies, variant: {value: '' } })
 
 const fetchTrends = async (argDay) => {
-	activeMovies.trend = argDay
+	activeMovies.variant.value = argDay
 	await store.fetchTrandingMovies(argDay)
 	activeMovies.data = store.trandingMoviesNow
 }
@@ -30,13 +30,13 @@ onBeforeMount(() => {
 			<!-- Descktop Select -->
 			<div class="item">
 				<h3
-					:class="{ active: activeMovies.trend === 'day' }"
+					:class="{ active: activeMovies.variant.value === 'day' }"
 					@click="() => fetchTrends('day')"
 				>
 					Сьогодні
 				</h3>
 				<h3
-					:class="{ active: activeMovies.trend === 'week' }"
+					:class="{ active: activeMovies.variant.value === 'week' }"
 					@click="() => fetchTrends('week')"
 				>
 					Цього тижня
@@ -44,17 +44,27 @@ onBeforeMount(() => {
 			</div>
 
 			<!-- Mobile Select -->
-			<Dropdown
-				v-model="activeMovies.trend"
+			<VueMultiselect
+				v-model="activeMovies.variant"
 				:options="[
-					{ name: 'Сьогодні', value: 'day' },
-					{ name: 'Цього тижня', value: 'week' },
+					{
+						label: 'Сьогодні',
+						value: 'day',
+					},
+					{
+						label: 'Цього тижня',
+						value: 'week',
+					},
 				]"
-				optionValue="value"
-				optionLabel="name"
-				placeholder="Сьогодні"
-				@change="fetchTrends(activeMovies.trend)"
-				class="mobile"
+				:searchable="false"
+				:hide-selected="true"
+				:close-on-select="true"
+				openDirection="bottom"
+				label="label"
+				track-by="value"
+				@select="fetchTrends(activeMovies.variant.value)"
+				placeholder="Сортувати за"
+				selectLabel=""
 			/>
 		</div>
 

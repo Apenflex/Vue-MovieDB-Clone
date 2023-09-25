@@ -34,16 +34,41 @@
 				color: $lightGreen;
 			}
 		}
-		.mobile {
+		.multiselect {
 			display: none;
 			@include media($mdPlus) {
-				display: flex;
+				display: block;
+			}
+			width: 160px;
+			&__tags {
 				border-radius: 20px;
-				padding: 10px 10px;
 				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
-				color: black;
+				border: none;
+			}
+			&__single {
+				font-size: 18px;
+				text-align: center;
 				font-weight: 600;
-				font-size: 14px;
+			}
+			&__content-wrapper {
+				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
+				border-radius: 0 0 20px 20px;
+				border: none;
+				color: $primary;
+				text-align: center;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			&__option--highlight {
+				background: $primary;
+				&::after {
+					background: $primary;
+				}
+			}
+			&--active {
+				.multiselect__tags {
+					border-radius: 20px 20px 0 0;
+				}
 			}
 		}
 	}
