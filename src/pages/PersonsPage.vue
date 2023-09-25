@@ -31,7 +31,7 @@ onMounted(() => {
 				<h2>Популярні</h2>
 				<div class="items">
 					<ItemCard
-						v-for="person in store.persons.data"
+						v-for="person in store.getPersons"
 						:key="person.id"
 						:person="person"
 						:personCard="true"

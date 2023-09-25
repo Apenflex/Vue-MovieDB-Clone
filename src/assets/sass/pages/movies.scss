@@ -8,7 +8,7 @@
 		gap: 20px;
 		width: 100%;
 		align-items: flex-start;
-		@media (max-width: 768px) {
+		@include media($md) {
 			flex-direction: column;
 		}
 		.filter-panel {
@@ -23,7 +23,7 @@
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			background-color: #fff;
 			overflow: visible;
-			@media (max-width: 768px) {
+			@include media($md) {
 				width: 100%;
 			}
 			.name {
