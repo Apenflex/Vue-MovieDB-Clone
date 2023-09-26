@@ -6,7 +6,7 @@ import MoviesPage from '@/pages/MoviesPage.vue'
 import TvShowsPage from '@/pages/TvShowsPage.vue'
 import PersonsPage from '@/pages/PersonsPage.vue'
 import SearchPage from '@/pages/SearchPage.vue'
-import DetailsPage from '@/pages/DetailsPage.vue'
+import FilmsDescPage from '@/pages/FilmsDescPage.vue'
 import PersonDescPage from '@/pages/PersonDescPage.vue'
 
 const router = createRouter({
@@ -39,8 +39,8 @@ const router = createRouter({
     },
     {
       path: '/:mediaType/:id',
-      name: 'item-details',
-      component: DetailsPage,
+      name: 'media-details',
+      component: FilmsDescPage,
       props: true
     },
     {

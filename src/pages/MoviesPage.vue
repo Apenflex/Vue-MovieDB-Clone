@@ -104,7 +104,7 @@ onBeforeMount(() => {
 					>
 					<RouterLink
 						:to="{
-							name: 'item-details',
+							name: 'media-details',
 							params: { mediaType: 'movie', id: movie.id,},
 						}"
 						v-for="movie in store.getMovies"

@@ -51,3 +51,20 @@ body {
 	width: min(100% - 40px, 1300px);
 	margin-inline: auto;
 }
+.scroll-up-btn {
+	position: fixed;
+	bottom: 30px;
+	right: 25px;
+	width: 40px;
+	height: 40px;
+	font-size: 22px;
+	background: $btnColor;
+	border: none;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: all 1s;
+	z-index: 20;
+}

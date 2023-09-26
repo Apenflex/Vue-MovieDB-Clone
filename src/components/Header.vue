@@ -6,7 +6,6 @@ import IconHeart from '@/components/IconHeart.vue'
 
 const router = useRouter()
 const isMenuOpen = ref(false)
-console.log(router.currentRoute.value.name)
 
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false

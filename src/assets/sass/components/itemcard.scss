@@ -47,22 +47,30 @@
 		position: absolute;
 		top: -20px;
 		left: 10px;
-		width: 34px;
-		height: 34px;
-		background-color: black;
+		width: 41px;
+		height: 41px;
 		border-radius: 50%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		color: $white;
-	}
-	.icon-count {
-		font-size: 16px;
-	}
-	.icon-percentage {
-		padding: 15px 0 2px 0;
-		font-size: 9px;
-		height: 100%;
+		> div {
+			width: 34px;
+			height: 34px;
+			background-color: black;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.icon-count {
+			font-size: 16px;
+		}
+		.icon-percentage {
+			padding: 15px 0 2px 0;
+			font-size: 9px;
+			height: 100%;
+		}
 	}
 	@keyframes heart {
 		0% {

@@ -76,7 +76,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         this.mediaDetails.data = response.data;
-        console.log(this.mediaDetails.data);
+        // console.log(this.mediaDetails.data);
       } catch (error) {
         console.error(error);
       }
@@ -182,7 +182,6 @@ export const moviesStore = defineStore('moviesDB', {
     async setTrailerMovieUrl(movieId) {
       try {
         const response = await securedAxios.get(`/movie/${movieId}/videos`);
-        console.log(response.data.results);
         this.trailerMovies.url.title = this.trailerMovies.data.find((movie) => movie.id === movieId).original_title;
         this.trailerMovies.url.path = response.data.results[0].key;
       } catch (error) {
@@ -190,11 +189,10 @@ export const moviesStore = defineStore('moviesDB', {
       }
     },
     async getMoviePersons({ mediaType, movieId }) {
-      console.log(movieId);
       try {
         const response = await securedAxios.get(`/${mediaType}/${movieId}/credits`);
         this.mediaDetails.persons = response.data.cast;
-        console.log(this.mediaDetails.persons);
+        // console.log(this.mediaDetails.persons);
       } catch (error) {
         console.error(error);
       }

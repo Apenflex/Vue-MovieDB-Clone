@@ -86,7 +86,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
 	heartColor.value = favouriteColor.value
-	store.getMoviePersons({ mediaType: detailsQuery.mediaType, movieId: detailsQuery.id})
+	store.getMoviePersons({ mediaType: detailsQuery.mediaType, movieId: detailsQuery.id })
 })
 </script>
 
@@ -244,12 +244,20 @@ onMounted(() => {
 					v-for="person in store.mediaDetails.persons"
 					:key="person.id"
 				>
-					<!-- <RouterLink :to="{ name: 'item-details', params: { mediaType: 'movie', id: movie.id } }"> -->
-					<ItemCard
-						:person="person"
-						:personCard="true"
-					/>
-					<!-- </RouterLink> -->
+					<RouterLink
+						:to="{
+							name: 'person-details',
+							params: {
+								id: person.id.toString() + '-',
+								name: person.name.split(' ').join('-').toLowerCase(),
+							},
+						}"
+					>
+						<ItemCard
+							:person="person"
+							:personCard="true"
+						/>
+					</RouterLink>
 				</swiper-slide>
 			</swiper>
 		</div>

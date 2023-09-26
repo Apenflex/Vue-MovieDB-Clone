@@ -1,4 +1,4 @@
-.persons {
+.persons-section {
 	padding: 20px 0;
 	.content {
 		h2 {
@@ -7,7 +7,7 @@
 	}
 	.items {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 		grid-gap: 20px;
 	}
 	.pagination {

@@ -31,7 +31,7 @@ onBeforeMount(() => {
 				>
 					<RouterLink
 						:to="{
-							name: 'item-details',
+							name: 'media-details',
 							params: {
 								mediaType: movie.media_type || movie.seasons ? 'tv' : 'movie',
 								id: movie.id,

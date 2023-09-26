@@ -47,6 +47,15 @@
 			&.active {
 				color: $lightBlue;
 			}
+			svg {
+				transition: 0.4s all;
+				&:hover {
+					transform: rotate(15deg);
+				}
+				path:hover {
+					fill: #faa5a5;
+				}
+			}
 		}
 	}
 	.menu-active {

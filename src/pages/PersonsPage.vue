@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
 	<main class="container">
-		<section class="persons">
+		<section class="persons-section">
 			<div class="content">
 				<h2>Популярні</h2>
 				<div class="items">

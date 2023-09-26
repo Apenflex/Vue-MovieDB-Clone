@@ -118,7 +118,7 @@ onBeforeMount(() => {
 					v-for="movie in store.popularMovies"
 					:key="movie.id"
 				>
-					<RouterLink :to="{ name: 'item-details', params: { mediaType: 'movie', id: movie.id } }">
+					<RouterLink :to="{ name: 'media-details', params: { mediaType: 'movie', id: movie.id } }">
 						<ItemCard
 							:movie="movie"
 							type="movie"
