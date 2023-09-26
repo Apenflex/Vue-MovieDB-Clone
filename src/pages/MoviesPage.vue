@@ -18,7 +18,7 @@ const handleFilterSearch = () => {
 const handleLoadMore = async () => {
 	currentPage.value++
 	isLoading.value = true
-	store.fetchMoviesMore({page: currentPage.value, sortBy: filter.sortBy.value})
+	store.fetchMoviesMore({ page: currentPage.value, sortBy: filter.sortBy.value })
 	isLoading.value = false
 }
 
@@ -56,7 +56,6 @@ onBeforeMount(() => {
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
-						<!-- TODO: Default select value -->
 						<VueMultiselect
 							v-model="filter.sortBy"
 							:options="[
@@ -103,13 +102,20 @@ onBeforeMount(() => {
 						name="fade"
 						class="items"
 					>
+					<RouterLink
+						:to="{
+							name: 'item-details',
+							params: { mediaType: 'movie', id: movie.id,},
+						}"
+						v-for="movie in store.getMovies"
+						:key="movie.id"
+					>
 						<ItemCard
-							v-for="movie in store.getMovies"
-							:key="movie.id"
 							:movie="movie"
 							type="movie"
 							:filmCard="true"
 						/>
+					</RouterLink>
 					</TransitionGroup>
 
 					<!-- Pagination Button -->

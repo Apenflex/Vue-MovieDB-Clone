@@ -55,6 +55,14 @@ const personPoster = computed(() => {
 	return '../public/images/no-image.png'
 })
 
+const personKnownFor = computed(() => {
+	if (props.person.known_for) {
+		return props.person.known_for[0].original_title
+	} else {
+		return props.person.character
+	}
+})
+
 const favouriteColor = computed(() => {
 	return favouriteStore.favouriteMovies.find((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
 })
@@ -77,6 +85,7 @@ watch(favouriteStore.getFavouriteMovies, () => {
 
 onMounted(() => {
 	// console.log('mounted')
+	console.log(props.person)
 	if(!props.personCard) {
 		heartColor.value = favouriteColor.value
 	}
@@ -128,7 +137,7 @@ onMounted(() => {
 
 			<div v-if="personCard">
 				<h4>{{ person.name }}</h4>
-				<span>{{ person.known_for[0].original_title || '' }}</span>
+				<span>{{ personKnownFor }}</span>
 			</div>
 		</div>
 	</div>

@@ -56,7 +56,6 @@ onBeforeMount(() => {
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
-						<!-- TODO: Default select value -->
 						<VueMultiselect
 							v-model="filter.sortBy"
 							:options="[
@@ -104,13 +103,20 @@ onBeforeMount(() => {
 						name="fade"
 						class="items"
 					>
-						<ItemCard
+						<RouterLink
+							:to="{
+								name: 'item-details',
+								params: { mediaType: 'tv', id: movie.id },
+							}"
 							v-for="movie in store.getTvShows"
 							:key="movie.id"
-							:movie="movie"
-							type="movie"
-							:tvShowCard="true"
-						/>
+						>
+							<ItemCard
+								:movie="movie"
+								type="movie"
+								:tvShowCard="true"
+							/>
+						</RouterLink>
 					</TransitionGroup>
 					<!-- Pagination Button -->
 					<button

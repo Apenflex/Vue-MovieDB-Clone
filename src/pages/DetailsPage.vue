@@ -1,10 +1,13 @@
 <script setup>
 import { onBeforeMount, onMounted, computed, ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore, useFavouritesStore } from '@/stores/moviesStore'
 import Modal from '@/components/Modal.vue'
 import IconHeart from '@/components/IconHeart.vue'
+import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()
@@ -19,27 +22,27 @@ const detailsQuery = reactive({
 })
 
 const mediaDetailsPoster = computed(() => {
-	return `https://image.tmdb.org/t/p/original/${store.mediaDetails.poster_path}`
+	return `https://image.tmdb.org/t/p/original/${store.mediaDetails.data.poster_path}`
 })
 
 const mediaDetailsRelease = computed(() => {
 	const date =
-		store.mediaDetails.release_date?.split('-').reverse().join('-') ||
-		store.mediaDetails.first_air_date?.split('-').reverse().join('-')
+		store.mediaDetails.data.release_date?.split('-').reverse().join('-') ||
+		store.mediaDetails.data.first_air_date?.split('-').reverse().join('-')
 	return date
 })
 
 const mediaDetailsGenres = computed(() => {
-	return store.mediaDetails.genres?.map((genre) => genre.name).join(', ')
+	return store.mediaDetails.data.genres?.map((genre) => genre.name).join(', ')
 })
 
 const mediaDetailsRuntime = computed(() => {
-	if (!store.mediaDetails.runtime) return ''
-	return `${Math.floor(store.mediaDetails.runtime / 60)}h ${store.mediaDetails.runtime % 60}m`
+	if (!store.mediaDetails.data.runtime) return ''
+	return `${Math.floor(store.mediaDetails.data.runtime / 60)}h ${store.mediaDetails.data.runtime % 60}m`
 })
 
 const favouriteColor = computed(() => {
-	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.id) ? '#ff0000' : '#fff'
+	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.data.id) ? '#ff0000' : '#fff'
 })
 
 const calcVoteColor = (vote) => {
@@ -83,32 +86,34 @@ onBeforeMount(() => {
 
 onMounted(() => {
 	heartColor.value = favouriteColor.value
+	store.getMoviePersons({ mediaType: detailsQuery.mediaType, movieId: detailsQuery.id})
 })
 </script>
 
 <template>
-	<section
-		class="details"
-		:style="{
-			backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 40%), url(https://image.tmdb.org/t/p/original/${store.mediaDetails.poster_path})`,
-			backgroundSize: 'cover',
-			backgroundPosition: 'center',
-		}"
-	>
-		<div class="wrapper">
+	<section class="details">
+		<div
+			class="movie"
+			:style="{
+				backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 40%), url(https://image.tmdb.org/t/p/original/${store.mediaDetails.data.poster_path})`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+			}"
+		>
 			<div class="image">
 				<img
 					:src="mediaDetailsPoster"
-					:alt="store.mediaDetails.title"
+					:alt="store.mediaDetails.data.title"
 				/>
 			</div>
 			<div class="content">
 				<div class="head">
 					<div class="block">
-						<h2>{{ store.mediaDetails.title || store.mediaDetails.name }}</h2>
+						<h2>{{ store.mediaDetails.data.title || store.mediaDetails.data.name }}</h2>
 						<span>
 							({{
-								store.mediaDetails.release_date?.split('-')[0] || store.mediaDetails.first_air_date?.split('-')[0]
+								store.mediaDetails.data.release_date?.split('-')[0] ||
+								store.mediaDetails.data.first_air_date?.split('-')[0]
 							}})
 						</span>
 					</div>
@@ -128,9 +133,9 @@ onMounted(() => {
 					<div class="rating">
 						<div
 							class="icon"
-							:style="calcVoteColor((store.mediaDetails.vote_average * 10).toFixed())"
+							:style="calcVoteColor((store.mediaDetails.data.vote_average * 10).toFixed())"
 						>
-							<span class="icon-count"> {{ (store.mediaDetails.vote_average * 10).toFixed() }}</span>
+							<span class="icon-count"> {{ (store.mediaDetails.data.vote_average * 10).toFixed() }}</span>
 							<span class="icon-percentage"> % </span>
 						</div>
 						<div class="title">Оцінка користувачів</div>
@@ -149,7 +154,7 @@ onMounted(() => {
 						</div>
 						<div class="tooltip">
 							<IconHeart
-								@click.prevent="handleAddFavourite(store.mediaDetails)"
+								@click.prevent="handleAddFavourite(store.mediaDetails.data)"
 								:color="heartColor"
 								:class="['icon-heart', { animate: addedToFavourite }]"
 							/>
@@ -179,7 +184,7 @@ onMounted(() => {
 					</div>
 					<div
 						class="play"
-						@click="handleToggleModal(store.mediaDetails.id)"
+						@click="handleToggleModal(store.mediaDetails.data.id)"
 					>
 						<span>
 							<svg
@@ -197,14 +202,56 @@ onMounted(() => {
 				</div>
 				<div class="info">
 					<h3 class="tagline">
-						{{ store.mediaDetails.tagline }}
+						{{ store.mediaDetails.data.tagline }}
 					</h3>
 					<h3 class="title">Опис</h3>
 					<p class="overview">
-						{{ store.mediaDetails.overview }}
+						{{ store.mediaDetails.data.overview }}
 					</p>
 				</div>
 			</div>
+		</div>
+		<div class="persons">
+			<h2>Акторський склад серіалу</h2>
+			<swiper
+				:slides-per-view="7"
+				:space-between="20"
+				:freeMode="true"
+				:mousewheel="true"
+				:modules="[Mousewheel, FreeMode]"
+				:breakpoints="{
+					320: {
+						slidesPerView: 1,
+					},
+					480: {
+						slidesPerView: 2,
+					},
+					640: {
+						slidesPerView: 3,
+					},
+					768: {
+						slidesPerView: 4,
+					},
+					1024: {
+						slidesPerView: 6,
+					},
+					1280: {
+						slidesPerView: 7,
+					},
+				}"
+			>
+				<swiper-slide
+					v-for="person in store.mediaDetails.persons"
+					:key="person.id"
+				>
+					<!-- <RouterLink :to="{ name: 'item-details', params: { mediaType: 'movie', id: movie.id } }"> -->
+					<ItemCard
+						:person="person"
+						:personCard="true"
+					/>
+					<!-- </RouterLink> -->
+				</swiper-slide>
+			</swiper>
 		</div>
 		<Modal
 			v-if="isModalOpen"

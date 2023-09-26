@@ -1,5 +1,5 @@
 .details {
-	.wrapper {
+	.movie {
 		display: flex;
 		padding: 30px 40px;
 		gap: 40px;
@@ -17,152 +17,163 @@
 				display: none;
 			}
 		}
-	}
-	.content {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		color: #fff;
-		gap: 25px;
-		@include media($md) {
-			align-items: center;
-		}
-		.head {
+		.content {
 			display: flex;
 			flex-direction: column;
-			.block {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				> h2 {
-					font-size: 35px;
-					font-weight: 600;
-				}
-				> span {
-					font-size: 35px;
-					font-weight: 400;
-				}
-			}
-			.facts {
-				display: flex;
-				gap: 10px;
-				@include media($mdPlus) {
-					flex-direction: column;
-					gap: 3px;
-				}
-			}
-		}
-		.actions {
-			display: flex;
-			gap: 10px;
-			align-items: center;
-			justify-content: flex-start;
-			@include media($mdPlus) {
-				flex-direction: column;
-				align-items: flex-start;
-			}
-			.rating {
-				display: flex;
-				align-items: center;
-				gap: 5px;
-				.icon {
-					width: 50px;
-					height: 50px;
-					background-color: black;
-					border-radius: 50%;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					color: white;
-					&-count {
-						font-size: 23px;
-					}
-					&-percentage {
-						padding: 15px 0 2px 0;
-						font-size: 9px;
-						height: 100%;
-					}
-				}
-			}
-			.block {
-				display: flex;
-				gap: 7px;
-				position: relative;
-				&.fixed {
-					@include media($mdPlus) {
-						justify-content: space-around;
-						width: 100%;
-						background-color: $primary;
-						position: fixed;
-						bottom: 0;
-						left: 0;
-						border-radius: 0;
-						z-index: 5;
-						padding: 10px;
-					}
-				}
-				.tooltip {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					background: rgb(3, 37, 65);
-					border-radius: 50%;
-					width: 46px;
-					height: 46px;
-					cursor: pointer;
-					svg {
-						width: 18px;
-						height: 18px;
-						fill: #fff;
-					}
-					.icon-heart {
-						path:hover {
-							fill: rgba(255, 92, 92, 0.5);
-						}
-						&.animate {
-							animation: heart 2.5s ease-in-out 3;
-						}
-					}
-				}
-			}
-			.play {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 5px;
-				cursor: pointer;
-				&:hover {
-					color: rgba(255, 255, 255, 0.5);
-				}
-				> span {
-					display: flex;
-					svg {
-						fill: rgba(255, 255, 255, 1);
-					}
-				}
-			}
-		}
-		.info {
-			display: flex;
-			flex-direction: column;
+			width: 100%;
+			color: #fff;
+			gap: 25px;
 			@include media($md) {
 				align-items: center;
 			}
-			.tagline {
-				font-size: 20px;
-				font-weight: 400;
-				color: rgba(255, 255, 255, 0.6);
-			}
-			.title {
-				font-weight: 500;
-				font-size: 20px;
-				margin: 10px 0;
-			}
-			.overview {
-				@include media($md) {
-					text-align: center;
+			.head {
+				display: flex;
+				flex-direction: column;
+				.block {
+					display: flex;
+					align-items: center;
+					gap: 10px;
+					> h2 {
+						font-size: 35px;
+						font-weight: 600;
+					}
+					> span {
+						font-size: 35px;
+						font-weight: 400;
+					}
+				}
+				.facts {
+					display: flex;
+					gap: 10px;
+					@include media($mdPlus) {
+						flex-direction: column;
+						gap: 3px;
+					}
 				}
 			}
+			.actions {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+				justify-content: flex-start;
+				@include media($mdPlus) {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+				.rating {
+					display: flex;
+					align-items: center;
+					gap: 5px;
+					.icon {
+						width: 50px;
+						height: 50px;
+						background-color: black;
+						border-radius: 50%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						color: white;
+						&-count {
+							font-size: 23px;
+						}
+						&-percentage {
+							padding: 15px 0 2px 0;
+							font-size: 9px;
+							height: 100%;
+						}
+					}
+				}
+				.block {
+					display: flex;
+					gap: 7px;
+					position: relative;
+					&.fixed {
+						@include media($mdPlus) {
+							justify-content: space-around;
+							width: 100%;
+							background-color: $primary;
+							position: fixed;
+							bottom: 0;
+							left: 0;
+							border-radius: 0;
+							z-index: 5;
+							padding: 10px;
+						}
+					}
+					.tooltip {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background: rgb(3, 37, 65);
+						border-radius: 50%;
+						width: 46px;
+						height: 46px;
+						cursor: pointer;
+						svg {
+							width: 18px;
+							height: 18px;
+							fill: #fff;
+						}
+						.icon-heart {
+							path:hover {
+								fill: rgba(255, 92, 92, 0.5);
+							}
+							&.animate {
+								animation: heart 2.5s ease-in-out 3;
+							}
+						}
+					}
+				}
+				.play {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 5px;
+					cursor: pointer;
+					&:hover {
+						color: rgba(255, 255, 255, 0.5);
+					}
+					> span {
+						display: flex;
+						svg {
+							fill: rgba(255, 255, 255, 1);
+						}
+					}
+				}
+			}
+			.info {
+				display: flex;
+				flex-direction: column;
+				@include media($md) {
+					align-items: center;
+				}
+				.tagline {
+					font-size: 20px;
+					font-weight: 400;
+					color: rgba(255, 255, 255, 0.6);
+				}
+				.title {
+					font-weight: 500;
+					font-size: 20px;
+					margin: 10px 0;
+				}
+				.overview {
+					@include media($md) {
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+	.persons {
+		h2 {
+			font-size: 25px;
+			font-weight: 600;
+			margin-bottom: 10px;
+			padding: 0 40px;
+		}
+		.swiper {
+			padding: 10px 3px;
 		}
 	}
 	@keyframes heart {
