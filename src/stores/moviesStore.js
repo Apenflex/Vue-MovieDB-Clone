@@ -73,7 +73,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         this.mediaDetails = response.data;
-        // console.log(this.mediaDetails);
+        console.log(this.mediaDetails);
       } catch (error) {
         console.error(error);
       }
@@ -153,7 +153,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/trending/all/${argDay}`);
         this.trandingMovies = response.data.results;
-        // console.log(this.trandingMovies);
+        // console.log('Trending Movies',this.trandingMovies);
       } catch (error) {
         console.error(error);
       }

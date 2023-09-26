@@ -1,13 +1,17 @@
 <script setup>
-import { onBeforeMount, computed, ref, reactive } from 'vue'
+import { onBeforeMount, onMounted, computed, ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { moviesStore } from '@/stores/moviesStore'
+import { moviesStore, useFavouritesStore } from '@/stores/moviesStore'
 import Modal from '@/components/Modal.vue'
+import IconHeart from '@/components/IconHeart.vue'
 
 const store = moviesStore()
+const favouriteStore = useFavouritesStore()
 const router = useRouter()
 const isModalOpen = ref(false)
+const heartColor = ref('#fff')
+const addedToFavourite = ref(false)
 
 const detailsQuery = reactive({
 	mediaType: router.currentRoute.value.params.mediaType,
@@ -19,7 +23,10 @@ const mediaDetailsPoster = computed(() => {
 })
 
 const mediaDetailsRelease = computed(() => {
-	return store.mediaDetails.release_date?.split('-').reverse().join('-')
+	const date =
+		store.mediaDetails.release_date?.split('-').reverse().join('-') ||
+		store.mediaDetails.first_air_date?.split('-').reverse().join('-')
+	return date
 })
 
 const mediaDetailsGenres = computed(() => {
@@ -27,7 +34,12 @@ const mediaDetailsGenres = computed(() => {
 })
 
 const mediaDetailsRuntime = computed(() => {
+	if (!store.mediaDetails.runtime) return ''
 	return `${Math.floor(store.mediaDetails.runtime / 60)}h ${store.mediaDetails.runtime % 60}m`
+})
+
+const favouriteColor = computed(() => {
+	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.id) ? '#ff0000' : '#fff'
 })
 
 const calcVoteColor = (vote) => {
@@ -43,6 +55,19 @@ const calcVoteColor = (vote) => {
 	}
 }
 
+watch(favouriteStore.getFavouriteMovies, () => {
+	heartColor.value = favouriteColor.value
+})
+
+const handleAddFavourite = (movie) => {
+	console.log('DetailsPage', movie)
+	addedToFavourite.value = true
+	favouriteStore.addFavouriteMovie(movie)
+	setTimeout(() => {
+		addedToFavourite.value = false
+	}, 3000)
+}
+
 const handleToggleModal = (movieId) => {
 	if (isModalOpen.value) {
 		isModalOpen.value = false
@@ -54,6 +79,10 @@ const handleToggleModal = (movieId) => {
 
 onBeforeMount(() => {
 	store.fetchMediaDetails({ mediaType: detailsQuery.mediaType, id: detailsQuery.id })
+})
+
+onMounted(() => {
+	heartColor.value = favouriteColor.value
 })
 </script>
 
@@ -76,8 +105,12 @@ onBeforeMount(() => {
 			<div class="content">
 				<div class="head">
 					<div class="block">
-						<h2>{{ store.mediaDetails.title }}</h2>
-						<span> ({{ store.mediaDetails.release_date?.split('-')[0] }}) </span>
+						<h2>{{ store.mediaDetails.title || store.mediaDetails.name }}</h2>
+						<span>
+							({{
+								store.mediaDetails.release_date?.split('-')[0] || store.mediaDetails.first_air_date?.split('-')[0]
+							}})
+						</span>
 					</div>
 					<div class="facts">
 						<span class="release">
@@ -114,19 +147,12 @@ onBeforeMount(() => {
 								/>
 							</svg>
 						</div>
-						<div
-							class="tooltip"
-							@click="store.addFavouriteMovie(store.mediaDetails)"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								height="1em"
-								viewBox="0 0 512 512"
-							>
-								<path
-									d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
-								/>
-							</svg>
+						<div class="tooltip">
+							<IconHeart
+								@click.prevent="handleAddFavourite(store.mediaDetails)"
+								:color="heartColor"
+								:class="['icon-heart', { animate: addedToFavourite }]"
+							/>
 						</div>
 						<div class="tooltip">
 							<svg

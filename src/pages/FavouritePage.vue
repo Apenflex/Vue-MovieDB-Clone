@@ -21,13 +21,22 @@ onBeforeMount(() => {
 		<section class="favourite">
 			<div class="content">
 				<h2>Улюбленні</h2>
+				<div 
+				v-if="!store.favouriteMovies.length"
+				class="nodata">Ще не має улюблених....</div>
 				<TransitionGroup
 					tag="div"
 					name="fade"
 					class="items"
 				>
 					<RouterLink
-						:to="{ name: 'item-details', params: { mediaType: movie.media_type || movie, id: movie.id } }"
+						:to="{
+							name: 'item-details',
+							params: {
+								mediaType: movie.media_type || movie.seasons ? 'tv' : 'movie',
+								id: movie.id,
+							},
+						}"
 						v-for="movie in store.favouriteMovies"
 						:key="movie.id"
 					>
