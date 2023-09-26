@@ -30,12 +30,22 @@ onMounted(() => {
 			<div class="content">
 				<h2>Популярні</h2>
 				<div class="items">
-					<ItemCard
+					<RouterLink
 						v-for="person in store.getPersons"
 						:key="person.id"
-						:person="person"
-						:personCard="true"
-					/>
+						:to="{
+							name: 'person-details',
+							params: {
+								id: person.id.toString() + '-',
+								name: person.name.split(' ').join('-').toLowerCase(),
+							},
+						}"
+					>
+						<ItemCard
+							:person="person"
+							:personCard="true"
+						/>
+					</RouterLink>
 				</div>
 				<!-- Pagination -->
 				<div class="pagination">

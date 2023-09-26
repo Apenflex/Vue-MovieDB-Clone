@@ -1,9 +1,12 @@
 <script setup>
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import IconHeart from '@/components/IconHeart.vue'
 
+const router = useRouter()
 const isMenuOpen = ref(false)
+console.log(router.currentRoute.value.name)
 
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
@@ -40,18 +43,21 @@ watch(isMenuOpen, (newValue) => {
 					<RouterLink
 						:to="{ name: 'movies', path: '/movies' }"
 						@click="toggleMenu"
+						:class="{ active: router.currentRoute.value.name === 'movies' }"
 					>
 						Movies
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'tv-shows', path: '/tv-shows' }"
 						@click="toggleMenu"
+						:class="{ active: router.currentRoute.value.name === 'tv-shows' }"
 					>
 						TV Shows
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'persons' , query: { page: 1 }}"
 						@click="toggleMenu"
+						:class="{ active: router.currentRoute.value.name === 'persons' }"
 					>
 						Persons
 					</RouterLink>
