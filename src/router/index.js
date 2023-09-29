@@ -7,7 +7,7 @@ import TvShowsPage from '@/pages/TvShowsPage.vue'
 import PersonsPage from '@/pages/PersonsPage.vue'
 import SearchPage from '@/pages/SearchPage.vue'
 import FilmsDescPage from '@/pages/FilmsDescPage.vue'
-import PersonDescPage from '@/pages/PersonDescPage.vue'
+// import PersonDescPage from '@/pages/PersonDescPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,7 +51,8 @@ const router = createRouter({
     {
       path: '/persons/:alias',
       name: 'person-details',
-      component: PersonDescPage,
+      // component: PersonDescPage,
+      component: () => import('@/pages/PersonDescPage.vue'),
     },
   ]
 })
