@@ -6,7 +6,7 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
-const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { value: 'popularAsc' } })
+const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { label: 'Популярні', value: 'popularAsc' } })
 const isLoading = ref(false)
 const currentPage = ref(1)
 
@@ -60,8 +60,12 @@ onBeforeMount(() => {
 							v-model="filter.sortBy"
 							:options="[
 								{
-									label: 'Непопулярні',
+									label: 'Популярні',
 									value: 'popularAsc',
+								},
+								{
+									label: 'Непопулярні',
+									value: 'popularDesc',
 								},
 								{
 									label: 'Рейтинг високий',

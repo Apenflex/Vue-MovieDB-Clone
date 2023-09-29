@@ -73,6 +73,9 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async MoviesSortBy(sortBy) {
       switch (sortBy) {
+        case 'popularDesc':
+          this.movies.sort((a, b) => b.popularity - a.popularity);
+          break;
         case 'popularAsc':
           this.movies.sort((a, b) => a.popularity - b.popularity);
           break;
@@ -99,9 +102,8 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);
-        // console.log(getTrailer.data.results[0].key);
         this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0].key };
-        console.log(this.mediaDetails.data);
+        // console.log(this.mediaDetails.data);
       } catch (error) {
         console.error(error);
       }
@@ -128,6 +130,9 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async TvShowsSortBy(sortBy) {
       switch (sortBy) {
+        case 'popularDesc':
+          this.tvShows.sort((a, b) => b.popularity - a.popularity);
+          break;
         case 'popularAsc':
           this.tvShows.sort((a, b) => a.popularity - b.popularity);
           break;
