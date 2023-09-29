@@ -102,7 +102,7 @@ export const moviesStore = defineStore('moviesDB', {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);
-        this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0].key };
+        this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0]?.key || 'OOkJ54oqt5Q' };
         // console.log(this.mediaDetails.data);
       } catch (error) {
         console.error(error);
@@ -191,13 +191,13 @@ export const moviesStore = defineStore('moviesDB', {
     async getRandomPoster() {
       securedAxios.get(`/movie/popular`)
         .then((response) => {
-          const randomPosters = response.data.results.map((item) => `https://image.tmdb.org/t/p/original${item.backdrop_path}`);
+          const randomPosters = response.data.results.map((item) => `https://image.tmdb.org/t/p/original/${item.backdrop_path}`);
           const randomIndex = Math.floor(Math.random() * randomPosters.length);
           const randomPosterUrl = randomPosters[randomIndex];
           this.randomPosterURL = randomPosterUrl;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         })
     },
     async fetchTrandingMovies(argDay) {
@@ -278,7 +278,7 @@ export const useFavouritesStore = defineStore('favouritesDB', {
     async addFavouriteMovie(movie) {
       if (!this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
         this.favouriteMovies.push(movie);
-        console.log(this.favouriteMovies);
+        // console.log(this.favouriteMovies);
         localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
       }
     },

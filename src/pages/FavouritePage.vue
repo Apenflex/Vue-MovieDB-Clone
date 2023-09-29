@@ -1,18 +1,9 @@
 <script setup>
-// import { onBeforeMount } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = useFavouritesStore()
-
-// onBeforeMount(() => {
-// 	const storedFavouriteMovies = localStorage.getItem('favouriteMovies')
-
-// 	if (storedFavouriteMovies) {
-// 		store.favouriteMovies = JSON.parse(storedFavouriteMovies)
-// 	}
-// })
 </script>
 
 <template>

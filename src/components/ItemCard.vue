@@ -43,14 +43,14 @@ const calcVoteColor = (vote) => {
 
 const moviePoster = computed(() => {
 	if (props.movie.poster_path !== null && props.movie.poster_path !== undefined) {
-		return `https://image.tmdb.org/t/p/w500${props.movie.poster_path}`
+		return `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
 	}
 	return '../public/images/no-image.png'
 })
 
 const personPoster = computed(() => {
 	if (props.person.profile_path !== null && props.person.profile_path !== undefined) {
-		return `https://image.tmdb.org/t/p/w500${props.person.profile_path}`
+		return `https://image.tmdb.org/t/p/w500/${props.person.profile_path}`
 	}
 	return '../public/images/no-image.png'
 })
@@ -133,7 +133,7 @@ onMounted(() => {
 			</div>
 
 			<div v-if="type === 'movie'">
-				<h4>{{ movie.original_title || movie.original_name }}</h4>
+				<h4>{{ movie.original_title || movie.name }}</h4>
 				<span>{{ formatDate }}</span>
 			</div>
 

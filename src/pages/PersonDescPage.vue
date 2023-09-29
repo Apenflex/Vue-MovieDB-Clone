@@ -41,7 +41,7 @@ onMounted(() => {
 						>
 						<!-- :class="{ loaded: isLoaded }" -->
 						<img
-							:src="`https://image.tmdb.org/t/p/w500${store.getPerson.bio.profile_path}`"
+							:src="`https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`"
 							:alt="store.getPerson.bio.name"
 						/>
 					</div>

@@ -30,7 +30,7 @@ const trailerLinks = [
 ]
 
 const changeSectionBackground = (image) => {
-	backgroundImage.value = `https://image.tmdb.org/t/p/original${image}`
+	backgroundImage.value = `https://image.tmdb.org/t/p/original/${image}`
 }
 
 const handleToggleModal = (movieId) => {
@@ -147,7 +147,7 @@ onBeforeMount(() => {
 						@click="handleToggleModal(movie.id)"
 					>
 						<img
-							:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+							:src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
 							:alt="movie.title"
 						/>
 						<svg

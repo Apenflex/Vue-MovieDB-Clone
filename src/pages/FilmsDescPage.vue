@@ -12,6 +12,7 @@ import ItemCard from '@/components/ItemCard.vue'
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()
 const router = useRouter()
+
 const isModalOpen = ref(false)
 const heartColor = ref('#fff')
 const addedToFavourite = ref(false)
@@ -22,7 +23,17 @@ const mediaQuery = reactive({
 })
 
 const mediaDetailsPoster = computed(() => {
-	return `https://image.tmdb.org/t/p/original/${store.mediaDetails.data.poster_path}`
+	const posterPath = store.mediaDetails.data.poster_path
+	return posterPath !== null && posterPath !== undefined
+		? `https://image.tmdb.org/t/p/original/${posterPath}`
+		: '../public/images/no-image.png'
+})
+
+const backgroundImage = computed(() => {
+	const backdropPath = store.mediaDetails.data.backdrop_path
+	return backdropPath !== null && backdropPath !== undefined
+		? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdropPath}`
+		: '../public/images/no-image.png'
 })
 
 const mediaDetailsRelease = computed(() => {
@@ -58,10 +69,6 @@ const calcVoteColor = (vote) => {
 	}
 }
 
-watch(favouriteStore.getFavouriteMovies, () => {
-	heartColor.value = favouriteColor.value
-})
-
 const handleAddFavourite = (movie) => {
 	// console.log('DetailsPage', movie)
 	addedToFavourite.value = true
@@ -71,19 +78,21 @@ const handleAddFavourite = (movie) => {
 	}, 3000)
 }
 
-const handleToggleModal = (movieId) => {
+const handleToggleModal = () => {
 	if (isModalOpen.value) {
 		isModalOpen.value = false
 	} else {
 		isModalOpen.value = true
-		store.setTrailerMovieUrl(movieId)
 	}
 }
+
+watch(favouriteStore.getFavouriteMovies, () => {
+	heartColor.value = favouriteColor.value
+})
 
 onBeforeMount(() => {
 	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id })
 })
-
 onMounted(() => {
 	store.getMoviePersons({ mediaType: mediaQuery.mediaType, movieId: mediaQuery.id })
 })
@@ -97,14 +106,14 @@ onUpdated(() => {
 		<div
 			class="movie"
 			:style="{
-				backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 40%), url(https://image.tmdb.org/t/p/original/${store.mediaDetails.data.poster_path})`,
+				backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 40%), url(${backgroundImage})`,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
 			}"
 		>
 			<div class="image">
 				<img
-					:src="mediaDetailsPoster"
+					:src="mediaDetailsPoster || '../public/images/no-image.png'"
 					:alt="store.mediaDetails.data.title"
 				/>
 			</div>
@@ -112,7 +121,7 @@ onUpdated(() => {
 				<div class="head">
 					<div class="block">
 						<h2>{{ store.mediaDetails.data.title || store.mediaDetails.data.name }}</h2>
-						<span>
+						<span v-if="store.mediaDetails.data.release_date || store.mediaDetails.data.first_air_date">
 							({{
 								store.mediaDetails.data.release_date?.split('-')[0] ||
 								store.mediaDetails.data.first_air_date?.split('-')[0]
@@ -270,7 +279,10 @@ onUpdated(() => {
 		</div>
 		<Modal
 			v-if="isModalOpen"
-			:movie="{ title: store.mediaDetails.data.original_title, path: store.mediaDetails.data.trailer }"
+			:movie="{
+				title: store.mediaDetails.data.original_title || store.mediaDetails.data.name,
+				path: store.mediaDetails.data.trailer,
+			}"
 			@toggle-modal="handleToggleModal()"
 		/>
 	</section>
