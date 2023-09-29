@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, onMounted, computed, ref, reactive, watch } from 'vue'
+import { onBeforeMount, onMounted, computed, ref, reactive, watch, onUpdated } from 'vue'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
@@ -16,7 +16,7 @@ const isModalOpen = ref(false)
 const heartColor = ref('#fff')
 const addedToFavourite = ref(false)
 
-const detailsQuery = reactive({
+const mediaQuery = reactive({
 	mediaType: router.currentRoute.value.params.mediaType,
 	id: router.currentRoute.value.params.id,
 })
@@ -63,7 +63,7 @@ watch(favouriteStore.getFavouriteMovies, () => {
 })
 
 const handleAddFavourite = (movie) => {
-	console.log('DetailsPage', movie)
+	// console.log('DetailsPage', movie)
 	addedToFavourite.value = true
 	favouriteStore.addFavouriteMovie(movie)
 	setTimeout(() => {
@@ -81,12 +81,14 @@ const handleToggleModal = (movieId) => {
 }
 
 onBeforeMount(() => {
-	store.fetchMediaDetails({ mediaType: detailsQuery.mediaType, id: detailsQuery.id })
+	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id })
 })
 
 onMounted(() => {
+	store.getMoviePersons({ mediaType: mediaQuery.mediaType, movieId: mediaQuery.id })
+})
+onUpdated(() => {
 	heartColor.value = favouriteColor.value
-	store.getMoviePersons({ mediaType: detailsQuery.mediaType, movieId: detailsQuery.id })
 })
 </script>
 
@@ -268,7 +270,7 @@ onMounted(() => {
 		</div>
 		<Modal
 			v-if="isModalOpen"
-			:movie="store.trailerMovieUrl"
+			:movie="{ title: store.mediaDetails.data.original_title, path: store.mediaDetails.data.trailer }"
 			@toggle-modal="handleToggleModal()"
 		/>
 	</section>

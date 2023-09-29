@@ -54,7 +54,8 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchMovies() {
       try {
         const response = await securedAxios.get(`/movie/popular`);
-        this.movies = response.data.results;
+        this.movies = this.addMediaType(response.data.results, 'movie');
+        // console.log(this.movies.map((item) => item.media_type));
       } catch (error) {
         console.error(error);
       }
@@ -62,7 +63,9 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchMoviesMore({ page, sortBy }) {
       try {
         const response = await securedAxios.get(`/movie/popular?page=${page}`);
-        this.movies.push(...response.data.results);
+        const newMoviesWithMediaType = this.addMediaType(response.data.results, 'movie');
+        this.movies.push(...newMoviesWithMediaType);
+        // console.log(this.movies.map((item) => item.media_type))
         await this.MoviesSortBy(sortBy);
       } catch (error) {
         console.error(error);
@@ -95,8 +98,10 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchMediaDetails({ mediaType, id }) {
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
-        this.mediaDetails.data = response.data;
-        // console.log(this.mediaDetails.data);
+        const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);
+        // console.log(getTrailer.data.results[0].key);
+        this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0].key };
+        console.log(this.mediaDetails.data);
       } catch (error) {
         console.error(error);
       }
@@ -104,7 +109,8 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchTvShows() {
       try {
         const response = await securedAxios.get(`/tv/popular`);
-        this.tvShows = response.data.results;
+        this.tvShows = this.addMediaType(response.data.results, 'tv');
+        // console.log(this.tvShows.map((item) => item.media_type));
       } catch (error) {
         console.error(error);
       }
@@ -112,7 +118,9 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchTvShowsMore({ page, sortBy }) {
       try {
         const response = await securedAxios.get(`/tv/popular?page=${page}`);
-        this.tvShows.push(...response.data.results);
+        const newTvShowsWithMediaType = this.addMediaType(response.data.results, 'tv');
+        this.tvShows.push(...newTvShowsWithMediaType);
+        // console.log(this.tvShows.map((item) => item.media_type))
         await this.TvShowsSortBy(sortBy);
       } catch (error) {
         console.error(error);
@@ -237,7 +245,7 @@ export const moviesStore = defineStore('moviesDB', {
       items.sort((a, b) => {
         const dateA = new Date(a.release_date || a.first_air_date || zeroDate).getTime();
         const dateB = new Date(b.release_date || b.first_air_date || zeroDate).getTime();
-        
+
         if (dateA === zeroDate) {
           return -1;
         } else if (dateB === zeroDate) {
@@ -247,7 +255,10 @@ export const moviesStore = defineStore('moviesDB', {
         }
       });
       return items;
-    }
+    },
+    addMediaType(moviesData, type) {
+      return moviesData.map(movie => ({ ...movie, media_type: type }));
+    },
   },
 })
 

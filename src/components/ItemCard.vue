@@ -69,6 +69,7 @@ const favouriteColor = computed(() => {
 
 const handleAddFavourite = (movie) => {
 	// console.log('add')
+	// console.log(movie)
 	addedToFavourite.value = true
 	favouriteStore.addFavouriteMovie(movie)
 	setTimeout(() => {

@@ -1,6 +1,5 @@
 <script setup>
-import { onBeforeMount } from 'vue'
-
+// import { onBeforeMount } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
 import ItemCard from '@/components/ItemCard.vue'
@@ -38,7 +37,7 @@ const store = useFavouritesStore()
 						:to="{
 							name: 'media-details',
 							params: {
-								mediaType: movie.media_type || movie.seasons ? 'tv' : 'movie',
+								mediaType: movie.media_type,
 								id: movie.id,
 							},
 						}"
