@@ -32,12 +32,11 @@ onMounted(() => {
 				<div class="items">
 					<RouterLink
 						v-for="person in store.getPersons"
-						:key="person.id"
+						:key="person.name"
 						:to="{
 							name: 'person-details',
 							params: {
-								id: person.id.toString() + '-',
-								name: person.name.split(' ').join('-').toLowerCase(),
+								alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}`,
 							},
 						}"
 					>

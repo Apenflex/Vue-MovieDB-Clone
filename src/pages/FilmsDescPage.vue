@@ -48,11 +48,11 @@ const favouriteColor = computed(() => {
 const calcVoteColor = (vote) => {
 	switch (true) {
 		case vote >= 70:
-			return { border: '5px solid green' }
+			return { background: `conic-gradient(from 0deg, green 0% ${vote}%, black 10% 100%)` }
 		case vote >= 50:
-			return { border: '5px solid orange' }
+			return { background: `conic-gradient(from 0deg, orange 0% ${vote}%, black 10% 100%)` }
 		case vote >= 0:
-			return { border: '5px solid red' }
+			return { background: `conic-gradient(from 0deg, red 0% ${vote}%, black 10% 100%)` }
 		default:
 			return { color: '#fff' }
 	}
@@ -135,8 +135,10 @@ onMounted(() => {
 							class="icon"
 							:style="calcVoteColor((store.mediaDetails.data.vote_average * 10).toFixed())"
 						>
-							<span class="icon-count"> {{ (store.mediaDetails.data.vote_average * 10).toFixed() }}</span>
-							<span class="icon-percentage"> % </span>
+							<div>
+								<span class="icon-count"> {{ (store.mediaDetails.data.vote_average * 10).toFixed() }}</span>
+								<span class="icon-percentage"> % </span>
+							</div>
 						</div>
 						<div class="title">Оцінка користувачів</div>
 					</div>
@@ -247,9 +249,12 @@ onMounted(() => {
 					<RouterLink
 						:to="{
 							name: 'person-details',
+							// params: {
+							// 	id: person.id.toString() + '-',
+							// 	name: person.name.split(' ').join('-').toLowerCase(),
+							// },
 							params: {
-								id: person.id.toString() + '-',
-								name: person.name.split(' ').join('-').toLowerCase(),
+								alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}`,
 							},
 						}"
 					>

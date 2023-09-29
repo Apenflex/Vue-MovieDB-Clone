@@ -49,7 +49,7 @@ const router = createRouter({
       component: PersonsPage
     },
     {
-      path: '/persons/:id:name',
+      path: '/persons/:alias',
       name: 'person-details',
       component: PersonDescPage,
     },

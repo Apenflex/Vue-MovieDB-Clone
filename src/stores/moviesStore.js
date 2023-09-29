@@ -8,6 +8,13 @@ export const moviesStore = defineStore('moviesDB', {
     persons: {
       data: [],
       totalPages: 0,
+      person: {
+        bio: [],
+        movies: {
+          cast: [],
+          crew: [],
+        },
+      }
     },
     mediaDetails: {
       data: [],
@@ -18,7 +25,7 @@ export const moviesStore = defineStore('moviesDB', {
     popularMovies: [],
     trailerMovies: {
       data: [],
-      url: { title: '', path: ''}
+      url: { title: '', path: '' }
     },
     searchMovies: {
       data: [],
@@ -26,9 +33,22 @@ export const moviesStore = defineStore('moviesDB', {
     },
   }),
   getters: {
+    // Movies
     getMovies: state => state.movies,
+    // TV Shows
     getTvShows: state => state.tvShows,
+    // Persons
     getPersons: state => state.persons.data,
+    // Person Details
+    getPerson: state => state.persons.person,
+    getPersonCast: state => state.persons.person.movies.cast,
+    // Режисер
+    getPersonCamera: state => state.persons.person.movies.crew.filter((item) => item.department === 'Camera'),
+    getPersonCrew: state => state.persons.person.movies.crew.filter((item) => item.department === 'Crew'),
+    getPersonDirector: state => state.persons.person.movies.crew.filter((item) => item.department === 'Directing'),
+    getPersonEditing: state => state.persons.person.movies.crew.filter((item) => item.department === 'Editing'),
+    getPersonProducer: state => state.persons.person.movies.crew.filter((item) => item.department === 'Production'),
+    getPersonWriter: state => state.persons.person.movies.crew.filter((item) => item.department === 'Writing'),
   },
   actions: {
     async fetchMovies() {
@@ -131,6 +151,21 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
+    async fetchPerson(id) {
+      try {
+        const responseBio = await securedAxios.get(`/person/${id}`);
+        this.persons.person.bio = responseBio.data;
+        // console.log(this.persons.person.bio);
+        const responseMovies = await securedAxios.get(`/person/${id}/movie_credits`);
+        const responseTvShows = await securedAxios.get(`/person/${id}/tv_credits`);
+        this.persons.person.movies.cast = this.sortByReleaseDate([...responseMovies.data.cast, ...responseTvShows.data.cast]);
+        this.persons.person.movies.crew = this.sortByReleaseDate(responseMovies.data.crew);
+
+        // console.log(this.persons.person.movies.cast);
+        // console.log(this.persons.person.movies.cast.map((item) => item.release_date || item.first_air_date));
+
+      } catch (error) { console.error(error); }
+    },
     async fetchSearch({ query, page }) {
       try {
         const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
@@ -197,6 +232,22 @@ export const moviesStore = defineStore('moviesDB', {
         console.error(error);
       }
     },
+    sortByReleaseDate(items) {
+      const zeroDate = new Date('1970-01-01').getTime();
+      items.sort((a, b) => {
+        const dateA = new Date(a.release_date || a.first_air_date || zeroDate).getTime();
+        const dateB = new Date(b.release_date || b.first_air_date || zeroDate).getTime();
+        
+        if (dateA === zeroDate) {
+          return -1;
+        } else if (dateB === zeroDate) {
+          return 1;
+        } else {
+          return dateB - dateA;
+        }
+      });
+      return items;
+    }
   },
 })
 

@@ -7,13 +7,13 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = useFavouritesStore()
 
-onBeforeMount(() => {
-	const storedFavouriteMovies = localStorage.getItem('favouriteMovies')
+// onBeforeMount(() => {
+// 	const storedFavouriteMovies = localStorage.getItem('favouriteMovies')
 
-	if (storedFavouriteMovies) {
-		store.favouriteMovies = JSON.parse(storedFavouriteMovies)
-	}
-})
+// 	if (storedFavouriteMovies) {
+// 		store.favouriteMovies = JSON.parse(storedFavouriteMovies)
+// 	}
+// })
 </script>
 
 <template>
@@ -21,15 +21,20 @@ onBeforeMount(() => {
 		<section class="favourite">
 			<div class="content">
 				<h2>Улюбленні</h2>
-				<div 
-				v-if="!store.favouriteMovies.length"
-				class="nodata">Ще не має улюблених....</div>
+				<div
+					v-if="!store.favouriteMovies.length"
+					class="nodata"
+				>
+					Ще не має улюблених....
+				</div>
 				<TransitionGroup
 					tag="div"
 					name="fade"
 					class="items"
 				>
 					<RouterLink
+						v-for="movie in store.favouriteMovies"
+						:key="movie.id"
 						:to="{
 							name: 'media-details',
 							params: {
@@ -37,8 +42,6 @@ onBeforeMount(() => {
 								id: movie.id,
 							},
 						}"
-						v-for="movie in store.favouriteMovies"
-						:key="movie.id"
 					>
 						<ItemCard
 							:movie="movie"
