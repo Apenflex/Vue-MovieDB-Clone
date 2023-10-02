@@ -48,12 +48,19 @@ onMounted(() => {
 			/>
 			<div class="content">
 				<div class="items">
-					<ItemCard
+					<RouterLink
+						:to="{
+							name: 'media-details',
+							params: { mediaType: movie.media_type, id: movie.id },
+						}"
 						v-for="movie in store.searchMovies.data"
 						:key="movie.id"
-						:movie="movie"
-						type="movie"
-					/>
+					>
+						<ItemCard
+							:movie="movie"
+							type="movie"
+						/>
+					</RouterLink>
 				</div>
 				<!-- Pagination -->
 				<div class="pagination">
@@ -68,7 +75,10 @@ onMounted(() => {
 					<button
 						@click="handleChangePage('next')"
 						:disabled="isLoading || store.searchMovies.totalPages === searchQuery.page"
-						:class="['paginationBtn', { disabled: isLoading || store.searchMovies.totalPages === searchQuery.page }]"
+						:class="[
+							'paginationBtn',
+							{ disabled: isLoading || store.searchMovies.totalPages === searchQuery.page },
+						]"
 					>
 						Next
 					</button>

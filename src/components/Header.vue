@@ -1,18 +1,24 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { useScroll } from '@vueuse/core'
+import { useWindowScroll } from '@vueuse/core'
 
 import IconHeart from '@/components/IconHeart.vue'
 
 const router = useRouter()
 const isMenuOpen = ref(false)
 
-const header = ref < HTMLElement | null > (null)
+const header = ref()
+const { y } = useWindowScroll(header)
 
-const { x, y, isScrolling, arrivedState, directions } = useScroll(header)
-
-
+watch(y, (newValue, oldValue) => {
+	console.log(newValue, oldValue)
+	if (newValue > 60 && newValue > oldValue) {
+		header.value.classList.remove('header--show')
+	} else {
+		header.value.classList.add('header--show')
+	}
+})
 
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
@@ -23,7 +29,10 @@ watch(isMenuOpen, (newValue) => {
 </script>
 
 <template>
-	<header ref="header" class="header">
+	<header
+		ref="header"
+		class="header header--show"
+	>
 		<div class="container">
 			<div class="header__wrapper">
 				<div
@@ -50,21 +59,21 @@ watch(isMenuOpen, (newValue) => {
 					<RouterLink
 						:to="{ name: 'movies', path: '/movies' }"
 						@click="toggleMenu"
-						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'movies' }]"
+						:class="['header__nav-item', { active: router.currentRoute.value.name === 'movies' }]"
 					>
 						Movies
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'tv-shows', path: '/tv-shows' }"
 						@click="toggleMenu"
-						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'tv-shows' }]"
+						:class="['header__nav-item', { active: router.currentRoute.value.name === 'tv-shows' }]"
 					>
 						TV Shows
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'persons' , query: { page: 1 }}"
+						:to="{ name: 'persons', query: { page: 1 } }"
 						@click="toggleMenu"
-						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'persons' }]"
+						:class="['header__nav-item', { active: router.currentRoute.value.name === 'persons' }]"
 					>
 						Persons
 					</RouterLink>

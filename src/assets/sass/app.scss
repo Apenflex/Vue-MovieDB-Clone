@@ -52,6 +52,10 @@ body {
 	font-family: 'Source Sans 3', sans-serif;
 }
 
+main {
+	padding-top: 64px;
+}
+
 .container {
 	width: min(100% - 40px, 1300px);
 	margin-inline: auto;
