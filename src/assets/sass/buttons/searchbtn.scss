@@ -1,0 +1,13 @@
+.searchBtn {
+	cursor: pointer;
+	height: 100%;
+	padding: 10px 26px;
+	border: 0;
+	background: $btnColor;
+	border-radius: 30px;
+	position: absolute;
+	top: 0;
+	right: -1px;
+	color: #fff;
+	font-size: 16px;
+}

@@ -1,11 +1,18 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { useScroll } from '@vueuse/core'
 
 import IconHeart from '@/components/IconHeart.vue'
 
 const router = useRouter()
 const isMenuOpen = ref(false)
+
+const header = ref < HTMLElement | null > (null)
+
+const { x, y, isScrolling, arrivedState, directions } = useScroll(header)
+
+
 
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
@@ -16,11 +23,11 @@ watch(isMenuOpen, (newValue) => {
 </script>
 
 <template>
-	<header class="header">
+	<header ref="header" class="header">
 		<div class="container">
-			<div class="wrapper">
+			<div class="header__wrapper">
 				<div
-					:class="['logo', { logo__mobile: isMenuOpen }]"
+					:class="['header__logo', { 'header__logo--mobile': isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
 				>
 					<RouterLink to="/">
@@ -32,31 +39,32 @@ watch(isMenuOpen, (newValue) => {
 				</div>
 
 				<!-- Desktop Menu -->
-				<nav :class="{ 'menu-active': isMenuOpen }">
+				<nav :class="['header__nav', { 'menu-active': isMenuOpen }]">
 					<RouterLink
 						:to="{ name: 'favourite', path: '/favourite' }"
 						@click="toggleMenu"
+						class="header__nav-item"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'movies', path: '/movies' }"
 						@click="toggleMenu"
-						:class="{ active: router.currentRoute.value.name === 'movies' }"
+						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'movies' }]"
 					>
 						Movies
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'tv-shows', path: '/tv-shows' }"
 						@click="toggleMenu"
-						:class="{ active: router.currentRoute.value.name === 'tv-shows' }"
+						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'tv-shows' }]"
 					>
 						TV Shows
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'persons' , query: { page: 1 }}"
 						@click="toggleMenu"
-						:class="{ active: router.currentRoute.value.name === 'persons' }"
+						:class="['header__nav-item',{ active: router.currentRoute.value.name === 'persons' }]"
 					>
 						Persons
 					</RouterLink>

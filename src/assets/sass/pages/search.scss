@@ -1,62 +1,18 @@
 .search {
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  &-form {
-		display: flex;
-		align-items: center;
-		position: relative;
-		input {
-			border-radius: 50px;
-			border: 1px solid #ccc;
-			outline: none;
-			font-size: 18px;
-			width: 100%;
-			height: 45px;
-			padding: 0 20px;
-		}
-		button {
-			cursor: pointer;
-			height: 46px;
-			padding: 10px 26px;
-			border: 1px solid transparent;
-			background: linear-gradient(to right, rgba(30, 213, 169, 1) 0%, rgba(1, 180, 228, 1) 100%);
-			border-radius: 30px;
-			position: absolute;
-			top: 0;
-			right: -1px;
-			color: #fff;
-			font-size: 16px;
-		}
+	padding: 20px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	.items {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		grid-gap: 20px;
 	}
-  .items {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    grid-gap: 20px;
-  }
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
-    .btn {
-      padding: 6px 10px;
-      border-radius: 5px;
-      background-color: rgb(3, 37, 65);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-      color: #fff;
-      &:hover {
-        background-color: rgb(4, 49, 78);
-        box-shadow: 0 0 5px rgb(6, 97, 158);
-      }
-      &.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-  }
+	.pagination {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20px;
+		gap: 10px;
+	}
 }

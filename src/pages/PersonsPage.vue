@@ -51,7 +51,7 @@ onMounted(() => {
 					<button
 						@click="handleChangePage('prev')"
 						:disabled="isLoading || currentPage.valueOf() === 1"
-						:class="{ disabled: currentPage === 1 || isLoading }"
+						:class="['paginationBtn',{ disabled: currentPage === 1 || isLoading }]"
 					>
 						Prev
 					</button>
@@ -59,7 +59,7 @@ onMounted(() => {
 					<button
 						@click="handleChangePage('next')"
 						:disabled="isLoading || store.persons.totalPages === currentPage.valueOf()"
-						:class="{ disabled: isLoading || store.persons.totalPages === currentPage.valueOf() }"
+						:class="['paginationBtn',{ disabled: isLoading || store.persons.totalPages === currentPage.valueOf() }]"
 					>
 						Next
 					</button>

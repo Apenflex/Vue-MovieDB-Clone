@@ -173,7 +173,7 @@ export const moviesStore = defineStore('moviesDB', {
         const responseTvShows = await securedAxios.get(`/person/${id}/tv_credits`);
         const getPersonExternalIds = await securedAxios.get(`/person/${id}/external_ids`);
         this.persons.person.bio = responseBio.data;
-        console.log(this.persons.person.bio);
+        // console.log(this.persons.person.bio);
         this.persons.person.movies.cast = this.sortByReleaseDate([...responseMovies.data.cast, ...responseTvShows.data.cast]);
         this.persons.person.movies.crew = this.sortByReleaseDate(responseMovies.data.crew);
         this.persons.person.externalIds = getPersonExternalIds.data;

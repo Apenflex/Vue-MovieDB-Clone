@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
 @import './variables.scss';
 @import './mixins.scss';
+@import './animations.scss';
+@import './buttons/searchbtn.scss';
+@import './buttons/paginationbtn.scss';
+@import './components/formsearch.scss';
 @import './header.scss';
 @import './footer.scss';
 @import './multiselect.scss';
@@ -52,10 +56,11 @@ body {
 	width: min(100% - 40px, 1300px);
 	margin-inline: auto;
 }
+
 .scroll-up-btn {
 	position: fixed;
-	bottom: 30px;
-	right: 25px;
+	bottom: 65px;
+	right: 20px;
 	width: 40px;
 	height: 40px;
 	font-size: 22px;

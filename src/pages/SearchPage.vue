@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router'
 import ItemCard from '@/components/ItemCard.vue'
 import { moviesStore } from '@/stores/moviesStore'
 
+import SearchForm from '@/components/form/SearchForm.vue'
+
 const store = moviesStore()
 const router = useRouter()
 
@@ -39,21 +41,11 @@ onMounted(() => {
 <template>
 	<main class="container">
 		<section class="search">
-			<!-- <h2>Популярні</h2> -->
-			<form class="search-form">
-				<input
-					type="text"
-					placeholder="Пошук фільму, серіалу, персони..."
-					v-model="searchQuery.query"
-				/>
-				<button
-					type="submit"
-					@click.prevent="handleSearch"
-					:disabled="isLoading"
-				>
-					Search
-				</button>
-			</form>
+			<SearchForm
+				:searchQuery="searchQuery"
+				:isLoading="isLoading"
+				@submit="handleSearch"
+			/>
 			<div class="content">
 				<div class="items">
 					<ItemCard
@@ -68,7 +60,7 @@ onMounted(() => {
 					<button
 						@click="handleChangePage('prev')"
 						:disabled="isLoading || searchQuery.page === 1"
-						:class="['btn', { disabled: isLoading || searchQuery.page === 1 }]"
+						:class="['paginationBtn', { disabled: isLoading || searchQuery.page === 1 }]"
 					>
 						Prev
 					</button>
@@ -76,7 +68,7 @@ onMounted(() => {
 					<button
 						@click="handleChangePage('next')"
 						:disabled="isLoading || store.searchMovies.totalPages === searchQuery.page"
-						:class="['btn', { disabled: isLoading || store.searchMovies.totalPages === searchQuery.page }]"
+						:class="['paginationBtn', { disabled: isLoading || store.searchMovies.totalPages === searchQuery.page }]"
 					>
 						Next
 					</button>

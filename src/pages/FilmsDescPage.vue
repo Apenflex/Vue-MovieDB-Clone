@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
+import { calcVoteColor } from '@/helpers/calcVoteColor'
 import { moviesStore, useFavouritesStore } from '@/stores/moviesStore'
 import Modal from '@/components/Modal.vue'
 import IconHeart from '@/components/IconHeart.vue'
@@ -56,19 +57,6 @@ const favouriteColor = computed(() => {
 	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.data.id) ? '#ff0000' : '#fff'
 })
 
-const calcVoteColor = (vote) => {
-	switch (true) {
-		case vote >= 70:
-			return { background: `conic-gradient(from 0deg, green 0% ${vote}%, black 10% 100%)` }
-		case vote >= 50:
-			return { background: `conic-gradient(from 0deg, orange 0% ${vote}%, black 10% 100%)` }
-		case vote >= 0:
-			return { background: `conic-gradient(from 0deg, red 0% ${vote}%, black 10% 100%)` }
-		default:
-			return { color: '#fff' }
-	}
-}
-
 const handleAddFavourite = (movie) => {
 	// console.log('DetailsPage', movie)
 	addedToFavourite.value = true
@@ -78,13 +66,7 @@ const handleAddFavourite = (movie) => {
 	}, 3000)
 }
 
-const handleToggleModal = () => {
-	if (isModalOpen.value) {
-		isModalOpen.value = false
-	} else {
-		isModalOpen.value = true
-	}
-}
+const handleToggleModal = () => isModalOpen.value = !isModalOpen.value;
 
 watch(favouriteStore.getFavouriteMovies, () => {
 	heartColor.value = favouriteColor.value

@@ -1,0 +1,15 @@
+.search__form {
+	display: flex;
+	align-items: center;
+	position: relative;
+	input {
+		border-radius: 50px;
+		border: none;
+		border: 1px solid #ccc;
+		outline: none;
+		font-size: 18px;
+		width: 100%;
+		height: 46px;
+		padding: 0 20px;
+	}
+}

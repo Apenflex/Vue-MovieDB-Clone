@@ -14,6 +14,32 @@ const personId = ref(null)
 const showMoreBio = ref(false)
 // const isLoaded = ref(true)
 
+const personPoster = computed(() => {
+	return `https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`
+})
+
+const personWorks = computed(() => {
+	return store.getPersonCast.length
+})
+
+const personGender = computed(() => {
+	return store.getPerson.bio.gender === 1 ? 'Жіноча' : 'Чоловіча'
+})
+
+const personBirthday = computed(() => {
+	return store.getPerson.bio.birthday ? store.getPerson.bio.birthday : 'Відсутній'
+})
+
+const personFullYears = computed(() => {
+	return store.getPerson.bio.birthday
+		? `(${new Date().getFullYear() - new Date(store.getPerson.bio.birthday).getFullYear()})`
+		: ''
+})
+
+const personBirthPlace = computed(() => {
+	return store.getPerson.bio.place_of_birth ? store.getPerson.bio.place_of_birth : 'Відсутнє'
+})
+
 const personBiography = computed(() => {
 	const biography = store.getPerson.bio.biography
 	return showMoreBio.value ? biography : biography.slice(0, 1200) + '...'
@@ -38,7 +64,7 @@ onMounted(() => {
 				<div class="block">
 					<div class="image">
 						<img
-							:src="`https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`"
+							:src="personPoster"
 							:alt="store.getPerson.bio.name"
 						/>
 					</div>
@@ -103,27 +129,23 @@ onMounted(() => {
 							</div>
 							<div class="head">
 								Кількість робіт
-								<span> {{ store.getPersonCast.length }} </span>
+								<span> {{ personWorks }} </span>
 							</div>
 							<div class="head">
 								Стать
-								<span>{{ store.getPerson.bio.gender === 1 ? 'Жіноча' : 'Чоловіча' }}</span>
+								<span>{{ personGender }}</span>
 							</div>
 							<div class="head">
 								День народження
 								<span>
-									{{ store.getPerson.bio.birthday ? store.getPerson.bio.birthday : 'Відсутній' }}
-									{{
-										store.getPerson.bio.birthday
-											? `(${new Date().getFullYear() - new Date(store.getPerson.bio.birthday).getFullYear()})`
-											: ''
-									}}
+									{{ personBirthday }}
+									{{ personFullYears }}
 								</span>
 							</div>
 							<div class="head">
 								Місце народження
 								<span>
-									{{ store.getPerson.bio.place_of_birth ? store.getPerson.bio.place_of_birth : 'Відсутнє' }}
+									{{ personBirthPlace }}
 								</span>
 							</div>
 							<div class="head know_how">

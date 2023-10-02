@@ -16,22 +16,5 @@
 		align-items: center;
 		margin-top: 20px;
 		gap: 10px;
-		button {
-			padding: 6px 10px;
-			border-radius: 5px;
-			background-color: $primary;
-			border: none;
-			cursor: pointer;
-			transition: all 0.3s ease-in-out;
-			color: #fff;
-			&:hover {
-				background-color: $primary;
-				box-shadow: 0 0 5px $primary;
-			}
-			&.disabled {
-				opacity: 0.5;
-				cursor: not-allowed;
-			}
-		}
 	}
 }

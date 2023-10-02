@@ -2,6 +2,7 @@
 import { computed, watch, ref, onMounted } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
+import { calcVoteColor } from '@/helpers/calcVoteColor'
 import IconHeart from './IconHeart.vue'
 import IconTrash from './IconTrash.vue'
 
@@ -27,19 +28,6 @@ const formatDate = computed(() => {
 	}
 	return ''
 })
-
-const calcVoteColor = (vote) => {
-	switch (true) {
-		case vote >= 70:
-			return { background: `conic-gradient(from 0deg, green 0% ${vote}%, black 10% 100%)` }
-		case vote >= 50:
-			return { background: `conic-gradient(from 0deg, orange 0% ${vote}%, black 10% 100%)` }
-		case vote >= 0:
-			return { background: `conic-gradient(from 0deg, red 0% ${vote}%, black 10% 100%)` }
-		default:
-			return { color: '#fff' }
-	}
-}
 
 const moviePoster = computed(() => {
 	if (props.movie.poster_path !== null && props.movie.poster_path !== undefined) {
