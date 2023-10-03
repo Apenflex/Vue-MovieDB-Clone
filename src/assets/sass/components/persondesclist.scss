@@ -1,0 +1,41 @@
+.list {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	> div {
+		display: flex;
+		padding: 5px 0;
+		width: 100%;
+		border-bottom: 1px solid rgba(lightgray, 0.9);
+		.year {
+			width: 50px;
+			font-weight: 400;
+			vertical-align: top;
+			text-align: center;
+			padding: 8px 16px;
+		}
+		.separator {
+			font-size: 12px;
+			padding: 13px 0;
+			svg:hover {
+				cursor: pointer;
+				fill: $lightBlue;
+			}
+		}
+		> div {
+			display: flex;
+			flex-direction: column;
+			padding: 8px 16px;
+			a {
+				&:hover {
+					cursor: pointer;
+					color: $lightBlue;
+				}
+			}
+			span {
+				padding-left: 14px;
+			}
+		}
+	}
+}

@@ -7,7 +7,7 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const popularMovies = reactive({ data: store.trandingMovies, variant: {label: 'Наживо', value: '' } })
+const popularMovies = reactive({ data: store.trandingMovies, variant: { label: 'Наживо', value: '' } })
 const popularLinks = [
 	{
 		title: 'Наживо',
@@ -40,10 +40,10 @@ onBeforeMount(() => {
 
 <template>
 	<section class="popular container">
-		<div class="tabs">
+		<div class="popular__wrapper">
 			<h2>Що популярне</h2>
 			<!-- Desktop Select -->
-			<div class="item">
+			<div class="popular__tab">
 				<h3
 					v-for="link of popularLinks"
 					:key="link.title"

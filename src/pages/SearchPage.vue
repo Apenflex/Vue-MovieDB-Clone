@@ -46,8 +46,8 @@ onMounted(() => {
 				:isLoading="isLoading"
 				@submit="handleSearch"
 			/>
-			<div class="content">
-				<div class="items">
+			<div class="search__content">
+				<div class="search__content-items">
 					<RouterLink
 						:to="{
 							name: 'media-details',
@@ -63,7 +63,7 @@ onMounted(() => {
 					</RouterLink>
 				</div>
 				<!-- Pagination -->
-				<div class="pagination">
+				<div class="search__content-pagination">
 					<button
 						@click="handleChangePage('prev')"
 						:disabled="isLoading || searchQuery.page === 1"

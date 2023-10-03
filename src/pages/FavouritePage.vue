@@ -9,18 +9,18 @@ const store = useFavouritesStore()
 <template>
 	<main class="container">
 		<section class="favourite">
-			<div class="content">
+			<div class="favourite__content">
 				<h2>Улюбленні</h2>
 				<div
 					v-if="!store.favouriteMovies.length"
-					class="nodata"
+					class="favourite__content-empty"
 				>
 					Ще не має улюблених....
 				</div>
 				<TransitionGroup
 					tag="div"
 					name="fade"
-					class="items"
+					class="favourite__items"
 				>
 					<RouterLink
 						v-for="movie in store.favouriteMovies"

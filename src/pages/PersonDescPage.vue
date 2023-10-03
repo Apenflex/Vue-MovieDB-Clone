@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 // import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore } from '@/stores/moviesStore'
-import PersonMovieTable from '@/components/PersonMovieTable.vue'
+import PersonDescList from '@/components/PersonDescList.vue'
 
 const store = moviesStore()
 const router = useRouter()
@@ -58,21 +58,21 @@ onMounted(() => {
 
 <template>
 	<main class="container">
-		<section class="personbio">
-			<div class="wrapper">
+		<section class="persondesc">
+			<div class="persondesc__wrapper">
 				<!-- Bio -->
-				<div class="bio">
+				<div class="persondesc__bio">
 					<div class="block">
-						<div class="image">
+						<div class="block__image">
 							<img
 								:src="personPoster"
 								:alt="store.getPerson.bio.name"
 							/>
 						</div>
 						<!-- Mobile Tiile -->
-						<h2 class="title">{{ store.getPerson.bio.name }}</h2>
-						<div class="desc">
-							<div class="social-icons">
+						<h2 class="block__title">{{ store.getPerson.bio.name }}</h2>
+						<div class="block__info">
+							<div class="block__info-icons">
 								<a
 									v-if="store.getPerson.externalIds.facebook_id"
 									:href="`https://www.facebook.com/${store.getPerson.externalIds.facebook_id}`"
@@ -123,7 +123,7 @@ onMounted(() => {
 								</a>
 							</div>
 							<h3>Особиста інформація</h3>
-							<div class="info">
+							<div class="block__info-desc">
 								<div class="head">
 									Відомий (-а) за
 									<span>{{ store.getPerson.bio.known_for_department }}</span>
@@ -164,13 +164,13 @@ onMounted(() => {
 				</div>
 
 				<!-- Content -->
-				<div class="content">
-					<h2 class="title">{{ store.getPerson.bio.name }}</h2>
-					<div class="biography">
+				<div class="persondesc__content">
+					<h2 class="persondesc__content-title">{{ store.getPerson.bio.name }}</h2>
+					<div class="persondesc__content-textblock">
 						<h3>Біографія</h3>
 						<p
 							v-if="store.getPerson.bio.biography"
-							class="bio-text"
+							class="text"
 							:class="{ expanded: showMoreBio }"
 						>
 							{{ personBiography }}
@@ -182,38 +182,38 @@ onMounted(() => {
 					</div>
 
 					<!-- Slider -->
-					<div class="known_for">
+					<div class="persondesc__content-knownFor">
 						<h3>Відомий (-а) за</h3>
 						<div>Slider</div>
 					</div>
 
 					<!-- Film Table -->
-					<div class="credits_list">
-						<PersonMovieTable
+					<div class="persondesc__content-list">
+						<PersonDescList
 							:getPersonData="store.getPersonDirector"
 							title="Режисура"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonCast"
 							title="Акторська гра"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonCamera"
 							title="Операторська робота"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonCrew"
 							title="Команда"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonEditing"
 							title="Сценарій"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonProducer"
 							title="Виробництво"
 						/>
-						<PersonMovieTable
+						<PersonDescList
 							:getPersonData="store.getPersonWriter"
 							title="Монтаж"
 						/>

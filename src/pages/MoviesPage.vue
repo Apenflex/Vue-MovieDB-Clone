@@ -31,11 +31,11 @@ onBeforeMount(() => {
 	<main class="container">
 		<section class="movies">
 			<h1>Популярні фільми</h1>
-			<div class="content">
+			<div class="movies__wrapper">
 				<!-- Filters -->
-				<div class="filter-panel">
+				<div class="movies__filter">
 					<div
-						class="name"
+						class="block-title"
 						@click="filter.panelOpen = !filter.panelOpen"
 					>
 						<h2>Сортування</h2>
@@ -52,7 +52,7 @@ onBeforeMount(() => {
 					</div>
 					<!-- Filter Panel -->
 					<div
-						class="filter"
+						class="movies__filter-panel"
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
@@ -100,11 +100,11 @@ onBeforeMount(() => {
 					</div>
 				</div>
 				<!-- Item Cards -->
-				<div class="items-wrapper">
+				<div class="movies__content">
 					<TransitionGroup
 						tag="div"
 						name="fade"
-						class="items"
+						class="movies__content-items"
 					>
 					<RouterLink
 						:to="{
@@ -124,7 +124,7 @@ onBeforeMount(() => {
 
 					<!-- Pagination Button -->
 					<button
-						class="pagination"
+						class="movies__content-loadMore"
 						:class="{ loading: isLoading }"
 						@click="handleLoadMore"
 					>
@@ -134,7 +134,7 @@ onBeforeMount(() => {
 					<!-- Filters Search Button -->
 					<button
 						v-if="filter.searchBtnOpen"
-						class="pagination fixed"
+						class="movies__content-loadMore fixed"
 						@click="handleFilterSearch"
 					>
 						Шукати

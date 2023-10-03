@@ -6,7 +6,11 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
-const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { label: 'Популярні', value: 'popularAsc' } })
+const filter = reactive({
+	panelOpen: false,
+	searchBtnOpen: false,
+	sortBy: { label: 'Популярні', value: 'popularAsc' },
+})
 const isLoading = ref(false)
 const currentPage = ref(1)
 
@@ -31,11 +35,11 @@ onBeforeMount(() => {
 	<main class="container">
 		<section class="tvshows">
 			<h1>Популярні фільми</h1>
-			<div class="content">
+			<div class="tvshows__wrapper">
 				<!-- Filters -->
-				<div class="filter-panel">
+				<div class="tvshows__filter">
 					<div
-						class="name"
+						class="block-title"
 						@click="filter.panelOpen = !filter.panelOpen"
 					>
 						<h2>Сортування</h2>
@@ -52,7 +56,7 @@ onBeforeMount(() => {
 					</div>
 					<!-- Filter Panel -->
 					<div
-						class="filter"
+						class="tvshows__filter-panel"
 						:class="{ closed: !filter.panelOpen }"
 					>
 						<h3>Сортувати результати за</h3>
@@ -101,11 +105,11 @@ onBeforeMount(() => {
 				</div>
 
 				<!-- Item Cards -->
-				<div class="items-wrapper">
+				<div class="tvshows__content">
 					<TransitionGroup
 						tag="div"
 						name="fade"
-						class="items"
+						class="tvshows__content-items"
 					>
 						<RouterLink
 							:to="{
@@ -124,7 +128,7 @@ onBeforeMount(() => {
 					</TransitionGroup>
 					<!-- Pagination Button -->
 					<button
-						class="pagination"
+						class="tvshows__content-loadMore"
 						:class="{ loading: isLoading }"
 						@click="handleLoadMore"
 					>
@@ -133,7 +137,7 @@ onBeforeMount(() => {
 					<!-- Filters Search Button -->
 					<button
 						v-if="filter.searchBtnOpen"
-						class="pagination fixed"
+						class="tvshows__content-loadMore fixed"
 						@click="handleFilterSearch"
 					>
 						Шукати

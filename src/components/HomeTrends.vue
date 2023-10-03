@@ -73,6 +73,7 @@ onBeforeMount(() => {
 				:freeMode="true"
 				:mousewheel="true"
 				:modules="[Mousewheel, FreeMode]"
+				
 				:breakpoints="{
 					320: {
 						slidesPerView: 1,

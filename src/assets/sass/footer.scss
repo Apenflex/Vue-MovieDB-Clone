@@ -1,9 +1,8 @@
 .footer {
 	padding: 70px 10px;
 	max-width: 100%;
-	// width: 100vw;
 	background-color: $primary;
-	nav {
+	&__wrapper {
 		justify-items: center;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -11,32 +10,32 @@
 		@media (min-width: 1360px) {
 			grid-template-columns: repeat(5, minmax(210px, 1fr));
 		}
-		.links {
+	}
+	&__logo {
+		width: 160px;
+	}
+	&__links {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		color: $white;
+		font-size: 20px;
+		width: 100%;
+		&-block {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 10px;
-			color: $white;
-			font-size: 20px;
-			width: 100%;
-			img {
-				width: 160px;
-			}
-			ul {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				gap: 5px;
-				li {
-					cursor: pointer;
-					font-size: 17px;
-					padding: 2px 0;
-					&:hover {
-						transition: 0.3s ease-in-out;
-						color: $lightBlue;
-					}
-				}
+			gap: 5px;
+		}
+		&-link {
+			cursor: pointer;
+			font-size: 17px;
+			padding: 2px 0;
+			&:hover {
+				transition: 0.3s ease-in-out;
+				color: $lightBlue;
 			}
 		}
 	}

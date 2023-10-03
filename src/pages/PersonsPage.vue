@@ -9,15 +9,12 @@ const store = moviesStore()
 const router = useRouter()
 
 const currentPage = ref(Number(router.currentRoute.value.query.page))
-// const isLoading = ref(false)
 
 const handleChangePage = (options) => {
-	console.log(options)
-	// isLoading.value = true
+	// console.log(options)
 	currentPage.value = options.page + 1
 	store.fetchPersons(currentPage.value)
 	router.push({ name: 'persons', query: { page: currentPage.value } })
-	// isLoading.value = false
 }
 
 onMounted(() => {
@@ -67,6 +64,7 @@ onMounted(() => {
 				</div> -->
 				<div class="persons__pagination">
 					<PrimePaginator
+						:first="(currentPage - 1) * 20"
 						:rows="20"
 						:totalRecords="store.persons.totalResults"
 						:active="true"
@@ -77,8 +75,6 @@ onMounted(() => {
 						}"
 						@page="handleChangePage"
 					/>
-					<!-- </PrimePaginator> -->
-					<!-- :rowsPerPageOptions="[10, 20]" -->
 				</div>
 			</div>
 		</section>

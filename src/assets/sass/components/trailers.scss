@@ -1,12 +1,10 @@
 .trailers {
-	// background-image: linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%),
-	// 	url('src/assets/images/bg_trailer.jpg');
 	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 	padding-top: 30px;
 	gap: 20px;
-	.tab {
+	&__wrapper {
 		display: flex;
 		align-items: center;
 		gap: 20px;
@@ -18,28 +16,6 @@
 			font-size: 24px;
 			font-weight: 600;
 			color: $white;
-		}
-		.item {
-			display: flex;
-			border-radius: 20px;
-			border: 1px solid $lightGreen;
-			gap: 5px;
-			cursor: pointer;
-			@include media($mdPlus) {
-				display: none;
-			}
-			h3 {
-				align-self: center;
-				font-size: 16px;
-				border-radius: 20px;
-				padding: 5px 25px;
-				color: #fff;
-			}
-			.active {
-				transition: 0.3s ease-in-out;
-				background-color: $lightGreen;
-				color: black;
-			}
 		}
 		.multiselect {
 			display: none;
@@ -77,6 +53,28 @@
 					border-radius: 20px 20px 0 0;
 				}
 			}
+		}
+	}
+	&__tab {
+		display: flex;
+		border-radius: 20px;
+		border: 1px solid $lightGreen;
+		gap: 5px;
+		cursor: pointer;
+		@include media($mdPlus) {
+			display: none;
+		}
+		h3 {
+			align-self: center;
+			font-size: 16px;
+			border-radius: 20px;
+			padding: 5px 25px;
+			color: #fff;
+		}
+		.active {
+			transition: 0.3s ease-in-out;
+			background-color: $lightGreen;
+			color: black;
 		}
 	}
 	.swiper {

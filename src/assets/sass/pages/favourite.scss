@@ -1,12 +1,14 @@
 .favourite {
 	padding: 20px 0;
-	.nodata {
-		text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    padding: 60px 10px;
+	&__content {
+		&-empty {
+			text-align: center;
+			font-size: 22px;
+			font-weight: 600;
+			padding: 60px 10px;
+		}
 	}
-	.items {
+	&__items {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 		grid-gap: 20px;

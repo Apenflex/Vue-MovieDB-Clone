@@ -3,7 +3,7 @@
 	flex-direction: column;
 	padding: 20px 0;
 	gap: 20px;
-	.tabs {
+	&__wrapper {
 		display: flex;
 		align-items: center;
 		gap: 20px;
@@ -13,28 +13,6 @@
 		h2 {
 			font-size: 24px;
 			font-weight: 600;
-		}
-		.item {
-			display: flex;
-			border-radius: 20px;
-			border: 1px solid $primary;
-			gap: 5px;
-			cursor: pointer;
-			@include media($mdPlus) {
-				display: none;
-			}
-			h3 {
-				align-self: center;
-				font-size: 16px;
-				border-radius: 20px;
-				padding: 5px 25px;
-				color: $primary;
-			}
-			.active {
-				transition: 0.3s ease-in-out;
-				background-color: $primary;
-				color: $lightGreen;
-			}
 		}
 		.multiselect {
 			display: none;
@@ -73,18 +51,28 @@
 				}
 			}
 		}
-		// .mobile {
-		// 	display: none;
-		// 	@include media($mdPlus) {
-		// 		display: flex;
-		// 		border-radius: 20px;
-		// 		padding: 10px 10px;
-		// 		background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
-		// 		color: $primary;
-		// 		font-weight: 600;
-		// 		font-size: 14px;
-		// 	}
-		// }
+	}
+	&__tab {
+		display: flex;
+		border-radius: 20px;
+		border: 1px solid $primary;
+		gap: 5px;
+		cursor: pointer;
+		@include media($mdPlus) {
+			display: none;
+		}
+		h3 {
+			align-self: center;
+			font-size: 16px;
+			border-radius: 20px;
+			padding: 5px 25px;
+			color: $primary;
+		}
+		.active {
+			transition: 0.3s ease-in-out;
+			background-color: $primary;
+			color: $lightGreen;
+		}
 	}
 	.swiper {
 		padding: 10px 3px;

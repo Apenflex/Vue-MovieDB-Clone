@@ -171,6 +171,14 @@ export const moviesStore = defineStore('moviesDB', {
       }
     },
     async fetchPerson(id) {
+      this.persons.person = {
+        bio: [],
+        externalIds: [],
+        movies: {
+          cast: [],
+          crew: [],
+        },
+      }
       try {
         const responseBio = await securedAxios.get(`/person/${id}`);
         const responseMovies = await securedAxios.get(`/person/${id}/movie_credits`);
@@ -285,21 +293,11 @@ export const useFavouritesStore = defineStore('favouritesDB', {
   },
   actions: {
     addFavouriteMovie(movie) {
-      // Should add movie to favourites or remove it from favourites if it's already there
-      if (!this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
-        this.favouriteMovies.push(movie);
-        // console.log(this.favouriteMovies);
-        localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
-        return true;
-      } else {
-        this.removeFavouriteMovie(movie);
-        // console.log(this.favouriteMovies);
-        return false;
-      }
+      this.favouriteMovies.push(movie);
+      // console.log(this.favouriteMovies);
     },
     removeFavouriteMovie(movie) {
       this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
-      localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
     },
   },
   persist: {

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
-import { useToast } from "vue-toastification";
+import { useToast } from 'vue-toastification'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
 import IconHeart from './IconHeart.vue'
 import IconTrash from './IconTrash.vue'
@@ -59,15 +59,14 @@ const favouriteColor = computed(() => {
 const handleAddFavourite = (movie) => {
 	// console.log('add')
 	// console.log(movie)
-	addedToFavourite.value = favouriteStore.addFavouriteMovie(movie)
-	// console.log(addedToFavourite.value)
-	if (addedToFavourite.value) {
+	if (!favouriteStore.favouriteMovies.map((item) => item.id).includes(movie.id)) {
+		favouriteStore.addFavouriteMovie(movie)
 		toast.success(`${movie.original_title || movie.name} - Added to favourites`)
 	} else {
+		favouriteStore.removeFavouriteMovie(movie)
 		toast.error(`${movie.original_title || movie.name} - Removed from favourites`)
 	}
 }
-
 </script>
 
 <template>
@@ -78,7 +77,7 @@ const handleAddFavourite = (movie) => {
 				@click.prevent="handleAddFavourite(movie)"
 				:color="favouriteColor"
 				class="icon-heart"
-				/>
+			/>
 
 			<IconTrash
 				v-if="favouriteCard"
@@ -103,7 +102,7 @@ const handleAddFavourite = (movie) => {
 				v-if="type === 'movie'"
 				class="icon-rating"
 				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
-				>
+			>
 				<div>
 					<span class="icon-count">{{ (movie.vote_average * 10).toFixed() }}</span>
 					<span class="icon-percentage">%</span>

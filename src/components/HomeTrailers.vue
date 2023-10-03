@@ -63,9 +63,9 @@ onBeforeMount(() => {
 			backgroundPosition: 'center',
 		}"
 	>
-		<div class="tab">
+		<div class="trailers__wrapper">
 			<h2>Останні трейлери</h2>
-			<div class="item">
+			<div class="trailers__tab">
 				<!-- Desktop Select -->
 				<h3
 					v-for="link of trailerLinks"

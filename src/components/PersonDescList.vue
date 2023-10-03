@@ -15,7 +15,7 @@ const getYear = (dateString) => {
 <template>
 	<div v-if="props.getPersonData.length !== 0">
 		<h3>{{ title }}</h3>
-		<div class="table">
+		<div class="list">
 			<div
 				v-for="movie in props.getPersonData"
 				:key="movie.credit_id"
