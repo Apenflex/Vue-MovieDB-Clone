@@ -9,6 +9,7 @@ import { RouterLink } from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMultiselect from 'vue-multiselect'
+import Toast from "vue-toastification";
 
 const app = createApp(App)
 // Pinia
@@ -21,5 +22,19 @@ app.use(RouterLink)
 app.use(VueAxios, axios)
 // Vue Multiselect
 app.component('VueMultiselect', VueMultiselect)
+app.use(Toast, {
+  position: "top-center",
+  timeout: 2800,
+  closeOnClick: true,
+  pauseOnFocusLoss: false,
+  pauseOnHover: false,
+  draggable: false,
+  draggablePercent: 0.7,
+  showCloseButtonOnHover: false,
+  hideProgressBar: true,
+  closeButton: "button",
+  icon: false,
+  rtl: false,
+})
 
 app.mount('#app')

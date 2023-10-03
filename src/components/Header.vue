@@ -12,7 +12,6 @@ const header = ref()
 const { y } = useWindowScroll(header)
 
 watch(y, (newValue, oldValue) => {
-	console.log(newValue, oldValue)
 	if (newValue > 60 && newValue > oldValue) {
 		header.value.classList.remove('header--show')
 	} else {

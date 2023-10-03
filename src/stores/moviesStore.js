@@ -216,8 +216,9 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchPopularMovies(popular) {
       try {
         const response = await securedAxios.get(`/movie/${popular}`);
-        this.popularMovies = response.data.results;
-        // console.log(this.popularMovies);
+        // this.popularMovies = response.data.results;
+        this.popularMovies = this.addMediaType(response.data.results, 'movie');
+        // console.log('Popular Movies', this.popularMovies);
       } catch (error) {
         console.error(error);
       }
@@ -279,14 +280,20 @@ export const useFavouritesStore = defineStore('favouritesDB', {
     getFavouriteMovies: (state) => state.favouriteMovies,
   },
   actions: {
-    async addFavouriteMovie(movie) {
+    addFavouriteMovie(movie) {
+      // Should add movie to favourites or remove it from favourites if it's already there
       if (!this.favouriteMovies.map((item) => item.id).includes(movie.id)) {
         this.favouriteMovies.push(movie);
         // console.log(this.favouriteMovies);
         localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
+        return true;
+      } else {
+        this.removeFavouriteMovie(movie);
+        // console.log(this.favouriteMovies);
+        return false;
       }
     },
-    async removeFavouriteMovie(movie) {
+    removeFavouriteMovie(movie) {
       this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
       localStorage.setItem('favouriteMovies', JSON.stringify(this.favouriteMovies));
     },

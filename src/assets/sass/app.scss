@@ -2,12 +2,13 @@
 @import './variables.scss';
 @import './mixins.scss';
 @import './animations.scss';
-@import './buttons/searchbtn.scss';
-@import './buttons/paginationbtn.scss';
-@import './components/formsearch.scss';
 @import './header.scss';
 @import './footer.scss';
 @import './multiselect.scss';
+@import 'swiper/css';
+@import "vue-toastification/dist/index.css";
+@import './buttons/searchbtn.scss';
+@import './buttons/paginationbtn.scss';
 @import './pages/persons.scss';
 @import './pages/persondesc.scss';
 @import './pages/favourite.scss';
@@ -21,7 +22,7 @@
 @import './components/trailers.scss';
 @import './components/popular.scss';
 @import './components/modal.scss';
-@import 'swiper/css';
+@import './components/formsearch.scss';
 
 h1,
 h2,

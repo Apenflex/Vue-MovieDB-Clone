@@ -117,17 +117,13 @@
 						width: 46px;
 						height: 46px;
 						cursor: pointer;
+						position: relative;
 						svg {
 							width: 18px;
 							height: 18px;
 							fill: #fff;
-						}
-						.icon-heart {
 							path:hover {
 								fill: rgba(255, 92, 92, 0.5);
-							}
-							&.animate {
-								animation: heart 2.5s ease-in-out 3;
 							}
 						}
 					}

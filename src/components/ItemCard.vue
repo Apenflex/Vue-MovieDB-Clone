@@ -1,7 +1,8 @@
 <script setup>
-import { computed, watch, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
+import { useToast } from "vue-toastification";
 import { calcVoteColor } from '@/helpers/calcVoteColor'
 import IconHeart from './IconHeart.vue'
 import IconTrash from './IconTrash.vue'
@@ -17,8 +18,8 @@ const props = defineProps({
 })
 
 const favouriteStore = useFavouritesStore()
-const heartColor = ref('#fff')
-const addedToFavourite = ref(false)
+const addedToFavourite = ref()
+const toast = useToast()
 
 const formatDate = computed(() => {
 	if (props.movie.release_date || props.movie.first_air_date) {
@@ -52,32 +53,21 @@ const personKnownFor = computed(() => {
 })
 
 const favouriteColor = computed(() => {
-	return favouriteStore.favouriteMovies.find((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
+	return favouriteStore.getFavouriteMovies.some((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
 })
 
 const handleAddFavourite = (movie) => {
 	// console.log('add')
 	// console.log(movie)
-	addedToFavourite.value = true
-	favouriteStore.addFavouriteMovie(movie)
-	setTimeout(() => {
-		addedToFavourite.value = false
-	}, 3000)
+	addedToFavourite.value = favouriteStore.addFavouriteMovie(movie)
+	// console.log(addedToFavourite.value)
+	if (addedToFavourite.value) {
+		toast.success(`${movie.original_title || movie.name} - Added to favourites`)
+	} else {
+		toast.error(`${movie.original_title || movie.name} - Removed from favourites`)
+	}
 }
 
-watch(favouriteStore.getFavouriteMovies, () => {
-	// console.log('watch')
-	if (!props.personCard) {
-		heartColor.value = favouriteColor.value
-	}
-})
-
-onMounted(() => {
-	// console.log('mounted')
-	if (!props.personCard) {
-		heartColor.value = favouriteColor.value
-	}
-})
 </script>
 
 <template>
@@ -86,9 +76,9 @@ onMounted(() => {
 			<IconHeart
 				v-if="type === 'movie' && !favouriteCard"
 				@click.prevent="handleAddFavourite(movie)"
-				:color="heartColor"
-				:class="['icon-heart', { animate: addedToFavourite }]"
-			/>
+				:color="favouriteColor"
+				class="icon-heart"
+				/>
 
 			<IconTrash
 				v-if="favouriteCard"

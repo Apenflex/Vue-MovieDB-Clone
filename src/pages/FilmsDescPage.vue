@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, onMounted, computed, ref, reactive, watch, onUpdated } from 'vue'
+import { onBeforeMount, onMounted, computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
@@ -15,7 +15,6 @@ const favouriteStore = useFavouritesStore()
 const router = useRouter()
 
 const isModalOpen = ref(false)
-const heartColor = ref('#fff')
 const addedToFavourite = ref(false)
 
 const mediaQuery = reactive({
@@ -31,10 +30,27 @@ const mediaDetailsPoster = computed(() => {
 })
 
 const backgroundImage = computed(() => {
-	const backdropPath = store.mediaDetails.data.backdrop_path
-	return backdropPath !== null && backdropPath !== undefined
-		? `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdropPath}`
-		: '../public/images/no-image.png'
+  const backdropPath = store.mediaDetails.data.backdrop_path;
+  const gradientColor1 = 'rgba(0, 0, 0, 0.5)';
+  const gradientColor2 = 'rgba(0, 0, 0, 0.7)';
+  
+  if (backdropPath !== null && backdropPath !== undefined) {
+    return {
+      backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdropPath})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+  } else {
+    return {
+      backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url('../public/images/no-image.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    };
+  }
+});
+
+const ratingCount = computed(() => {
+	return (store.mediaDetails.data.vote_average * 10).toFixed()
 })
 
 const mediaDetailsRelease = computed(() => {
@@ -61,25 +77,17 @@ const handleAddFavourite = (movie) => {
 	// console.log('DetailsPage', movie)
 	addedToFavourite.value = true
 	favouriteStore.addFavouriteMovie(movie)
-	setTimeout(() => {
-		addedToFavourite.value = false
-	}, 3000)
+	addedToFavourite.value = false
 }
 
 const handleToggleModal = () => (isModalOpen.value = !isModalOpen.value)
 
-watch(favouriteStore.getFavouriteMovies, () => {
-	heartColor.value = favouriteColor.value
-})
-
 onBeforeMount(() => {
 	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id })
 })
+
 onMounted(() => {
 	store.getMoviePersons({ mediaType: mediaQuery.mediaType, movieId: mediaQuery.id })
-})
-onUpdated(() => {
-	heartColor.value = favouriteColor.value
 })
 </script>
 
@@ -88,11 +96,7 @@ onUpdated(() => {
 		<section class="details">
 			<div
 				class="movie"
-				:style="{
-					backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 40%), url(${backgroundImage})`,
-					backgroundSize: 'cover',
-					backgroundPosition: 'center',
-				}"
+				:style="backgroundImage"
 			>
 				<div class="image">
 					<img
@@ -130,7 +134,7 @@ onUpdated(() => {
 								:style="calcVoteColor((store.mediaDetails.data.vote_average * 10).toFixed())"
 							>
 								<div>
-									<span class="icon-count"> {{ (store.mediaDetails.data.vote_average * 10).toFixed() }}</span>
+									<span class="icon-count"> {{ ratingCount }}</span>
 									<span class="icon-percentage"> % </span>
 								</div>
 							</div>
@@ -151,9 +155,8 @@ onUpdated(() => {
 							<div class="tooltip">
 								<IconHeart
 									@click.prevent="handleAddFavourite(store.mediaDetails.data)"
-									:color="heartColor"
-									:class="['icon-heart', { animate: addedToFavourite }]"
-								/>
+									:color="favouriteColor"
+									/>
 							</div>
 							<div class="tooltip">
 								<svg
