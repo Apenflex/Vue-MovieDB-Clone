@@ -9,14 +9,15 @@ const store = moviesStore()
 const router = useRouter()
 
 const currentPage = ref(Number(router.currentRoute.value.query.page))
-const isLoading = ref(false)
+// const isLoading = ref(false)
 
-const handleChangePage = (direction) => {
-	isLoading.value = true
-	currentPage.value = direction === 'next' ? currentPage.value + 1 : currentPage.value - 1
+const handleChangePage = (options) => {
+	console.log(options)
+	// isLoading.value = true
+	currentPage.value = options.page + 1
 	store.fetchPersons(currentPage.value)
 	router.push({ name: 'persons', query: { page: currentPage.value } })
-	isLoading.value = false
+	// isLoading.value = false
 }
 
 onMounted(() => {
@@ -26,10 +27,10 @@ onMounted(() => {
 
 <template>
 	<main class="container">
-		<section class="persons-section">
-			<div class="content">
-				<h2>Популярні</h2>
-				<div class="items">
+		<section class="persons">
+			<div class="persons__content">
+				<h1>Популярні</h1>
+				<div class="persons__items">
 					<RouterLink
 						v-for="person in store.getPersons"
 						:key="person.name"
@@ -47,7 +48,7 @@ onMounted(() => {
 					</RouterLink>
 				</div>
 				<!-- Pagination -->
-				<div class="pagination">
+				<!-- <div class="pagination">
 					<button
 						@click="handleChangePage('prev')"
 						:disabled="isLoading || currentPage.valueOf() === 1"
@@ -63,6 +64,21 @@ onMounted(() => {
 					>
 						Next
 					</button>
+				</div> -->
+				<div class="persons__pagination">
+					<PrimePaginator
+						:rows="20"
+						:totalRecords="store.persons.totalResults"
+						:active="true"
+						:template="{
+							'370px': 'PrevPageLink CurrentPageReport NextPageLink',
+							'650px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',
+							default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+						}"
+						@page="handleChangePage"
+					/>
+					<!-- </PrimePaginator> -->
+					<!-- :rowsPerPageOptions="[10, 20]" -->
 				</div>
 			</div>
 		</section>

@@ -22,10 +22,10 @@ onBeforeMount(() => {
 
 <template>
 	<section class="trend container">
-		<div class="tabs">
+		<div class="trend__wrapper">
 			<h2>У тренді</h2>
 			<!-- Descktop Select -->
-			<div class="item">
+			<div class="trend__tabs">
 				<h3
 					:class="{ active: activeMovies.variant.value === 'day' }"
 					@click="() => fetchTrends('day')"

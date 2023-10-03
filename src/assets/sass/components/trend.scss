@@ -4,35 +4,13 @@
 	padding: 20px 0;
 	gap: 20px;
 	background: url('../../../../public/images/trending-bg.svg') no-repeat center bottom;
-	.tabs {
+	&__wrapper {
 		display: flex;
 		align-items: center;
 		gap: 20px;
 		h2 {
 			font-size: 24px;
 			font-weight: 600;
-		}
-		.item {
-			display: flex;
-			border-radius: 20px;
-			border: 1px solid black;
-			gap: 5px;
-			cursor: pointer;
-			@include media($mdPlus) {
-				display: none;
-			}
-			h3 {
-				align-self: center;
-				font-size: 16px;
-				border-radius: 20px;
-				padding: 5px 25px;
-				color: black;
-			}
-			.active {
-				transition: 0.3s ease-in-out;
-				background-color: $primary;
-				color: $lightGreen;
-			}
 		}
 		.multiselect {
 			display: none;
@@ -72,6 +50,28 @@
 			}
 		}
 	}
+	&__tabs {
+		display: flex;
+		border-radius: 20px;
+		border: 1px solid black;
+		gap: 5px;
+		cursor: pointer;
+		@include media($mdPlus) {
+			display: none;
+		}
+		h3 {
+			align-self: center;
+			font-size: 16px;
+			border-radius: 20px;
+			padding: 5px 25px;
+			color: black;
+		}
+		.active {
+			transition: 0.3s ease-in-out;
+			background-color: $primary;
+			color: $lightGreen;
+		}
+	}
 	.swiper {
 		padding: 10px 3px;
 	}
@@ -95,19 +95,3 @@
 		}
 	}
 }
-// .p-dropdown-panel {
-// 	font-size: 17px;
-// 	font-weight: 600;
-// 	.p-dropdown-items-wrapper {
-// 		border-radius: 0 0 20px 20px;
-// 	}
-// 	.p-dropdown-items {
-// 		display: flex;
-// 		align-items: center;
-// 		background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
-// 		display: flex;
-// 		flex-direction: column;
-// 		gap: 10px;
-// 		padding: 15px 10px;
-// 	}
-// }

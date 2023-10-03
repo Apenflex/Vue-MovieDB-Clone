@@ -10,6 +10,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMultiselect from 'vue-multiselect'
 import Toast from "vue-toastification";
+import PrimeVue from 'primevue/config';
+import Paginator from 'primevue/paginator';
+
 
 const app = createApp(App)
 // Pinia
@@ -22,6 +25,7 @@ app.use(RouterLink)
 app.use(VueAxios, axios)
 // Vue Multiselect
 app.component('VueMultiselect', VueMultiselect)
+// Toast Notification
 app.use(Toast, {
   position: "top-center",
   timeout: 2800,
@@ -36,5 +40,8 @@ app.use(Toast, {
   icon: false,
   rtl: false,
 })
+// PrimeVue
+app.use(PrimeVue)
+app.component('PrimePaginator', Paginator)
 
 app.mount('#app')

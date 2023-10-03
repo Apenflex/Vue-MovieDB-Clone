@@ -8,6 +8,7 @@ export const moviesStore = defineStore('moviesDB', {
     persons: {
       data: [],
       totalPages: 0,
+      totalResults: 0,
       person: {
         bio: [],
         externalIds: [],
@@ -159,9 +160,12 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchPersons(page) {
       try {
         const response = await securedAxios.get(`/person/popular?&page=${page}`);
+        // console.log(response.data);
         this.persons.data = response.data.results;
         // console.log(this.persons.data);
         this.persons.totalPages = response.data.total_pages;
+        this.persons.totalResults = response.data.total_results;
+        // console.log(this.persons.totalResults);
       } catch (error) {
         console.error(error);
       }

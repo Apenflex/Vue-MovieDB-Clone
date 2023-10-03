@@ -35,11 +35,11 @@ onBeforeMount(() => {
 <template>
 	<div class="container">
 		<section
-			class="home-search"
+			class="searchblock"
 			:style="backgroundImage"
 		>
-			<div class="wrapper">
-				<div class="title">
+			<div class="searchblock__wrapper">
+				<div class="searchblock__title">
 					<h1>Ласкаво просимо.</h1>
 					<h2>Мільйони фільмів, серіалів і персон. Досліджуйте зараз.</h2>
 				</div>

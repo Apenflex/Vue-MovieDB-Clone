@@ -1,5 +1,5 @@
-.home-search {
-	.wrapper {
+.searchblock {
+	&__wrapper {
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
@@ -7,21 +7,21 @@
 		@include media($md) {
 			padding: 40px 20px;
 		}
-		.title {
-			color: $white;
-			margin-bottom: 20px;
-			h1 {
-				font-size: 48px;
-				@include media($md) {
-					font-size: 36px;
-				}
+	}
+	&__title {
+		color: $white;
+		margin-bottom: 20px;
+		h1 {
+			font-size: 48px;
+			@include media($md) {
+				font-size: 36px;
 			}
-			h2 {
-				font-size: 21px;
-				font-weight: 400;
-				@include media($md) {
-					font-size: 24px;
-				}
+		}
+		h2 {
+			font-size: 21px;
+			font-weight: 400;
+			@include media($md) {
+				font-size: 24px;
 			}
 		}
 	}

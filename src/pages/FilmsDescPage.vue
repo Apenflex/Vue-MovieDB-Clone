@@ -30,24 +30,24 @@ const mediaDetailsPoster = computed(() => {
 })
 
 const backgroundImage = computed(() => {
-  const backdropPath = store.mediaDetails.data.backdrop_path;
-  const gradientColor1 = 'rgba(0, 0, 0, 0.5)';
-  const gradientColor2 = 'rgba(0, 0, 0, 0.7)';
-  
-  if (backdropPath !== null && backdropPath !== undefined) {
-    return {
-      backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdropPath})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    };
-  } else {
-    return {
-      backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url('../public/images/no-image.png')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    };
-  }
-});
+	const backdropPath = store.mediaDetails.data.backdrop_path
+	const gradientColor1 = 'rgba(0, 0, 0, 0.5)'
+	const gradientColor2 = 'rgba(0, 0, 0, 0.7)'
+
+	if (backdropPath !== null && backdropPath !== undefined) {
+		return {
+			backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdropPath})`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+		}
+	} else {
+		return {
+			backgroundImage: `linear-gradient(to right, ${gradientColor1} 0%, ${gradientColor2} 40%), url('../public/images/no-image.png')`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+		}
+	}
+})
 
 const ratingCount = computed(() => {
 	return (store.mediaDetails.data.vote_average * 10).toFixed()
@@ -95,18 +95,18 @@ onMounted(() => {
 	<main>
 		<section class="details">
 			<div
-				class="movie"
+				class="details__movie"
 				:style="backgroundImage"
 			>
-				<div class="image">
+				<div class="details__movie-image">
 					<img
 						:src="mediaDetailsPoster || '../public/images/no-image.png'"
 						:alt="store.mediaDetails.data.title"
 					/>
 				</div>
-				<div class="content">
+				<div class="details__movie-content">
 					<div class="head">
-						<div class="block">
+						<div class="head__title">
 							<h2>{{ store.mediaDetails.data.title || store.mediaDetails.data.name }}</h2>
 							<span v-if="store.mediaDetails.data.release_date || store.mediaDetails.data.first_air_date">
 								({{
@@ -115,7 +115,7 @@ onMounted(() => {
 								}})
 							</span>
 						</div>
-						<div class="facts">
+						<div class="head__facts">
 							<span class="release">
 								{{ mediaDetailsRelease }}
 							</span>
@@ -128,7 +128,7 @@ onMounted(() => {
 						</div>
 					</div>
 					<div class="actions">
-						<div class="rating">
+						<div class="actions__rating">
 							<div
 								class="icon"
 								:style="calcVoteColor((store.mediaDetails.data.vote_average * 10).toFixed())"
@@ -138,7 +138,7 @@ onMounted(() => {
 									<span class="icon-percentage"> % </span>
 								</div>
 							</div>
-							<div class="title">Оцінка користувачів</div>
+							<div class="icon-title">Оцінка користувачів</div>
 						</div>
 						<div class="block fixed">
 							<div class="tooltip">
@@ -156,7 +156,7 @@ onMounted(() => {
 								<IconHeart
 									@click.prevent="handleAddFavourite(store.mediaDetails.data)"
 									:color="favouriteColor"
-									/>
+								/>
 							</div>
 							<div class="tooltip">
 								<svg
@@ -210,7 +210,7 @@ onMounted(() => {
 					</div>
 				</div>
 			</div>
-			<div class="persons">
+			<div class="details__persons">
 				<h2>Акторський склад серіалу</h2>
 				<swiper
 					:slides-per-view="7"
@@ -246,10 +246,6 @@ onMounted(() => {
 						<RouterLink
 							:to="{
 								name: 'person-details',
-								// params: {
-								// 	id: person.id.toString() + '-',
-								// 	name: person.name.split(' ').join('-').toLowerCase(),
-								// },
 								params: {
 									alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}`,
 								},

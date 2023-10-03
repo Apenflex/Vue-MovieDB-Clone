@@ -1,20 +1,16 @@
-.persons-section {
+.persons {
 	padding: 20px 0;
-	.content {
-		h2 {
+	&__content {
+		h1 {
 			margin-bottom: 20px;
 		}
 	}
-	.items {
+	&__items {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 		grid-gap: 20px;
 	}
-	.pagination {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	&__pagination {
 		margin-top: 20px;
-		gap: 10px;
 	}
 }
