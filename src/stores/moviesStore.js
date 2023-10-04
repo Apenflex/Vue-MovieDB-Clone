@@ -9,14 +9,14 @@ export const moviesStore = defineStore('moviesDB', {
       data: [],
       totalPages: 0,
       totalResults: 0,
-      person: {
-        bio: [],
-        externalIds: [],
-        movies: {
-          cast: [],
-          crew: [],
-        },
-      }
+    },
+    person: {
+      bio: [],
+      externalIds: [],
+      movies: {
+        cast: [],
+        crew: [],
+      },
     },
     mediaDetails: {
       data: [],
@@ -42,15 +42,15 @@ export const moviesStore = defineStore('moviesDB', {
     // Persons
     getPersons: state => state.persons.data,
     // Person Details
-    getPerson: state => state.persons.person,
-    getPersonCast: state => state.persons.person.movies.cast,
+    getPerson: state => state.person,
+    getPersonCast: state => state.person.movies.cast,
     // Режисер
-    getPersonCamera: state => state.persons.person.movies.crew.filter((item) => item.department === 'Camera'),
-    getPersonCrew: state => state.persons.person.movies.crew.filter((item) => item.department === 'Crew'),
-    getPersonDirector: state => state.persons.person.movies.crew.filter((item) => item.department === 'Directing'),
-    getPersonEditing: state => state.persons.person.movies.crew.filter((item) => item.department === 'Editing'),
-    getPersonProducer: state => state.persons.person.movies.crew.filter((item) => item.department === 'Production'),
-    getPersonWriter: state => state.persons.person.movies.crew.filter((item) => item.department === 'Writing'),
+    getPersonCamera: state => state.person.movies.crew.filter((item) => item.department === 'Camera'),
+    getPersonCrew: state => state.person.movies.crew.filter((item) => item.department === 'Crew'),
+    getPersonDirector: state => state.person.movies.crew.filter((item) => item.department === 'Directing'),
+    getPersonEditing: state => state.person.movies.crew.filter((item) => item.department === 'Editing'),
+    getPersonProducer: state => state.person.movies.crew.filter((item) => item.department === 'Production'),
+    getPersonWriter: state => state.person.movies.crew.filter((item) => item.department === 'Writing'),
   },
   actions: {
     async fetchMovies() {
@@ -171,7 +171,7 @@ export const moviesStore = defineStore('moviesDB', {
       }
     },
     async fetchPerson(id) {
-      this.persons.person = {
+      this.person = {
         bio: [],
         externalIds: [],
         movies: {
@@ -184,14 +184,14 @@ export const moviesStore = defineStore('moviesDB', {
         const responseMovies = await securedAxios.get(`/person/${id}/movie_credits`);
         const responseTvShows = await securedAxios.get(`/person/${id}/tv_credits`);
         const getPersonExternalIds = await securedAxios.get(`/person/${id}/external_ids`);
-        this.persons.person.bio = responseBio.data;
-        // console.log(this.persons.person.bio);
-        this.persons.person.movies.cast = this.sortByReleaseDate([...responseMovies.data.cast, ...responseTvShows.data.cast]);
-        this.persons.person.movies.crew = this.sortByReleaseDate(responseMovies.data.crew);
-        this.persons.person.externalIds = getPersonExternalIds.data;
-        // console.log(this.persons.person.movies.cast);
-        // console.log(this.persons.person.movies.cast);
-        // console.log(this.persons.person.movies.cast.map((item) => item.release_date || item.first_air_date));
+        this.person.bio = responseBio.data;
+        // console.log(this.person.bio);
+        this.person.movies.cast = this.sortByReleaseDate([...responseMovies.data.cast, ...responseTvShows.data.cast]);
+        this.person.movies.crew = this.sortByReleaseDate(responseMovies.data.crew);
+        this.person.externalIds = getPersonExternalIds.data;
+        // console.log(this.person.movies.cast);
+        // console.log(this.person.movies.cast);
+        // console.log(this.person.movies.cast.map((item) => item.release_date || item.first_air_date));
 
       } catch (error) { console.error(error); }
     },

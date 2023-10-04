@@ -25,6 +25,7 @@
 @import './components/formsearch.scss';
 @import './components/primepaginator.scss';
 @import './components/persondesclist.scss';
+@import './components/scrollup.scss';
 
 h1,
 h2,
@@ -62,22 +63,4 @@ main {
 .container {
 	width: min(100% - 40px, 1300px);
 	margin-inline: auto;
-}
-
-.scroll-up-btn {
-	position: fixed;
-	bottom: 65px;
-	right: 20px;
-	width: 40px;
-	height: 40px;
-	font-size: 22px;
-	background: $btnColor;
-	border: none;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	transition: all 1s;
-	z-index: 20;
 }

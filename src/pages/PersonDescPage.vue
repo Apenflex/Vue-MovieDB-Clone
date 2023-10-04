@@ -12,7 +12,6 @@ const router = useRouter()
 
 const personId = ref(null)
 const showMoreBio = ref(false)
-// const isLoaded = ref(true)
 
 const personPoster = computed(() => {
 	return `https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`
