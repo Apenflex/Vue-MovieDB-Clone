@@ -71,9 +71,8 @@ onBeforeMount(() => {
 				:slides-per-view="7"
 				:space-between="20"
 				:freeMode="true"
-				:mousewheel="true"
+				:mousewheel="{ forceToAxis: true }"
 				:modules="[Mousewheel, FreeMode]"
-				
 				:breakpoints="{
 					320: {
 						slidesPerView: 1,

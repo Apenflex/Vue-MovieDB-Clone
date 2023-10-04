@@ -115,7 +115,7 @@ onBeforeMount(() => {
 				:slides-per-view="4"
 				:space-between="30"
 				:freeMode="true"
-				:mousewheel="true"
+				:mousewheel="{ forceToAxis: true }"
 				:modules="[Mousewheel, FreeMode]"
 				:breakpoints="{
 					320: {
