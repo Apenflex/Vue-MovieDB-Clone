@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useFavouritesStore } from '@/stores/moviesStore'
+import { useFavouritesStore } from '@/stores/useFavouritesStore'
 
 import { useToast } from 'vue-toastification'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
@@ -55,6 +55,14 @@ const favouriteColor = computed(() => {
 	return favouriteStore.getFavouriteMovies.some((item) => item.id === props.movie.id) ? '#ff0000' : '#fff'
 })
 
+const movieAvgCount = computed(() => {
+	// console.log(props.movie.vote_average)
+	if( props.movie.vote_average === undefined) {
+		return 0
+	}
+	return (props.movie.vote_average * 10).toFixed()
+})
+
 const handleAddFavourite = (movie) => {
 	// console.log('add')
 	// console.log(movie)
@@ -103,7 +111,9 @@ const handleAddFavourite = (movie) => {
 				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
 			>
 				<div>
-					<span class="icon-count">{{ (movie.vote_average * 10).toFixed() }}</span>
+					<span class="icon-count">
+						{{ movieAvgCount }}
+					</span>
 					<span class="icon-percentage">%</span>
 				</div>
 			</div>

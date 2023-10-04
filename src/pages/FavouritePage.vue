@@ -1,5 +1,5 @@
 <script setup>
-import { useFavouritesStore } from '@/stores/moviesStore'
+import { useFavouritesStore } from '@/stores/useFavouritesStore'
 
 import ItemCard from '@/components/ItemCard.vue'
 
