@@ -14,7 +14,10 @@ const handleChangePage = (options) => {
 	// console.log(options)
 	currentPage.value = options.page + 1
 	store.fetchPersons(currentPage.value)
-	router.push({ name: 'persons', query: { page: currentPage.value } })
+	router.push({
+		name: 'persons',
+		query: { page: currentPage.value },
+	})
 }
 
 onMounted(() => {
@@ -33,9 +36,7 @@ onMounted(() => {
 						:key="person.name"
 						:to="{
 							name: 'person-details',
-							params: {
-								alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}`,
-							},
+							params: { alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}` },
 						}"
 					>
 						<ItemCard
@@ -67,7 +68,6 @@ onMounted(() => {
 						:first="(currentPage - 1) * 20"
 						:rows="20"
 						:totalRecords="store.persons.totalResults"
-						:active="true"
 						:template="{
 							'370px': 'PrevPageLink CurrentPageReport NextPageLink',
 							'650px': 'FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink',

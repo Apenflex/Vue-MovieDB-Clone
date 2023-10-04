@@ -2,8 +2,14 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-	searchQuery: Object,
-	isLoading: Boolean,
+	searchQuery: {
+		type: String,
+		default: '',
+	},
+	isLoading: {
+		type: Boolean,
+		default: false,
+	},
 })
 
 defineEmits(['submit'])

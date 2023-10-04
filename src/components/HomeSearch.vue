@@ -22,7 +22,10 @@ const backgroundImage = computed(() => {
 const handleSearch = () => {
 	if (!searchQuery.query) return
 	isLoading.value = true
-	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
+	router.push({
+		name: 'search',
+		query: { query: searchQuery.query, page: searchQuery.page },
+	})
 	searchQuery.query = ''
 	isLoading.value = false
 }

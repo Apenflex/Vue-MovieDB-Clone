@@ -20,21 +20,39 @@ const handleSearch = () => {
 	if (!searchQuery.query) return
 	searchQuery.page = 1
 	isLoading.value = true
-	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
-	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
+	store.fetchSearch({
+		query: searchQuery.query,
+		page: searchQuery.page,
+	})
+	router.push({
+		name: 'search',
+		query: {
+			query: searchQuery.query,
+			page: searchQuery.page,
+		},
+	})
 	isLoading.value = false
 }
 
 const handleChangePage = (direction) => {
 	isLoading.value = true
 	searchQuery.page = direction === 'next' ? searchQuery.page + 1 : searchQuery.page - 1
-	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
-	router.push({ name: 'search', query: { query: searchQuery.query, page: searchQuery.page } })
+	store.fetchSearch({
+		query: searchQuery.query,
+		page: searchQuery.page,
+	})
+	router.push({
+		name: 'search',
+		query: { query: searchQuery.query, page: searchQuery.page },
+	})
 	isLoading.value = false
 }
 
 onMounted(() => {
-	store.fetchSearch({ query: searchQuery.query, page: searchQuery.page })
+	store.fetchSearch({
+		query: searchQuery.query,
+		page: searchQuery.page,
+	})
 })
 </script>
 

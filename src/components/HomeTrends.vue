@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onBeforeMount } from 'vue'
+import { reactive, computed, onBeforeMount } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -7,7 +7,33 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const activeMovies = reactive({ data: store.trandingMovies, variant: {label: 'Сьогодні', value: '' } })
+const activeMovies = reactive({
+	data: store.trandingMovies,
+	variant: { label: 'Сьогодні', value: '' },
+})
+
+const swiperBreakpoints = computed(() => {
+	return {
+		320: {
+			slidesPerView: 1,
+		},
+		480: {
+			slidesPerView: 2,
+		},
+		640: {
+			slidesPerView: 3,
+		},
+		768: {
+			slidesPerView: 4,
+		},
+		1024: {
+			slidesPerView: 6,
+		},
+		1280: {
+			slidesPerView: 7,
+		},
+	}
+})
 
 const fetchTrends = async (argDay) => {
 	activeMovies.variant.value = argDay
@@ -28,13 +54,13 @@ onBeforeMount(() => {
 			<div class="trend__tabs">
 				<h3
 					:class="{ active: activeMovies.variant.value === 'day' }"
-					@click="() => fetchTrends('day')"
+					@click="fetchTrends('day')"
 				>
 					Сьогодні
 				</h3>
 				<h3
 					:class="{ active: activeMovies.variant.value === 'week' }"
-					@click="() => fetchTrends('week')"
+					@click="fetchTrends('week')"
 				>
 					Цього тижня
 				</h3>
@@ -54,8 +80,8 @@ onBeforeMount(() => {
 					},
 				]"
 				:searchable="false"
-				:hide-selected="true"
-				:close-on-select="true"
+				hide-selected
+				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
@@ -70,35 +96,21 @@ onBeforeMount(() => {
 			<swiper
 				:slides-per-view="7"
 				:space-between="20"
-				:freeMode="true"
+				freeMode
 				:mousewheel="{ forceToAxis: true }"
 				:modules="[Mousewheel, FreeMode]"
-				:breakpoints="{
-					320: {
-						slidesPerView: 1,
-					},
-					480: {
-						slidesPerView: 2,
-					},
-					640: {
-						slidesPerView: 3,
-					},
-					768: {
-						slidesPerView: 4,
-					},
-					1024: {
-						slidesPerView: 6,
-					},
-					1280: {
-						slidesPerView: 7,
-					},
-				}"
+				:breakpoints="swiperBreakpoints"
 			>
 				<swiper-slide
 					v-for="movie in store.trandingMovies"
 					:key="movie.id"
 				>
-					<RouterLink :to="{ name: 'media-details', params: { mediaType: movie.media_type, id: movie.id } }">
+					<RouterLink
+						:to="{
+							name: 'media-details',
+							params: { mediaType: movie.media_type, id: movie.id },
+						}"
+					>
 						<ItemCard
 							:movie="movie"
 							type="movie"

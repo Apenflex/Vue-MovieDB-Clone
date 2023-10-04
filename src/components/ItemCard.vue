@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useFavouritesStore } from '@/stores/moviesStore'
 
 import { useToast } from 'vue-toastification'
@@ -18,7 +18,6 @@ const props = defineProps({
 })
 
 const favouriteStore = useFavouritesStore()
-const addedToFavourite = ref()
 const toast = useToast()
 
 const formatDate = computed(() => {
@@ -110,13 +109,21 @@ const handleAddFavourite = (movie) => {
 			</div>
 
 			<div v-if="type === 'movie'">
-				<h4>{{ movie.original_title || movie.name }}</h4>
-				<span>{{ formatDate }}</span>
+				<h4>
+					{{ movie.original_title || movie.name }}
+				</h4>
+				<span>
+					{{ formatDate }}
+				</span>
 			</div>
 
 			<div v-if="personCard">
-				<h4>{{ person.name }}</h4>
-				<span>{{ personKnownFor }}</span>
+				<h4>
+					{{ person.name }}
+				</h4>
+				<span>
+					{{ personKnownFor }}
+				</span>
 			</div>
 		</div>
 	</div>

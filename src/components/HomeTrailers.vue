@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onBeforeMount } from 'vue'
+import { ref, reactive, onBeforeMount, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -9,7 +9,10 @@ import Modal from '@/components/Modal.vue'
 const store = moviesStore()
 const isModalOpen = ref(false)
 const backgroundImage = ref('')
-const trailerMovies = reactive({ data: store.trailerMovies.data, variant: {label: 'Наживо',value: '' } })
+const trailerMovies = reactive({
+	data: store.trailerMovies.data,
+	variant: { label: 'Наживо', value: '' },
+})
 const trailerLinks = [
 	{
 		title: 'Наживо',
@@ -32,6 +35,28 @@ const trailerLinks = [
 const changeSectionBackground = (image) => {
 	backgroundImage.value = `https://image.tmdb.org/t/p/original/${image}`
 }
+
+const swiperBreakpoints = computed(() => {
+	return {
+		320: {
+			slidesPerView: 1,
+		},
+		576: {
+			slidesPerView: 2,
+		},
+		993: {
+			slidesPerView: 3,
+		},
+		1280: {
+			slidesPerView: 4,
+			spaceBetween: 30,
+		},
+		1600: {
+			slidesPerView: 5,
+			spaceBetween: 30,
+		},
+	}
+})
 
 const handleToggleModal = (movieId) => {
 	if (isModalOpen.value) {
@@ -99,8 +124,8 @@ onBeforeMount(() => {
 					},
 				]"
 				:searchable="false"
-				:hide-selected="true"
-				:close-on-select="true"
+				hide-selected
+				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
@@ -114,28 +139,10 @@ onBeforeMount(() => {
 			<swiper
 				:slides-per-view="4"
 				:space-between="30"
-				:freeMode="true"
+				freeMode
 				:mousewheel="{ forceToAxis: true }"
 				:modules="[Mousewheel, FreeMode]"
-				:breakpoints="{
-					320: {
-						slidesPerView: 1,
-					},
-					576: {
-						slidesPerView: 2,
-					},
-					993: {
-						slidesPerView: 3,
-					},
-					1280: {
-						slidesPerView: 4,
-						spaceBetween: 30,
-					},
-					1600: {
-						slidesPerView: 5,
-						spaceBetween: 30,
-					},
-				}"
+				:breakpoints="swiperBreakpoints"
 			>
 				<swiper-slide
 					v-for="movie in store.trailerMovies.data"
@@ -162,7 +169,9 @@ onBeforeMount(() => {
 						</svg>
 					</div>
 					<!-- Title -->
-					<h3>{{ movie.title }}</h3>
+					<h3>
+						{{ movie.title }}
+					</h3>
 				</swiper-slide>
 			</swiper>
 		</div>

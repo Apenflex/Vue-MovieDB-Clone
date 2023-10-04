@@ -1,7 +1,13 @@
 <script setup>
 const props = defineProps({
-	getPersonData: Object,
-	title: String,
+	getPersonData: {
+		type: Array,
+		default: () => [],
+	},
+	title: {
+		type: String,
+		default: '',
+	},
 })
 
 const getYear = (dateString) => {
@@ -14,7 +20,9 @@ const getYear = (dateString) => {
 
 <template>
 	<div v-if="props.getPersonData.length !== 0">
-		<h3>{{ title }}</h3>
+		<h3>
+			{{ title }}
+		</h3>
 		<div class="list">
 			<div
 				v-for="movie in props.getPersonData"
@@ -38,15 +46,12 @@ const getYear = (dateString) => {
 					<RouterLink
 						:to="{
 							name: 'media-details',
-							params: {
-								mediaType: movie.episode_count ? 'tv' : 'movie',
-								id: movie.id,
-							},
+							params: { mediaType: movie.episode_count ? 'tv' : 'movie', id: movie.id },
 						}"
 					>
 						{{ movie.original_title || movie.original_name }}
 					</RouterLink>
-					<span> ... {{ movie.job || movie.character }}</span>
+					<span> ... {{ movie.job || movie.character }} </span>
 				</div>
 			</div>
 		</div>

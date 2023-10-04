@@ -22,6 +22,29 @@ const mediaQuery = reactive({
 	id: router.currentRoute.value.params.id,
 })
 
+const swiperBreakpoints = computed(() => {
+	return {
+		320: {
+			slidesPerView: 1,
+		},
+		480: {
+			slidesPerView: 2,
+		},
+		640: {
+			slidesPerView: 3,
+		},
+		768: {
+			slidesPerView: 4,
+		},
+		1024: {
+			slidesPerView: 6,
+		},
+		1280: {
+			slidesPerView: 7,
+		},
+	}
+})
+
 const mediaDetailsPoster = computed(() => {
 	const posterPath = store.mediaDetails.data.poster_path
 	return posterPath !== null && posterPath !== undefined
@@ -215,29 +238,10 @@ onMounted(() => {
 				<swiper
 					:slides-per-view="7"
 					:space-between="20"
-					:freeMode="true"
-					:mousewheel="true"
+					freeMode
+					:mousewheel="{ forceToAxis: true }"
 					:modules="[Mousewheel, FreeMode]"
-					:breakpoints="{
-						320: {
-							slidesPerView: 1,
-						},
-						480: {
-							slidesPerView: 2,
-						},
-						640: {
-							slidesPerView: 3,
-						},
-						768: {
-							slidesPerView: 4,
-						},
-						1024: {
-							slidesPerView: 6,
-						},
-						1280: {
-							slidesPerView: 7,
-						},
-					}"
+					:breakpoints="swiperBreakpoints"
 				>
 					<swiper-slide
 						v-for="person in store.mediaDetails.persons"
@@ -246,9 +250,7 @@ onMounted(() => {
 						<RouterLink
 							:to="{
 								name: 'person-details',
-								params: {
-									alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}`,
-								},
+								params: { alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}` },
 							}"
 						>
 							<ItemCard

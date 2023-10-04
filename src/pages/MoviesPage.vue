@@ -6,7 +6,11 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 
-const filter = reactive({ panelOpen: false, searchBtnOpen: false, sortBy: { label: 'Популярні', value: 'popularAsc' } })
+const filter = reactive({
+	panelOpen: false,
+	searchBtnOpen: false,
+	sortBy: { label: 'Популярні', value: 'popularAsc' },
+})
 const isLoading = ref(false)
 const currentPage = ref(1)
 
@@ -89,7 +93,7 @@ onBeforeMount(() => {
 								},
 							]"
 							:searchable="false"
-							:hide-selected="true"
+							hide-selected
 							openDirection="bottom"
 							label="label"
 							track-by="value"
@@ -106,20 +110,20 @@ onBeforeMount(() => {
 						name="fade"
 						class="movies__content-items"
 					>
-					<RouterLink
-						:to="{
-							name: 'media-details',
-							params: { mediaType: 'movie', id: movie.id,},
-						}"
-						v-for="movie in store.getMovies"
-						:key="movie.id"
-					>
-						<ItemCard
-							:movie="movie"
-							type="movie"
-							:filmCard="true"
-						/>
-					</RouterLink>
+						<RouterLink
+							:to="{
+								name: 'media-details',
+								params: { mediaType: 'movie', id: movie.id },
+							}"
+							v-for="movie in store.getMovies"
+							:key="movie.id"
+						>
+							<ItemCard
+								:movie="movie"
+								type="movie"
+								:filmCard="true"
+							/>
+						</RouterLink>
 					</TransitionGroup>
 
 					<!-- Pagination Button -->

@@ -126,15 +126,21 @@ onMounted(() => {
 							<div class="block__info-desc">
 								<div class="head">
 									Відомий (-а) за
-									<span>{{ store.getPerson.bio.known_for_department }}</span>
+									<span>
+										{{ store.getPerson.bio.known_for_department }}
+									</span>
 								</div>
 								<div class="head">
 									Кількість робіт
-									<span> {{ personWorks }} </span>
+									<span>
+										{{ personWorks }}
+									</span>
 								</div>
 								<div class="head">
 									Стать
-									<span>{{ personGender }}</span>
+									<span>
+										{{ personGender }}
+									</span>
 								</div>
 								<div class="head">
 									День народження

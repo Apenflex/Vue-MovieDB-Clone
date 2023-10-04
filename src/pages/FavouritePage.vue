@@ -27,10 +27,7 @@ const store = useFavouritesStore()
 						:key="movie.id"
 						:to="{
 							name: 'media-details',
-							params: {
-								mediaType: movie.media_type,
-								id: movie.id,
-							},
+							params: { mediaType: movie.media_type, id: movie.id },
 						}"
 					>
 						<ItemCard

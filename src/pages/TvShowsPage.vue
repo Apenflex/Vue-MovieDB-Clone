@@ -93,7 +93,7 @@ onBeforeMount(() => {
 								},
 							]"
 							:searchable="false"
-							:hide-selected="true"
+							hide-selected
 							openDirection="bottom"
 							label="label"
 							track-by="value"

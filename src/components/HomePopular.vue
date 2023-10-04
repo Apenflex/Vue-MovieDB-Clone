@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onBeforeMount } from 'vue'
+import { reactive, computed, onBeforeMount } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
@@ -7,7 +7,10 @@ import { moviesStore } from '@/stores/moviesStore'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
-const popularMovies = reactive({ data: store.trandingMovies, variant: { label: 'Наживо', value: '' } })
+const popularMovies = reactive({
+	data: store.trandingMovies,
+	variant: { label: 'Наживо', value: '' },
+})
 const popularLinks = [
 	{
 		title: 'Наживо',
@@ -26,6 +29,29 @@ const popularLinks = [
 		value: 'upcoming',
 	},
 ]
+
+const swiperBreakpoints = computed(() => {
+	return {
+		320: {
+			slidesPerView: 1,
+		},
+		480: {
+			slidesPerView: 2,
+		},
+		640: {
+			slidesPerView: 3,
+		},
+		768: {
+			slidesPerView: 4,
+		},
+		1024: {
+			slidesPerView: 6,
+		},
+		1280: {
+			slidesPerView: 7,
+		},
+	}
+})
 
 const fetchPopular = (argDay) => {
 	popularMovies.variant.value = argDay
@@ -75,8 +101,8 @@ onBeforeMount(() => {
 					},
 				]"
 				:searchable="false"
-				:hide-selected="true"
-				:close-on-select="true"
+				hide-selected
+				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
@@ -90,35 +116,21 @@ onBeforeMount(() => {
 			<swiper
 				:slides-per-view="7"
 				:space-between="20"
-				:freeMode="true"
+				freeMode
 				:mousewheel="{ forceToAxis: true }"
 				:modules="[Mousewheel, FreeMode]"
-				:breakpoints="{
-					320: {
-						slidesPerView: 1,
-					},
-					480: {
-						slidesPerView: 2,
-					},
-					640: {
-						slidesPerView: 3,
-					},
-					768: {
-						slidesPerView: 4,
-					},
-					1024: {
-						slidesPerView: 6,
-					},
-					1280: {
-						slidesPerView: 7,
-					},
-				}"
+				:breakpoints="swiperBreakpoints"
 			>
 				<swiper-slide
 					v-for="movie in store.popularMovies"
 					:key="movie.id"
 				>
-					<RouterLink :to="{ name: 'media-details', params: { mediaType: 'movie', id: movie.id } }">
+					<RouterLink
+						:to="{
+							name: 'media-details',
+							params: { mediaType: 'movie', id: movie.id },
+						}"
+					>
 						<ItemCard
 							:movie="movie"
 							type="movie"

@@ -1,12 +1,21 @@
 <script setup>
 const props = defineProps({
 	movie: {
-		type: Object,
-		title: String,
-		path: String,
+		title: {
+			type: String,
+			default: '',
+		},
+		path: {
+			type: String,
+			default: '',
+		},
 	},
-	isOpen: Boolean,
+	isOpen: {
+		type: Boolean,
+		default: false,
+	},
 })
+
 defineEmits(['toggle-modal'])
 </script>
 
