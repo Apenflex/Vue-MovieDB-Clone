@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, reactive, ref, computed } from 'vue'
+import { onBeforeMount, reactive, computed } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
 import { useRouter } from 'vue-router'
 
@@ -9,7 +9,6 @@ const store = moviesStore()
 const router = useRouter()
 
 const searchQuery = reactive({ query: '', page: 1 })
-const isLoading = ref(false)
 
 const backgroundImage = computed(() => {
 	return {
@@ -20,14 +19,15 @@ const backgroundImage = computed(() => {
 })
 
 const handleSearch = () => {
+	console.log('search')
 	if (!searchQuery.query) return
-	isLoading.value = true
+	store.isLoading = true
 	router.push({
 		name: 'search',
 		query: { query: searchQuery.query, page: searchQuery.page },
 	})
 	searchQuery.query = ''
-	isLoading.value = false
+	store.isLoading = false
 }
 
 onBeforeMount(() => {
@@ -48,7 +48,6 @@ onBeforeMount(() => {
 				</div>
 				<SearchForm
 					:searchQuery="searchQuery"
-					:isLoading="isLoading"
 					@submit="handleSearch"
 				/>
 			</div>

@@ -9,7 +9,7 @@ import { useFavouritesStore } from '@/stores/useFavouritesStore'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
 import Modal from '@/components/modal/Modal.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
-import ItemCard from '@/components/icons/ItemCard.vue'
+import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()

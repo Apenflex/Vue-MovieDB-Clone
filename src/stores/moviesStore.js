@@ -32,6 +32,7 @@ export const moviesStore = defineStore('moviesDB', {
     searchMovies: {
       data: [],
       totalPages: 0,
+      totalResults: 0,
     },
     isLoading: false,
   }),
@@ -199,9 +200,13 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchSearch({ query, page }) {
       try {
+        this.isLoading = true;
         const response = await securedAxios.get(`/search/multi?query=${query}&page=${page}`);
+        // console.log(response.data);
         this.searchMovies.data = response.data.results;
         this.searchMovies.totalPages = response.data.total_pages;
+        this.searchMovies.totalResults = response.data.total_results;
+        this.isLoading = false;
       } catch (error) {
         console.error(error);
       }

@@ -1,20 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { moviesStore } from '@/stores/moviesStore'
 
 const props = defineProps({
 	searchQuery: {
-		type: String,
-		default: '',
-	},
-	isLoading: {
-		type: Boolean,
-		default: false,
+		query: String,
+		page: Number,
 	},
 })
-
 defineEmits(['submit'])
 
+const store = moviesStore()
+
 const searchQuery = ref(props.searchQuery)
+const isSmallScreen = ref(false)
+
+const findScreenWidth = () => {
+	isSmallScreen.value = window.innerWidth <= 490
+}
+
+onMounted(() => {
+	findScreenWidth()
+	window.addEventListener('resize', findScreenWidth)
+})
+
+onBeforeUnmount(() => {
+	window.removeEventListener('resize', findScreenWidth)
+})
 </script>
 
 <template>
@@ -23,12 +35,12 @@ const searchQuery = ref(props.searchQuery)
 		@submit.prevent="$emit('submit')"
 	>
 		<input
-			type="text"
-			placeholder="Пошук фільму, серіалу, персони..."
 			v-model="searchQuery.query"
+			type="text"
+			:placeholder="isSmallScreen ? 'Пошук...' : 'Пошук фільму, серіалу, персони...'"
 		/>
 		<button
-			:disabled="isLoading"
+			:disabled="store.isLoading || !searchQuery.query"
 			class="searchBtn"
 		>
 			Search

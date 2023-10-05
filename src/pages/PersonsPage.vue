@@ -46,23 +46,6 @@ onMounted(() => {
 					</RouterLink>
 				</div>
 				<!-- Pagination -->
-				<!-- <div class="pagination">
-					<button
-						@click="handleChangePage('prev')"
-						:disabled="isLoading || currentPage.valueOf() === 1"
-						:class="['paginationBtn',{ disabled: currentPage === 1 || isLoading }]"
-					>
-						Prev
-					</button>
-					<span>{{ currentPage }}</span>
-					<button
-						@click="handleChangePage('next')"
-						:disabled="isLoading || store.persons.totalPages === currentPage.valueOf()"
-						:class="['paginationBtn',{ disabled: isLoading || store.persons.totalPages === currentPage.valueOf() }]"
-					>
-						Next
-					</button>
-				</div> -->
 				<div class="persons__pagination">
 					<PrimePaginator
 						:first="(currentPage - 1) * 20"

@@ -1,58 +1,57 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomePage from '@/pages/HomePage.vue'
-import FavouritePage from '@/pages/FavouritePage.vue'
-import MoviesPage from '@/pages/MoviesPage.vue'
-import TvShowsPage from '@/pages/TvShowsPage.vue'
-import PersonsPage from '@/pages/PersonsPage.vue'
-import SearchPage from '@/pages/SearchPage.vue'
-import FilmsDescPage from '@/pages/FilmsDescPage.vue'
-// import PersonDescPage from '@/pages/PersonDescPage.vue'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      // component: HomePage
+      component: () => import('@/pages/HomePage.vue'),
     },
     {
       path: '/search',
       name: 'search',
-      component: SearchPage
+      // component: SearchPage
+      component: () => import('@/pages/SearchPage.vue'),
     },
     {
       path: '/favourite',
       name: 'favourite',
-      component: FavouritePage
+      // component: FavouritePage
+      component: () => import('@/pages/FavouritePage.vue'),
     },
     {
       path: '/movies',
       name: 'movies',
-      component: MoviesPage
+      // component: MoviesPage
+      component: () => import('@/pages/MoviesPage.vue'),
     },
     {
       path: '/tv-shows',
       name: 'tv-shows',
-      component: TvShowsPage
+      // component: TvShowsPage
+      component: () => import('@/pages/TvShowsPage.vue'),
     },
     {
       path: '/:mediaType/:id',
       name: 'media-details',
-      component: FilmsDescPage,
+      // component: FilmsDescPage,
+      component: () => import('@/pages/FilmsDescPage.vue'),
       props: true
     },
     {
       path: '/persons',
       name: 'persons',
-      component: PersonsPage
+      // component: PersonsPage
+      component: () => import('@/pages/PersonsPage.vue'),
     },
     {
       path: '/persons/:alias',
       name: 'person-details',
       // component: PersonDescPage,
       component: () => import('@/pages/PersonDescPage.vue'),
+      props: true
     },
   ]
 })
