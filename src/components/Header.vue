@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useWindowScroll } from '@vueuse/core'
 
-import IconHeart from '@/components/IconHeart.vue'
+import IconHeart from '@/components/icons/IconHeart.vue'
 
 const router = useRouter()
 const isMenuOpen = ref(false)

@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore } from '@/stores/moviesStore'
-import Modal from '@/components/Modal.vue'
+import Modal from '@/components/modal/Modal.vue'
 
 const store = moviesStore()
 const isModalOpen = ref(false)

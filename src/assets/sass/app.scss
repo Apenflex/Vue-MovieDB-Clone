@@ -1,31 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
-@import './variables.scss';
-@import './mixins.scss';
-@import './animations.scss';
-@import './header.scss';
-@import './footer.scss';
-@import './multiselect.scss';
-@import 'swiper/css';
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+@import 'buttons';
+@import 'components';
+@import 'pages';
 @import "vue-toastification/dist/index.css";
-@import './buttons/searchbtn.scss';
-@import './buttons/paginationbtn.scss';
-@import './pages/persons.scss';
-@import './pages/persondesc.scss';
-@import './pages/favourite.scss';
-@import './pages/search.scss';
-@import './pages/movies.scss';
-@import './pages/tvshows.scss';
-@import './pages/filmdesc.scss';
-@import './components/itemcard.scss';
-@import './components/search.scss';
-@import './components/trend.scss';
-@import './components/trailers.scss';
-@import './components/popular.scss';
-@import './components/modal.scss';
-@import './components/formsearch.scss';
-@import './components/primepaginator.scss';
-@import './components/persondesclist.scss';
-@import './components/scrollup.scss';
 
 h1,
 h2,
@@ -44,6 +24,7 @@ ul {
 }
 
 a {
+	cursor: pointer;
 	text-decoration: none;
 	color: inherit;
 }

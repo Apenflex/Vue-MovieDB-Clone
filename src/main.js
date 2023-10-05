@@ -12,7 +12,7 @@ import VueMultiselect from 'vue-multiselect'
 import Toast from "vue-toastification";
 import PrimeVue from 'primevue/config';
 import Paginator from 'primevue/paginator';
-
+import Skeleton from 'primevue/skeleton';
 
 const app = createApp(App)
 // Pinia
@@ -42,6 +42,7 @@ app.use(Toast, {
 })
 // PrimeVue
 app.use(PrimeVue)
-app.component('PrimePaginator', Paginator)
+  .component('PrimePaginator', Paginator)
+  .component('PrimeSkeleton', Skeleton)
 
 app.mount('#app')

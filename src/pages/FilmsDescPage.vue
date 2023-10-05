@@ -7,9 +7,9 @@ import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
-import Modal from '@/components/Modal.vue'
-import IconHeart from '@/components/IconHeart.vue'
-import ItemCard from '@/components/ItemCard.vue'
+import Modal from '@/components/modal/Modal.vue'
+import IconHeart from '@/components/icons/IconHeart.vue'
+import ItemCard from '@/components/icons/ItemCard.vue'
 
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()

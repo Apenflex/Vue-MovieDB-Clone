@@ -33,6 +33,7 @@ export const moviesStore = defineStore('moviesDB', {
       data: [],
       totalPages: 0,
     },
+    isLoading: false,
   }),
   getters: {
     // Movies
@@ -180,6 +181,7 @@ export const moviesStore = defineStore('moviesDB', {
         },
       }
       try {
+        this.isLoading = true;
         const responseBio = await securedAxios.get(`/person/${id}`);
         const responseMovies = await securedAxios.get(`/person/${id}/movie_credits`);
         const responseTvShows = await securedAxios.get(`/person/${id}/tv_credits`);
@@ -192,7 +194,7 @@ export const moviesStore = defineStore('moviesDB', {
         // console.log(this.person.movies.cast);
         // console.log(this.person.movies.cast);
         // console.log(this.person.movies.cast.map((item) => item.release_date || item.first_air_date));
-
+        this.isLoading = false;
       } catch (error) { console.error(error); }
     },
     async fetchSearch({ query, page }) {

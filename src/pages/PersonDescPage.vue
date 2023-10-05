@@ -14,7 +14,7 @@ const personId = ref(null)
 const showMoreBio = ref(false)
 
 const personPoster = computed(() => {
-	return `https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`
+	return `https://image.tmdb.org/t/p/w500${store.getPerson.bio.profile_path}`
 })
 
 const personWorks = computed(() => {

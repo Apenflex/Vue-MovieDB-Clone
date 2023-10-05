@@ -4,8 +4,8 @@ import { useFavouritesStore } from '@/stores/useFavouritesStore'
 
 import { useToast } from 'vue-toastification'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
-import IconHeart from './IconHeart.vue'
-import IconTrash from './IconTrash.vue'
+import IconHeart from './icons/IconHeart.vue'
+import IconTrash from './icons/IconTrash.vue'
 
 const props = defineProps({
 	movie: Object,
