@@ -103,6 +103,7 @@ export const moviesStore = defineStore('moviesDB', {
       }
     },
     async fetchMediaDetails({ mediaType, id }) {
+      this.mediaDetails.data = [];
       try {
         const response = await securedAxios.get(`/${mediaType}/${id}`);
         const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);

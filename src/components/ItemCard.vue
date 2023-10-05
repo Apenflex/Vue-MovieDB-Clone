@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 
-import { useToast } from 'vue-toastification'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
+import { toggleFavouriteMovie } from '@/helpers/toggleFavouriteMovie'
 import IconHeart from './icons/IconHeart.vue'
 import IconTrash from './icons/IconTrash.vue'
 
@@ -18,7 +18,6 @@ const props = defineProps({
 })
 
 const favouriteStore = useFavouritesStore()
-const toast = useToast()
 
 const formatDate = computed(() => {
 	if (props.movie.release_date || props.movie.first_air_date) {
@@ -63,33 +62,22 @@ const movieAvgCount = computed(() => {
 	return (props.movie.vote_average * 10).toFixed()
 })
 
-const handleAddFavourite = (movie) => {
-	// console.log('add')
-	// console.log(movie)
-	if (!favouriteStore.favouriteMovies.map((item) => item.id).includes(movie.id)) {
-		favouriteStore.addFavouriteMovie(movie)
-		toast.success(`${movie.original_title || movie.name} - Added to favourites`)
-	} else {
-		favouriteStore.removeFavouriteMovie(movie)
-		toast.error(`${movie.original_title || movie.name} - Removed from favourites`)
-	}
-}
 </script>
 
 <template>
-	<div :class="['movie-card', { 'box-shadow': filmCard || tvShowCard || personCard || favouriteCard }]">
-		<div>
+	<div :class="['movieCard', { 'box-shadow': filmCard || tvShowCard || personCard || favouriteCard }]">
+		<div class="movieCard__icons">
 			<IconHeart
 				v-if="type === 'movie' && !favouriteCard"
-				@click.prevent="handleAddFavourite(movie)"
+				@click.prevent="toggleFavouriteMovie(movie)"
 				:color="favouriteColor"
-				class="icon-heart"
+				class="movieCard__icons-heart"
 			/>
 
 			<IconTrash
 				v-if="favouriteCard"
-				class="icon-trash"
-				@click.prevent="favouriteStore.removeFavouriteMovie(movie)"
+				class="movieCard__icons-trash"
+				@click.prevent="toggleFavouriteMovie(movie, notToast = true)"
 			/>
 			<img
 				v-if="type === 'movie'"
@@ -104,17 +92,17 @@ const handleAddFavourite = (movie) => {
 				loading="lazy"
 			/>
 		</div>
-		<div class="description">
+		<div class="movieCard__description">
 			<div
 				v-if="type === 'movie'"
-				class="icon-rating"
+				class="rating"
 				:style="calcVoteColor((movie.vote_average * 10).toFixed())"
 			>
-				<div>
-					<span class="icon-count">
+				<div class="rating__content">
+					<span class="rating__content-count">
 						{{ movieAvgCount }}
 					</span>
-					<span class="icon-percentage">%</span>
+					<span class="rating__content-percentage">%</span>
 				</div>
 			</div>
 

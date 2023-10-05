@@ -7,6 +7,7 @@ import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 import { calcVoteColor } from '@/helpers/calcVoteColor'
+import { toggleFavouriteMovie } from '@/helpers/toggleFavouriteMovie'
 import Modal from '@/components/modal/Modal.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
 import ItemCard from '@/components/ItemCard.vue'
@@ -16,7 +17,6 @@ const favouriteStore = useFavouritesStore()
 const router = useRouter()
 
 const isModalOpen = ref(false)
-const addedToFavourite = ref(false)
 
 const mediaQuery = reactive({
 	mediaType: router.currentRoute.value.params.mediaType,
@@ -97,13 +97,6 @@ const favouriteColor = computed(() => {
 	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.data.id) ? '#ff0000' : '#fff'
 })
 
-const handleAddFavourite = (movie) => {
-	// console.log('DetailsPage', movie)
-	addedToFavourite.value = true
-	favouriteStore.addFavouriteMovie(movie)
-	addedToFavourite.value = false
-}
-
 const handleToggleModal = () => (isModalOpen.value = !isModalOpen.value)
 
 onBeforeMount(() => {
@@ -178,7 +171,7 @@ onMounted(() => {
 							</div>
 							<div class="tooltip">
 								<IconHeart
-									@click.prevent="handleAddFavourite(store.mediaDetails.data)"
+									@click.prevent="toggleFavouriteMovie(store.mediaDetails.data)"
 									:color="favouriteColor"
 								/>
 							</div>
