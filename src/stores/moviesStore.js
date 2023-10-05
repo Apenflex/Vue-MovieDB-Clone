@@ -66,11 +66,13 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchMoviesMore({ page, sortBy }) {
       try {
+        this.isLoading = true;
         const response = await securedAxios.get(`/movie/popular?page=${page}`);
         const newMoviesWithMediaType = this.addMediaType(response.data.results, 'movie');
         this.movies.push(...newMoviesWithMediaType);
         // console.log(this.movies.map((item) => item.media_type))
         await this.MoviesSortBy(sortBy);
+        this.isLoading = false;
       } catch (error) {
         console.error(error);
       }
@@ -124,11 +126,13 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchTvShowsMore({ page, sortBy }) {
       try {
+        this.isLoading = true;
         const response = await securedAxios.get(`/tv/popular?page=${page}`);
         const newTvShowsWithMediaType = this.addMediaType(response.data.results, 'tv');
         this.tvShows.push(...newTvShowsWithMediaType);
         // console.log(this.tvShows.map((item) => item.media_type))
         await this.TvShowsSortBy(sortBy);
+        this.isLoading = false;
       } catch (error) {
         console.error(error);
       }

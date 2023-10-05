@@ -11,7 +11,7 @@ const filter = reactive({
 	searchBtnOpen: false,
 	sortBy: { label: 'Популярні', value: 'popularAsc' },
 })
-const isLoading = ref(false)
+
 const currentPage = ref(1)
 
 const handleFilterSearch = () => {
@@ -19,11 +19,9 @@ const handleFilterSearch = () => {
 	filter.searchBtnOpen = false
 }
 
-const handleLoadMore = async () => {
+const handleLoadMore = () => {
 	currentPage.value++
-	isLoading.value = true
 	store.fetchTvShowsMore({ page: currentPage.value, sortBy: filter.sortBy.value })
-	isLoading.value = false
 }
 
 onBeforeMount(() => {
@@ -129,7 +127,7 @@ onBeforeMount(() => {
 					<!-- Pagination Button -->
 					<button
 						class="tvshows__content-loadMore"
-						:class="{ loading: isLoading }"
+						:class="{ loading: store.isLoading }"
 						@click="handleLoadMore"
 					>
 						Завантажити більше

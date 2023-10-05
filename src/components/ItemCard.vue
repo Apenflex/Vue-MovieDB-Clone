@@ -2,8 +2,7 @@
 import { computed } from 'vue'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 
-import { calcVoteColor } from '@/helpers/calcVoteColor'
-import { toggleFavouriteMovie } from '@/helpers/toggleFavouriteMovie'
+import { calcVoteColor, toggleFavouriteMovie } from '@/helpers'
 import IconHeart from './icons/IconHeart.vue'
 import IconTrash from './icons/IconTrash.vue'
 
