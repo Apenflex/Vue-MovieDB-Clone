@@ -46,6 +46,21 @@
 			transition: 0.6s all;
 			z-index: 2;
 		}
+		.multiselect {
+			width: 50px;
+			&__select {
+				display: none;
+			}
+			&__tags {
+				background: $primary;
+			}
+			&__single {
+				color: #fff;
+			}
+			&__option--highlight {
+				background: $darkGreen;
+			}
+		}
 		&-item {
 			position: relative;
 			color: $white;
@@ -199,7 +214,9 @@
 			}
 		}
 		&.is-active {
-			.hamburger-inner, ::after, ::before {
+			.hamburger-inner,
+			::after,
+			::before {
 				background-color: $burgerColor;
 			}
 		}

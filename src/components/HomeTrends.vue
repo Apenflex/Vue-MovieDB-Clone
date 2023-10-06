@@ -1,16 +1,30 @@
 <script setup>
 import { reactive, computed, onBeforeMount } from 'vue'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
-
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
+import { calcTabActiveClass } from '@/helpers'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
+const { t } = useI18n()
 const activeMovies = reactive({
 	data: store.trandingMovies,
-	variant: { label: 'Сьогодні', value: '' },
+	variant: { label: t('components.HomeTrends.tab.day.label'), value: '' },
 })
+
+const selectOptions = [
+	{
+		label: t('components.HomeTrends.tab.day.label'),
+		value: t('components.HomeTrends.tab.day.value'),
+	},
+	{
+		label: t('components.HomeTrends.tab.week.label'),
+		value: t('components.HomeTrends.tab.week.value'),
+	},
+]
 
 const swiperBreakpoints = computed(() => {
 	return {
@@ -49,45 +63,37 @@ onBeforeMount(() => {
 <template>
 	<section class="trend container">
 		<div class="trend__wrapper">
-			<h2>У тренді</h2>
+			<h2>
+				{{ t('components.HomeTrends.tab.title') }}
+			</h2>
 			<!-- Descktop Select -->
 			<div class="trend__tabs">
 				<h3
-					:class="{ active: activeMovies.variant.value === 'day' }"
+					:class="calcTabActiveClass(activeMovies, t('components.HomeTrends.tab.day.value'))"
 					@click="fetchTrends('day')"
 				>
-					Сьогодні
+					{{ t('components.HomeTrends.tab.day.label') }}
 				</h3>
 				<h3
-					:class="{ active: activeMovies.variant.value === 'week' }"
+					:class="calcTabActiveClass(activeMovies, t('components.HomeTrends.tab.week.value'))"
 					@click="fetchTrends('week')"
 				>
-					Цього тижня
+					{{ t('components.HomeTrends.tab.week.label') }}
 				</h3>
 			</div>
 
 			<!-- Mobile Select -->
 			<VueMultiselect
 				v-model="activeMovies.variant"
-				:options="[
-					{
-						label: 'Сьогодні',
-						value: 'day',
-					},
-					{
-						label: 'Цього тижня',
-						value: 'week',
-					},
-				]"
+				:options="selectOptions"
 				:searchable="false"
 				hide-selected
 				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
-				@select="fetchTrends(activeMovies.variant.value)"
-				placeholder="Сортувати за"
 				selectLabel=""
+				@select="fetchTrends(activeMovies.variant.value)"
 			/>
 		</div>
 

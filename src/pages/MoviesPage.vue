@@ -95,9 +95,8 @@ onBeforeMount(() => {
 							openDirection="bottom"
 							label="label"
 							track-by="value"
-							@select="filter.searchBtnOpen = true"
-							placeholder="Сортувати за"
 							selectLabel=""
+							@select="filter.searchBtnOpen = true"
 						/>
 					</div>
 				</div>

@@ -1,32 +1,37 @@
 <script setup>
 import { reactive, computed, onBeforeMount } from 'vue'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
-
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
+import { calcTabActiveClass } from '@/helpers'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
+const { t } = useI18n()
+
 const popularMovies = reactive({
 	data: store.trandingMovies,
-	variant: { label: 'Наживо', value: '' },
+	variant: { label: t('components.HomePopular.tab.streaming.label'), value: '' },
 })
-const popularLinks = [
+
+const selectOptions = [
 	{
-		title: 'Наживо',
-		value: 'now_playing',
+		label: t('components.HomePopular.tab.streaming.label'),
+		value: t('components.HomePopular.tab.streaming.value'),
 	},
 	{
-		title: 'На ТБ',
-		value: 'popular',
+		label: t('components.HomePopular.tab.onTv.label'),
+		value: t('components.HomePopular.tab.onTv.value'),
 	},
 	{
-		title: 'Для прокату',
-		value: 'top_rated',
+		label: t('components.HomePopular.tab.forRent.label'),
+		value: t('components.HomePopular.tab.forRent.value'),
 	},
 	{
-		title: 'У кінотеатрах',
-		value: 'upcoming',
+		label: t('components.HomePopular.tab.inTheaters.label'),
+		value: t('components.HomePopular.tab.inTheaters.value'),
 	},
 ]
 
@@ -67,47 +72,48 @@ onBeforeMount(() => {
 <template>
 	<section class="popular container">
 		<div class="popular__wrapper">
-			<h2>Що популярне</h2>
+			<h2>
+				{{ t('components.HomePopular.tab.title') }}
+			</h2>
 			<!-- Desktop Select -->
 			<div class="popular__tab">
 				<h3
-					v-for="link of popularLinks"
-					:key="link.title"
-					:class="{ active: popularMovies.variant.value === link.value }"
-					@click="fetchPopular(link.value)"
+					:class="calcTabActiveClass(popularMovies, t('components.HomePopular.tab.streaming.value'))"
+					@click="fetchPopular(t('components.HomeTrailers.tab.streaming.value'))"
 				>
-					{{ link.title }}
+					{{ t('components.HomePopular.tab.streaming.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(popularMovies, t('components.HomePopular.tab.onTv.value'))"
+					@click="fetchPopular(t('components.HomeTrailers.tab.onTv.value'))"
+				>
+					{{ t('components.HomePopular.tab.onTv.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(popularMovies, t('components.HomePopular.tab.forRent.value'))"
+					@click="fetchPopular(t('components.HomeTrailers.tab.forRent.value'))"
+				>
+					{{ t('components.HomePopular.tab.forRent.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(popularMovies, t('components.HomePopular.tab.inTheaters.value'))"
+					@click="fetchPopular(t('components.HomeTrailers.tab.inTheaters.value'))"
+				>
+					{{ t('components.HomePopular.tab.inTheaters.label') }}
 				</h3>
 			</div>
 			<!-- Mobile Select -->
 			<VueMultiselect
 				v-model="popularMovies.variant"
-				:options="[
-					{
-						label: 'Наживо',
-						value: 'now_playing',
-					},
-					{
-						label: 'На ТБ',
-						value: 'popular',
-					},
-					{
-						label: 'Для прокату',
-						value: 'top_rated',
-					},
-					{
-						label: 'У кінотеатрах',
-						value: 'upcoming',
-					},
-				]"
+				:options="selectOptions"
 				:searchable="false"
 				hide-selected
 				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
-				@select="fetchPopular(popularMovies.variant.value)"
 				selectLabel=""
+				@select="fetchPopular(popularMovies.variant.value)"
 			/>
 		</div>
 

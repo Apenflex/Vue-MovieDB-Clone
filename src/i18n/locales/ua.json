@@ -1,0 +1,298 @@
+{
+	"components": {
+		"HeaderBlock": {
+			"ukrainian": "Укр",
+			"ukr": "ua",
+			"english": "Eng",
+			"eng": "en",
+			"movies": "Фільми",
+			"tvshows": "Серіали",
+			"persons": "Персони"
+		},
+		"FooterBlock": {
+			"foundations": {
+				"title": "ОСНОВИ",
+				"links": {
+					"AboutTMDB": "Про TMDB",
+					"ContactUs": "Зв’язок із нами",
+					"SupportForums": "Форуми підтримки",
+					"API": "API",
+					"SystemStatus": "Стан системи"
+				}
+			},
+			"participate": {
+				"title": "УЗЯТИ УЧАСТЬ",
+				"links": {
+					"BibleWithSupport": "Біблія зі сприяння",
+					"AddNewMovie": "Додати новий фільм",
+					"AddNewTVShow": "Додати новий серіал"
+				}
+			},
+			"community": {
+				"title": "СПІЛЬНОТА",
+				"links": {
+					"Advice": "Поради",
+					"Discussions": "Обговорення",
+					"Leaderboard": "Таблиця лідерів",
+					"Twitter": "Twitter"
+				}
+			},
+			"terms": {
+				"title": "УГОДИ",
+				"links": {
+					"TermsOfUse": "Умови користування",
+					"APIUsageRules": "Правила використання API",
+					"PrivacyPolicy": "Політика конфіденційності",
+					"DMCARequest": "Запит DMCA"
+				}
+			}
+		},
+		"HomeSearch": {
+			"h1": "Ласкаво просимо.",
+			"h2": "Мільйони фільмів, серіалів і персон. Досліджуйте зараз."
+		},
+		"SearchForm": {
+			"placeholder": {
+				"desktop": "Пошук фільму, серіалу, персони...",
+				"mobile": "Пошук"
+			},
+			"button": "Пошук"
+		},
+		"HomeTrends": {
+			"tab": {
+				"title": "У Тренді",
+				"day": {
+					"label": "Сьогодні",
+					"value": "day"
+				},
+				"week": {
+					"label": "Цього тижня",
+					"value": "week"
+				}
+			}
+		},
+		"HomeTrailers": {
+			"tab": {
+				"title": "Останні трейлери",
+				"streaming": {
+					"label": "Наживо",
+					"value": "now_playing"
+				},
+				"onTv": {
+					"label": "На ТБ",
+					"value": "popular"
+				},
+				"forRent": {
+					"label": "Для прокату",
+					"value": "top_rated"
+				},
+				"inTheaters": {
+					"label": "У кінотеатрах",
+					"value": "upcoming"
+				}
+			}
+		},
+		"HomePopular": {
+			"tab": {
+				"title": "Що популярне",
+				"streaming": {
+					"label": "Наживо",
+					"value": "now_playing"
+				},
+				"onTv": {
+					"label": "На ТБ",
+					"value": "popular"
+				},
+				"forRent": {
+					"label": "Для прокату",
+					"value": "top_rated"
+				},
+				"inTheaters": {
+					"label": "У кінотеатрах",
+					"value": "upcoming"
+				}
+			}
+		}
+	},
+	"pages": {
+		"MoviesPage": {
+			"MainBlock": {
+				"mainInfo": {
+					"item1": "Реалізовано житлових <br/> компексів у Львові",
+					"item2": "Років існування компанії <br/> та реалізації житлових комплексів",
+					"item3": "Метрів квадратних побудовано",
+					"item4": "Житлових комплексів <br/> в активній стадії будівництва"
+				}
+			},
+			"ComplexesBlock": {
+				"allProjects": "Всі проекти"
+			},
+			"ChooseBlock": {
+				"title": "<span>Оберіть Вашу</span> <span>майбутню домівку</span>",
+				"chooseFlat": "Обрати квартиру",
+				"chooseFooterText1": "Пропонуємо гнучкі <br> та вигідні умови <br> придбання нерухомості",
+				"chooseFooterText2": "Перевершує сподівання <br> наших резидентів та надає їм <br> максимум комфорту"
+			},
+			"ChooseStepsBlock": {
+				"title": "Вибір квартири",
+				"subtitle": "Невелика анкета допоможе підібрати квартиру по вашим критеріям.",
+				"flatsCount": "Кімнатність квартири",
+				"complex": "Житловий комплекс",
+				"totalArea": "Загальна площа",
+				"totalAreaCount": {
+					"1": "До 55 м2",
+					"2": "55 - 80 м2",
+					"3": "Більше 80 м2"
+				}
+			}
+		},
+		"AboutPage": {
+			"MainBlock": {
+				"title": "<span>Творимо</span> <span>сучасні,</span> <span>яскраві</span><span>та комфортні</span> <span>середовища</span>",
+				"mainInfo": {
+					"text1": "Намагаємося із 2013 року збудувати мрію для кожного — житло, яке називатимуть домом. Поки інші просто зводять стіни, ми з радістю займаємося своєю улюбленою справою і даруємо вам затишок."
+				}
+			}
+		},
+		"OfferPage": {
+			"otherOffers": "Інші акції"
+		},
+		"OffersPage": {
+			"noOffers": "Немає акцій для відображення"
+		},
+		"NewsPage": {
+			"noNews": "Немає новин для відображення"
+		},
+		"NewsItemPage": {
+			"otherNews": "Інші новини"
+		},
+		"ProjectsPage": {
+			"modalTitle": "Житлові комплекси <br/> resident development",
+			"p1": "Оберіть жиловий комплекс на мапі, тиснувши на іконку локації.",
+			"p2": "Ви також можете прокручувати мапу для детального огляду."
+		},
+		"ProjectPage": {
+			"about": "Житловий комплекс",
+			"planning": "Планування",
+			"rescheduling": "Розтермінування",
+			"progress": "Хід будівництва",
+			"3d": "3D модель",
+			"aerialFlight": "Аерообліт 360",
+			"news": "Новини",
+			"docs": "Документи",
+			"ProjectCharsBlock": {
+				"title": "Характеристики <br/> комплексу",
+				"class": "Клас",
+				"flatsCount": "Кількість квартир",
+				"housesCount": "Кількість будинків",
+				"floors": "Поверховість",
+				"outsideWalls": "Зовнішні стіни",
+				"insideWalls": "Внутрішні стіни",
+				"heating": "Опалення",
+				"buildingTechnology": "Технологія будівництва",
+				"warming": "Утеплення",
+				"ceilingHeight": "Висота стелі",
+				"flatCondition": "Стан квартири",
+				"parking": "Паркінг",
+				"closedArea": "Закрита територія"
+			},
+			"ProjectOffersBlock": {
+				"title": "Акційні пропозиції"
+			},
+			"ProjectOthersBlock": {
+				"title": "Інші проекти"
+			},
+			"ProjectInfrastructureBlock": {
+				"title": "Інфрастуктура"
+			},
+			"ProjectDocsBlock": {
+				"title": "Документи",
+				"download": "Завантажити",
+				"emptyDocs": "Документи відсутні"
+			},
+			"ProjectProgressBlock": {
+				"title": "Хід будівництва",
+				"subtitle": "Етапи <br/> будівництва",
+				"progressEmpty": "Етапи будівництва відсутні"
+			}
+		},
+		"ProjectPlanTab": {
+			"emptyText": "Немає планувань для відображення."
+		},
+		"ProjectBondTab": {
+			"button": "отримати пропозицію",
+			"buttonMobile": "Обрати квартиру",
+			"buttonBelow": "Менеджер ознайомить вас ",
+			"buttonBelowSecond": "з більш детальною інформацією",
+			"monthlyPaymentFirst": "Місячний платіж",
+			"monthlyPaymentSecond": "(ставка за кредитом)",
+			"totalPaymentFirst": "Загальна вартість кредиту",
+			"totalPaymentSecond": "(орієнтовно)",
+			"annualRate": "Річна ставка",
+			"price": "Ціна об'єкта",
+			"avance": "Перший внесок",
+			"term": "Термін"
+		},
+		"ProjectNewsTab": {
+			"btn": "Завантажити ще",
+			"newsEmpty": "Немає новин для відображення"
+		}
+	},
+	"general": {
+		"further": "Далі",
+		"back": "Назад",
+		"menu": "Меню",
+		"close": "Закрити",
+		"date": "Дата",
+		"result": "Результат",
+		"detailed": "Детальніше",
+		"image": "Зображення",
+		"residentialComplex": "Житловий комплекс",
+		"readiness": "Готовність",
+		"district": "Район",
+		"priceM2": "Ціна за м<sup>2</sup>",
+		"m2": "м2",
+		"meters": "м",
+		"kilometers": "км",
+		"priceFrom": "Ціна від",
+		"onMap": "На мапі",
+		"status": "Статус",
+		"category": "Категорія",
+		"news": "Новини",
+		"send": "Відправити",
+		"projects": "Проекти",
+		"aboutCompany": "Про компанію",
+		"actions": "Акції",
+		"loadMore": "Завантажити ще",
+		"distance": "Відстань",
+		"contacts": "Контакти",
+		"validity": "Термін дії",
+		"publication": "Публікація",
+		"share": "ПОДІЛИТИСЬ",
+		"complex": "Житловий комплекс",
+		"phoneNumber": "+38 (073) 073 46 80",
+		"callUs": "Зателефонувати нам",
+		"addresses": "Адреси",
+		"touch": "Переміщуйте карту двома пальцями",
+		"scroll": "Щоб змінити масштаб карти використайте ctrl + прокручування",
+		"scrollMac": "Щоб змінити масштаб карти використайте ⌘ + прокручування",
+		"roominess": {
+			"1": "Однокімнатна",
+			"2": "Двокімнатна",
+			"3": "Трикімнатна",
+			"4": "Чотирикімнатна",
+			"5": "П'ятикімнатна",
+			"6": "Шестикімнатна"
+		}
+	},
+	"validations": {
+		"required": "Поле є обов'язковим.",
+		"minLength": "Поле повинно містити мінімум {min} символів.",
+		"email": "Введіть коректну поштову адресу."
+	},
+	"month": {
+		"1": "місяць",
+		"2": "місяців",
+		"3": "місяці"
+	}
+}

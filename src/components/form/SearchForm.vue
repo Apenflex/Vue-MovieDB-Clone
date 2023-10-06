@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
 	searchQuery: {
@@ -11,6 +12,7 @@ const props = defineProps({
 defineEmits(['submit'])
 
 const store = moviesStore()
+const { t } = useI18n()
 
 const searchQuery = ref(props.searchQuery)
 const isSmallScreen = ref(false)
@@ -37,13 +39,17 @@ onBeforeUnmount(() => {
 		<input
 			v-model="searchQuery.query"
 			type="text"
-			:placeholder="isSmallScreen ? 'Пошук...' : 'Пошук фільму, серіалу, персони...'"
+			:placeholder="
+				isSmallScreen
+					? t('components.SearchForm.placeholder.mobile')
+					: t('components.SearchForm.placeholder.desktop')
+			"
 		/>
 		<button
 			:disabled="store.isLoading || !searchQuery.query"
 			class="searchBtn"
 		>
-			Search
+			{{ t('components.SearchForm.button') }}
 		</button>
 	</form>
 </template>

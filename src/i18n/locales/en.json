@@ -1,0 +1,298 @@
+{
+	"components": {
+		"HeaderBlock": {
+			"ukrainian": "Українська",
+			"ukr": "Укр",
+			"english": "English",
+			"eng": "Eng",
+			"movies": "Movies",
+			"tvshows": "TV shows",
+			"persons": "Persons"
+		},
+		"FooterBlock": {
+			"foundations": {
+				"title": "FOUNDATIONS",
+				"links": {
+					"AboutTMDB": "About TMDB",
+					"ContactUs": "Contact Us",
+					"SupportForums": "Support Forums",
+					"API": "API",
+					"SystemStatus": "System Status"
+				}
+			},
+			"participate": {
+				"title": "PARTICIPATE",
+				"links": {
+					"BibleWithSupport": "Bible with Support",
+					"AddNewMovie": "Add New Movie",
+					"AddNewTVShow": "Add New TV Show"
+				}
+			},
+			"community": {
+				"title": "COMMUNITY",
+				"links": {
+					"Advice": "Advice",
+					"Discussions": "Discussions",
+					"Leaderboard": "Leaderboard",
+					"Twitter": "Twitter"
+				}
+			},
+			"terms": {
+				"title": "TERMS",
+				"links": {
+					"TermsOfUse": "Terms of Use",
+					"APIUsageRules": "API Usage Rules",
+					"PrivacyPolicy": "Privacy Policy",
+					"DMCARequest": "DMCA Request"
+				}
+			}
+		},
+		"HomeSearch": {
+			"h1": "Welcome.",
+			"h2": "Millions of movies, TV shows, and people. Explore now."
+		},
+		"SearchForm": {
+			"placeholder": {
+				"desktop": "Search for a movie, tv show, or person...",
+				"mobile": "Search"
+			},
+			"button": "Search"
+		},
+		"HomeTrends": {
+			"tab": {
+				"title": "Trends",
+				"day": {
+					"label": "Today",
+					"value": "day"
+				},
+				"week": {
+					"label": "This Week",
+					"value": "week"
+				}
+			}
+		},
+		"HomeTrailers": {
+			"tab": {
+				"title": "Latest Trailers",
+				"streaming": {
+					"label": "Streaming",
+					"value": "now_playing"
+				},
+				"onTv": {
+					"label": "On TV",
+					"value": "popular"
+				},
+				"forRent": {
+					"label": "For Rent",
+					"value": "top_rated"
+				},
+				"inTheaters": {
+					"label": "In Theaters",
+					"value": "upcoming"
+				}
+			}
+		},
+		"HomePopular": {
+			"tab": {
+				"title": "What's Popular",
+				"streaming": {
+					"label": "Streaming",
+					"value": "now_playing"
+				},
+				"onTv": {
+					"label": "On TV",
+					"value": "popular"
+				},
+				"forRent": {
+					"label": "For Rent",
+					"value": "top_rated"
+				},
+				"inTheaters": {
+					"label": "In Theaters",
+					"value": "upcoming"
+				}
+			}
+		}
+	},
+	"pages": {
+		"HomePage": {
+			"MainBlock": {
+				"mainInfo": {
+					"item1": "Realized residential <br/> complexes in Lviv",
+					"item2": "Years of existence of the company <br/> and implementation of residential complexes",
+					"item3": "Square meters built",
+					"item4": "Residential complexes <br/> in the active stage of construction"
+				}
+			},
+			"ComplexesBlock": {
+				"allProjects": "All projects"
+			},
+			"ChooseBlock": {
+				"title": "<span>Choose your</span> <span>future apartment</span>",
+				"chooseFlat": "Choose an apartment",
+				"chooseFooterText1": "We offer flexible <br> and favorable conditions <br> for purchasing real estate. ",
+				"chooseFooterText2": "Exceeds the expectations <br> of our residents and provides them <br> with maximum comfort"
+			},
+			"ChooseStepsBlock": {
+				"title": "Choosing an apartment",
+				"subtitle": "A short questionnaire will help you choose an apartment according to your criteria.",
+				"flatsCount": "Apartment room",
+				"complex": "Residential complex",
+				"totalArea": "Total area",
+				"totalAreaCount": {
+					"1": "Up to 55 m2",
+					"2": "55 - 80 m2",
+					"3": "More than 80 m2"
+				}
+			}
+		},
+		"AboutPage": {
+			"MainBlock": {
+				"title": "<span>We create</span> <span>modern,</span> <span>bright</span><span>and comfortable</span> <span>environments</span>",
+				"mainInfo": {
+					"text1": "Since 2013, we have been trying to build a dream for everyone — housing that will be called home. While others are just building walls, we are happy to do what we love and give you comfort."
+				}
+			}
+		},
+		"OfferPage": {
+			"otherOffers": "Other shares"
+		},
+		"OffersPage": {
+			"noOffers": "There are no promotions to display"
+		},
+		"NewsPage": {
+			"noNews": "There are no news items to display"
+		},
+		"NewsItemPage": {
+			"otherNews": "Other news"
+		},
+		"ProjectsPage": {
+			"modalTitle": "Residential complexes <br/> resident development",
+			"p1": "Select a residential complex on the map by clicking on the location icon.",
+			"p2": "You can also scroll the map for a detailed view"
+		},
+		"ProjectPage": {
+			"about": "Residential complex",
+			"planning": "Planning",
+			"rescheduling": "Rescheduling",
+			"progress": "Construction progress",
+			"3d": "3D model",
+			"aerialFlight": "360 view",
+			"news": "News",
+			"docs": "Documents",
+			"ProjectCharsBlock": {
+				"title": "Characteristics <br/> of the complex",
+				"class": "Class",
+				"flatsCount": "Number of apartments",
+				"housesCount": "Number of houses",
+				"floors": "Superficiality",
+				"outsideWalls": "Outside walls",
+				"insideWalls": "Internal walls",
+				"heating": "Heating",
+				"buildingTechnology": "Construction technology",
+				"warming": "Warming",
+				"ceilingHeight": "Ceiling height",
+				"flatCondition": "Condition of the apartment",
+				"parking": "Parking",
+				"closedArea": "Closed territory"
+			},
+			"ProjectOffersBlock": {
+				"title": "Promotional offers"
+			},
+			"ProjectOthersBlock": {
+				"title": "Other projects"
+			},
+			"ProjectInfrastructureBlock": {
+				"title": "Infrastructure"
+			},
+			"ProjectDocsBlock": {
+				"title": "Documents",
+				"download": "Download",
+				"emptyDocs": "There are no documents"
+			},
+			"ProjectProgressBlock": {
+				"title": "Construction progress",
+				"subtitle": "Stages <br/> of construction",
+				"progressEmpty": "There are no construction stages"
+			}
+		},
+		"ProjectPlanTab": {
+			"emptyText": "There are no plans to display."
+		},
+		"ProjectBondTab": {
+			"button": "Get an offer",
+			"buttonMobile": "Choose an apartment",
+			"buttonBelow": "The manager will acquaint you ",
+			"buttonBelowSecond": "with more detailed information",
+			"monthlyPaymentFirst": "Monthly payment",
+			"monthlyPaymentSecond": "(loan rate)",
+			"totalPaymentFirst": "Total cost of the loan",
+			"totalPaymentSecond": "(approximately)",
+			"annualRate": "Annual rate",
+			"price": "The price of the object",
+			"avance": "First installment",
+			"term": "Term"
+		},
+		"ProjectNewsTab": {
+			"btn": "Download more",
+			"newsEmpty": "There are no news items to display"
+		}
+	},
+	"general": {
+		"further": "Further",
+		"back": "Back",
+		"menu": "Menu",
+		"close": "Close",
+		"date": "Date",
+		"result": "Result",
+		"detailed": "More details",
+		"image": "Image",
+		"residentialComplex": "Residential complex",
+		"readiness": "Readiness",
+		"district": "Area",
+		"priceM2": "Price per m<sup>2</sup>",
+		"m2": "m2",
+		"meters": "m",
+		"kilometers": "km",
+		"priceFrom": "Price from",
+		"onMap": "On the map",
+		"status": "Status",
+		"category": "Category",
+		"news": "News",
+		"send": "Send",
+		"projects": "Projects",
+		"aboutCompany": "About the company",
+		"actions": "Actions",
+		"loadMore": "Download more",
+		"distance": "Distance",
+		"contacts": "Contacts",
+		"validity": "Validity",
+		"publication": "Publication",
+		"share": "SHARE",
+		"complex": "Residential complex",
+		"phoneNumber": "+38 (073) 073 46 80",
+		"callUs": "Call us",
+		"addresses": "Addresses",
+		"touch": "Move the map with two fingers",
+		"scroll": "To change the scale of the map, use ctrl + scroll",
+		"scrollMac": "To change the scale of the map, use ⌘ + scrolling",
+		"roominess": {
+			"1": "One-room",
+			"2": "Two-room",
+			"3": "Three-room",
+			"4": "Four-room",
+			"5": "Five-room",
+			"6": "Six-room"
+		}
+	},
+	"validations": {
+		"required": "The field is required.",
+		"minLength": "The field must contain a minimum {min} of characters.",
+		"email": "Please enter a valid mailing address."
+	},
+	"month": {
+		"1": "month",
+		"2": "months",
+		"3": "months"
+	}
+}

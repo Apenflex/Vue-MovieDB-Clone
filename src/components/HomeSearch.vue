@@ -2,11 +2,13 @@
 import { onBeforeMount, reactive, computed } from 'vue'
 import { moviesStore } from '@/stores/moviesStore'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import SearchForm from '@/components/form/SearchForm.vue'
 
 const store = moviesStore()
 const router = useRouter()
+const { t } = useI18n()
 
 const searchQuery = reactive({ query: '', page: 1 })
 
@@ -43,8 +45,12 @@ onBeforeMount(() => {
 		>
 			<div class="searchblock__wrapper">
 				<div class="searchblock__title">
-					<h1>Ласкаво просимо.</h1>
-					<h2>Мільйони фільмів, серіалів і персон. Досліджуйте зараз.</h2>
+					<h1>
+						{{ t('components.HomeSearch.h1') }}
+					</h1>
+					<h2>
+						{{ t('components.HomeSearch.h2') }}
+					</h2>
 				</div>
 				<SearchForm
 					:searchQuery="searchQuery"

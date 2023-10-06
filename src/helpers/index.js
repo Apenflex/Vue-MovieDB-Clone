@@ -4,6 +4,15 @@ import { useToast } from 'vue-toastification'
 const favouriteStore = useFavouritesStore()
 const toast = useToast()
 
+/**
+ * @param {object} movie
+ * @param {boolean} notToast - if true, no toast notification will be shown
+ * @returns {void} - adds or removes movie from favourites
+ * @description - adds or removes movie from favourites
+ * @example
+ * toggleFavouriteMovie(movie)
+ * toggleFavouriteMovie(movie, true)
+  */
 export const toggleFavouriteMovie = (movie, notToast) => {
   // console.log('add')
   // console.log(movie)
@@ -16,6 +25,10 @@ export const toggleFavouriteMovie = (movie, notToast) => {
   }
 }
 
+/**
+ * @param {number} vote
+ * @returns {object} - CSS background property in this format: { background: `conic-gradient(from 0deg, green 0% ${vote}%, black 10% 100%)` }
+ */
 export const calcVoteColor = (vote) => {
   switch (true) {
     case vote >= 70:
@@ -26,5 +39,16 @@ export const calcVoteColor = (vote) => {
       return { background: `conic-gradient(from 0deg, red 0% ${vote}%, black 10% 100%)` }
     default:
       return { color: '#fff' }
+  }
+}
+
+/**
+ * @param {object} moviesType - moviesType
+ * @param {string} variant - variant
+ * @returns {object} - { active: true } or { active: false }
+ */
+export const calcTabActiveClass = (moviesType, variant) => {
+  return {
+    active: moviesType.variant.value === variant,
   }
 }

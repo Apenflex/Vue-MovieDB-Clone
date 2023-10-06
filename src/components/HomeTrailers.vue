@@ -1,40 +1,41 @@
 <script setup>
 import { ref, reactive, onBeforeMount, computed } from 'vue'
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
-
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
+import { calcTabActiveClass } from '@/helpers'
 import Modal from '@/components/modal/Modal.vue'
 
 const store = moviesStore()
+const { t } = useI18n()
+
 const isModalOpen = ref(false)
 const backgroundImage = ref('')
 const trailerMovies = reactive({
 	data: store.trailerMovies.data,
-	variant: { label: 'Наживо', value: '' },
+	variant: { label: t('components.HomeTrailers.tab.streaming.label'), value: '' },
 })
-const trailerLinks = [
+
+const selectOptions = [
 	{
-		title: 'Наживо',
-		value: 'now_playing',
+		label: t('components.HomeTrailers.tab.streaming.label'),
+		value: t('components.HomeTrailers.tab.streaming.value'),
 	},
 	{
-		title: 'На ТБ',
-		value: 'popular',
+		label: t('components.HomeTrailers.tab.onTv.label'),
+		value: t('components.HomeTrailers.tab.onTv.value'),
 	},
 	{
-		title: 'Для прокату',
-		value: 'top_rated',
+		label: t('components.HomeTrailers.tab.forRent.label'),
+		value: t('components.HomeTrailers.tab.forRent.value'),
 	},
 	{
-		title: 'У кінотеатрах',
-		value: 'upcoming',
+		label: t('components.HomeTrailers.tab.inTheaters.label'),
+		value: t('components.HomeTrailers.tab.inTheaters.value'),
 	},
 ]
-
-const changeSectionBackground = (image) => {
-	backgroundImage.value = `https://image.tmdb.org/t/p/original/${image}`
-}
 
 const swiperBreakpoints = computed(() => {
 	return {
@@ -57,6 +58,10 @@ const swiperBreakpoints = computed(() => {
 		},
 	}
 })
+
+const changeSectionBackground = (image) => {
+	backgroundImage.value = `https://image.tmdb.org/t/p/original/${image}`
+}
 
 const handleToggleModal = (movieId) => {
 	if (isModalOpen.value) {
@@ -89,49 +94,49 @@ onBeforeMount(() => {
 		}"
 	>
 		<div class="trailers__wrapper">
-			<h2>Останні трейлери</h2>
+			<h2>
+				{{ t('components.HomeTrailers.tab.title') }}
+			</h2>
 			<div class="trailers__tab">
 				<!-- Desktop Select -->
 				<h3
-					v-for="link of trailerLinks"
-					:key="link.title"
-					:class="{ active: trailerMovies.variant.value === link.value }"
-					@click="fetchTrailers(link.value)"
+					:class="calcTabActiveClass(trailerMovies, t('components.HomeTrailers.tab.streaming.value'))"
+					@click="fetchTrailers(t('components.HomeTrailers.tab.streaming.value'))"
 				>
-					{{ link.title }}
+					{{ t('components.HomeTrailers.tab.streaming.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(trailerMovies, t('components.HomeTrailers.tab.onTv.value'))"
+					@click="fetchTrailers(t('components.HomeTrailers.tab.onTv.value'))"
+				>
+					{{ t('components.HomeTrailers.tab.onTv.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(trailerMovies, t('components.HomeTrailers.tab.forRent.value'))"
+					@click="fetchTrailers(t('components.HomeTrailers.tab.forRent.value'))"
+				>
+					{{ t('components.HomeTrailers.tab.forRent.label') }}
+				</h3>
+				<h3
+					:class="calcTabActiveClass(trailerMovies, t('components.HomeTrailers.tab.inTheaters.value'))"
+					@click="fetchTrailers(t('components.HomeTrailers.tab.inTheaters.value'))"
+				>
+					{{ t('components.HomeTrailers.tab.inTheaters.label') }}
 				</h3>
 			</div>
 
 			<!-- Mobile Select -->
 			<VueMultiselect
 				v-model="trailerMovies.variant"
-				:options="[
-					{
-						label: 'Наживо',
-						value: 'now_playing',
-					},
-					{
-						label: 'На ТБ',
-						value: 'popular',
-					},
-					{
-						label: 'Для прокату',
-						value: 'top_rated',
-					},
-					{
-						label: 'У кінотеатрах',
-						value: 'upcoming',
-					},
-				]"
+				:options="selectOptions"
 				:searchable="false"
 				hide-selected
 				close-on-select
 				openDirection="bottom"
 				label="label"
 				track-by="value"
-				@select="fetchTrailers(trailerMovies.variant.value)"
-				placeholder="Сортувати за"
 				selectLabel=""
+				@select="fetchTrailers(trailerMovies.variant.value)"
 			/>
 		</div>
 

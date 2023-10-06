@@ -13,8 +13,15 @@ import Toast from "vue-toastification";
 import PrimeVue from 'primevue/config';
 import Paginator from 'primevue/paginator';
 import Skeleton from 'primevue/skeleton';
+import createI18N from './i18n'
 
 const app = createApp(App)
+
+// I18n Translations
+const metaEnv = import.meta.env ? import.meta.env : {};
+const env = { ...metaEnv };
+const i18n = createI18N(env);
+app.use(i18n);
 // Pinia
 const pinia = createPinia().use(piniaPluginPersistedstate)
 app.use(pinia)

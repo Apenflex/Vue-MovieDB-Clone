@@ -1,15 +1,39 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useWindowScroll } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
 
 import IconHeart from '@/components/icons/IconHeart.vue'
 
 const router = useRouter()
-const isMenuOpen = ref(false)
 
+const isMenuOpen = ref(false)
 const header = ref()
 const { y } = useWindowScroll(header)
+
+const { t, locale } = useI18n()
+const locales = ref([
+	{
+		label:  t('components.HeaderBlock.english'),
+		value: t('components.HeaderBlock.eng'),
+	},
+	{
+		label: t('components.HeaderBlock.ukrainian'),
+		value: t('components.HeaderBlock.ukr'),
+	},
+])
+const currentLocale = ref(locales.value.find((el) => el.value === locale.value))
+
+const changeLocale = (newLocale) => {
+	console.log('changeLocale')
+	console.log(newLocale.value)
+	locale.value = newLocale.value
+}
+
+const toggleMenu = () => {
+	if (isMenuOpen.value) isMenuOpen.value = false
+}
 
 watch(y, (newValue, oldValue) => {
 	if (newValue > 60 && newValue > oldValue) {
@@ -19,11 +43,12 @@ watch(y, (newValue, oldValue) => {
 	}
 })
 
-const toggleMenu = () => {
-	if (isMenuOpen.value) isMenuOpen.value = false
-}
 watch(isMenuOpen, (newValue) => {
 	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
+})
+
+onMounted(() => {
+	console.log(locale)
 })
 </script>
 
@@ -48,6 +73,17 @@ watch(isMenuOpen, (newValue) => {
 
 				<!-- Desktop Menu -->
 				<nav :class="['header__nav', { 'menu-active': isMenuOpen }]">
+					<VueMultiselect
+						v-model="currentLocale"
+						:options="locales"
+						:searchable="false"
+						hide-selected
+						openDirection="bottom"
+						label="label"
+						track-by="value"
+						selectLabel=""
+						@select="changeLocale"
+					/>
 					<RouterLink
 						:to="{ name: 'favourite', path: '/favourite' }"
 						@click="toggleMenu"
@@ -60,21 +96,22 @@ watch(isMenuOpen, (newValue) => {
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'movies' }]"
 					>
-						Movies
+						<!-- Movies -->
+						{{ t('components.HeaderBlock.movies') }}
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'tv-shows', path: '/tv-shows' }"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'tv-shows' }]"
 					>
-						TV Shows
+						{{ t('components.HeaderBlock.tvshows') }}
 					</RouterLink>
 					<RouterLink
 						:to="{ name: 'persons', query: { page: 1 } }"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'persons' }]"
 					>
-						Persons
+						{{ t('components.HeaderBlock.persons') }}
 					</RouterLink>
 				</nav>
 
