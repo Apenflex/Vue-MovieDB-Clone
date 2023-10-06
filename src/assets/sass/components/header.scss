@@ -85,8 +85,8 @@
 			}
 			&:hover {
 				color: $lightBlue;
-				&:not(:first-child)::after,
-				&:not(:first-child)::before {
+				&:nth-child(n+3)::after,
+				&:nth-child(n+3)::before {
 					width: 50%;
 					transition: width 0.3s ease-in-out;
 				}
