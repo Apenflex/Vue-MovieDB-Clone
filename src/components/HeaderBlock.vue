@@ -15,7 +15,7 @@ const { y } = useWindowScroll(header)
 const { t, locale } = useI18n()
 const locales = ref([
 	{
-		label:  t('components.HeaderBlock.english'),
+		label: t('components.HeaderBlock.english'),
 		value: t('components.HeaderBlock.eng'),
 	},
 	{
@@ -116,6 +116,18 @@ onMounted(() => {
 				</nav>
 
 				<!-- Mobile Menu -->
+				<VueMultiselect
+					v-model="currentLocale"
+					:options="locales"
+					:searchable="false"
+					hide-selected
+					openDirection="bottom"
+					label="label"
+					track-by="value"
+					selectLabel=""
+					@select="changeLocale"
+					class="mobile"
+				/>
 				<div
 					:class="['hamburger hamburger--spring', { 'is-active': isMenuOpen }]"
 					@click="isMenuOpen = !isMenuOpen"

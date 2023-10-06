@@ -48,6 +48,9 @@
 		}
 		.multiselect {
 			width: 50px;
+			@include media($md) {
+				display: none;
+			}
 			&__select {
 				display: none;
 			}
@@ -85,8 +88,8 @@
 			}
 			&:hover {
 				color: $lightBlue;
-				&:nth-child(n+3)::after,
-				&:nth-child(n+3)::before {
+				&:nth-child(n + 3)::after,
+				&:nth-child(n + 3)::before {
 					width: 50%;
 					transition: width 0.3s ease-in-out;
 				}
@@ -111,7 +114,27 @@
 			right: 0;
 		}
 	}
-
+	.multiselect {
+		&.mobile {
+			width: 50px;
+			margin-right: 60px;
+			@include mediaMin($md) {
+				display: none;
+			}
+			.multiselect__select {
+				display: none;
+			}
+			.multiselect__tags {
+				background: $primary;
+			}
+			.multiselect__single {
+				color: #fff;
+			}
+			.multiselect__option--highlight {
+				background: $darkGreen;
+			}
+		}
+	}
 	.hamburger {
 		padding: 20px 15px;
 		display: none;
