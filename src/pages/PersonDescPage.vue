@@ -1,14 +1,16 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
+
 // import { Swiper, SwiperSlide } from 'swiper/vue'
 // import { Mousewheel, FreeMode } from 'swiper/modules'
-
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
 import PersonDescList from '@/components/PersonDescList.vue'
 
 const store = moviesStore()
 const router = useRouter()
+const { t } = useI18n()
 
 const personId = ref(null)
 const showMoreBio = ref(false)
@@ -121,41 +123,43 @@ onMounted(() => {
 									</svg>
 								</a>
 							</div>
-							<h3>Особиста інформація</h3>
+							<h3>
+								{{ t('pages.PersonDesc.About.personalnfo') }}
+							</h3>
 							<div class="block__info-desc">
 								<div class="head">
-									Відомий (-а) за
+									{{ t('pages.PersonDesc.About.knownfor') }}
 									<span>
 										{{ store.getPerson.bio.known_for_department }}
 									</span>
 								</div>
 								<div class="head">
-									Кількість робіт
+									{{ t('pages.PersonDesc.About.knowncredits') }}
 									<span>
 										{{ personWorks }}
 									</span>
 								</div>
 								<div class="head">
-									Стать
+									{{ t('pages.PersonDesc.About.gender') }}
 									<span>
 										{{ personGender }}
 									</span>
 								</div>
 								<div class="head">
-									День народження
+									{{ t('pages.PersonDesc.About.birthday') }}
 									<span>
 										{{ personBirthday }}
 										{{ personFullYears }}
 									</span>
 								</div>
 								<div class="head">
-									Місце народження
+									{{ t('pages.PersonDesc.About.placeofbirth') }}
 									<span>
 										{{ personBirthPlace }}
 									</span>
 								</div>
 								<div class="head know_how">
-									Також відомий (-а) як
+									{{ t('pages.PersonDesc.About.alsoKnownAs') }}
 									<span
 										v-for="item in store.getPerson.bio.also_known_as"
 										:key="item"
@@ -172,7 +176,9 @@ onMounted(() => {
 				<div class="persondesc__content">
 					<h2 class="persondesc__content-title">{{ store.getPerson.bio.name }}</h2>
 					<div class="persondesc__content-textblock">
-						<h3>Біографія</h3>
+						<h3>
+							{{ t('pages.PersonDesc.Bio.biography') }}
+						</h3>
 						<p
 							v-if="store.getPerson.bio.biography"
 							class="text"
@@ -180,15 +186,22 @@ onMounted(() => {
 						>
 							{{ personBiography }}
 							<button @click="showMoreBio = !showMoreBio">
-								{{ showMoreBio ? 'Згорнути' : 'Читати більше >' }}
+								{{
+									showMoreBio ? t('pages.PersonDesc.Bio.showmore.less') : t('pages.PersonDesc.Bio.showmore.more')
+								}}
 							</button>
 						</p>
-						<p v-else>Відсутня біографія для {{ store.getPerson.bio.name }}. <br /></p>
+						<p v-else>
+							{{ t('pages.PersonDesc.Bio.nowbiography') }}
+							{{ store.getPerson.bio.name }}. <br />
+						</p>
 					</div>
 
 					<!-- Slider -->
 					<div class="persondesc__content-knownFor">
-						<h3>Відомий (-а) за</h3>
+						<h3>
+							{{ t('pages.PersonDesc.Bio.knownfor') }}
+						</h3>
 						<div>Slider</div>
 					</div>
 
@@ -196,31 +209,31 @@ onMounted(() => {
 					<div class="persondesc__content-list">
 						<PersonDescList
 							:getPersonData="store.getPersonDirector"
-							title="Режисура"
+							title="t('pages.PersonDesc.Cast.direction')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonCast"
-							title="Акторська гра"
+							:title="t('pages.PersonDesc.Cast.acting')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonCamera"
-							title="Операторська робота"
+							:title="t('pages.PersonDesc.Cast.operatorwork')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonCrew"
-							title="Команда"
+							:title="t('pages.PersonDesc.Cast.team')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonEditing"
-							title="Сценарій"
+							:title="t('pages.PersonDesc.Cast.scenario')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonProducer"
-							title="Виробництво"
+							:title="t('pages.PersonDesc.Cast.production')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonWriter"
-							title="Монтаж"
+							:title="t('pages.PersonDesc.Cast.assembling')"
 						/>
 					</div>
 				</div>

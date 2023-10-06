@@ -115,7 +115,42 @@
 		}
 	},
 	"pages": {
-		"HomePage": {
+		"Movies": {
+			"H1": "Popular Movies",
+			"Filter": {
+				"title": "Sorting",
+				"sortBy": "Sort results by",
+				"options": {
+					"popularity": {
+						"label": "Popularity Descending",
+						"value": "popularity"
+					},
+					"popularDesc": {
+						"label": "Popularity Ascending",
+						"value": "popularDesc"
+					},
+					"voteDesc": {
+						"label": "Rating Descending",
+						"value": "voteDesc"
+					},
+					"voteAsc": {
+						"label": "Rating Ascending",
+						"value": "voteAsc"
+					},
+					"releaseDesc": {
+						"label": "Release Descending",
+						"value": "releaseDesc"
+					},
+					"releaseAsc": {
+						"label": "Release Ascending",
+						"value": "releaseAsc"
+					},
+					"titleAsc": {
+						"label": "Title (A-Z)",
+						"value": "titleAsc"
+					}
+				}
+			},
 			"MainBlock": {
 				"mainInfo": {
 					"item1": "Realized residential <br/> complexes in Lviv",
@@ -144,6 +179,81 @@
 					"2": "55 - 80 m2",
 					"3": "More than 80 m2"
 				}
+			}
+		},
+		"TvShows": {
+			"H1": "Popular TV Shows",
+			"Filter": {
+				"title": "Sorting",
+				"sortBy": "Sort results by",
+				"options": {
+					"popularity": {
+						"label": "Popularity Descending",
+						"value": "popularity"
+					},
+					"popularDesc": {
+						"label": "Popularity Ascending",
+						"value": "popularDesc"
+					},
+					"voteDesc": {
+						"label": "Rating Descending",
+						"value": "voteDesc"
+					},
+					"voteAsc": {
+						"label": "Rating Ascending",
+						"value": "voteAsc"
+					},
+					"releaseDesc": {
+						"label": "Release Descending",
+						"value": "releaseDesc"
+					},
+					"releaseAsc": {
+						"label": "Release Ascending",
+						"value": "releaseAsc"
+					},
+					"titleAsc": {
+						"label": "Title (A-Z)",
+						"value": "titleAsc"
+					}
+				}
+			}
+		},
+		"Persons": {
+			"H1": "Popular People"
+		},
+		"FilmDesc": {
+			"userscore": "User Score",
+			"playtrailer": "Play Trailer",
+			"overview": "Overview",
+			"cast": "Cast"
+		},
+		"PersonDesc": {
+			"About": {
+				"personalnfo": "Personal Info",
+				"knownfor": "Known For",
+				"knowncredits": "Known Credits",
+				"gender": "Gender",
+				"birthday": "Birthday",
+				"placeofbirth": "Place of Birth",
+				"alsoKnownAs": "Also Known As"
+			},
+			"Bio": {
+				"biography": "Biography",
+				"showmore": {
+					"more": "Show more >",
+					"less": "Show less"
+				},
+				"nowbiography": "We don't have a biography for ",
+				"knownfor": "Known For"
+			},
+			"Cast": {
+				"direction": "Direction",
+				"acting": "Acting",
+				"operatorwork": "Operator Work",
+				"team": "Team",
+				"scenario": "Scenario",
+				"production": "Production",
+				"assembling": "Assembling"
 			}
 		},
 		"AboutPage": {

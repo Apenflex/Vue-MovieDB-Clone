@@ -6,6 +6,7 @@ import { Mousewheel, FreeMode } from 'swiper/modules'
 
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
+import { useI18n } from 'vue-i18n'
 import { calcVoteColor, toggleFavouriteMovie } from '@/helpers'
 import Modal from '@/components/modal/Modal.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
@@ -14,6 +15,7 @@ import ItemCard from '@/components/ItemCard.vue'
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()
 const router = useRouter()
+const { t } = useI18n()
 
 const isModalOpen = ref(false)
 
@@ -154,7 +156,9 @@ onMounted(() => {
 									<span class="icon-percentage"> % </span>
 								</div>
 							</div>
-							<div class="icon-title">Оцінка користувачів</div>
+							<div class="icon-title">
+								{{ t('pages.FilmDesc.userscore') }}
+							</div>
 						</div>
 						<div class="block fixed">
 							<div class="tooltip">
@@ -212,14 +216,16 @@ onMounted(() => {
 									/>
 								</svg>
 							</span>
-							Відтворити тизер
+							{{ t('pages.FilmDesc.playtrailer') }}
 						</div>
 					</div>
 					<div class="info">
 						<h3 class="tagline">
 							{{ store.mediaDetails.data.tagline }}
 						</h3>
-						<h3 class="title">Опис</h3>
+						<h3 class="title">
+							{{ t('pages.FilmDesc.overview') }}
+						</h3>
 						<p class="overview">
 							{{ store.mediaDetails.data.overview }}
 						</p>
@@ -227,7 +233,9 @@ onMounted(() => {
 				</div>
 			</div>
 			<div class="details__persons">
-				<h2>Акторський склад серіалу</h2>
+				<h2>
+					{{ t('pages.FilmDesc.cast') }}
+				</h2>
 				<swiper
 					:slides-per-view="7"
 					:space-between="20"

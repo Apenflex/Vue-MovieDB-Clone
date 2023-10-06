@@ -115,35 +115,116 @@
 		}
 	},
 	"pages": {
-		"MoviesPage": {
-			"MainBlock": {
-				"mainInfo": {
-					"item1": "Реалізовано житлових <br/> компексів у Львові",
-					"item2": "Років існування компанії <br/> та реалізації житлових комплексів",
-					"item3": "Метрів квадратних побудовано",
-					"item4": "Житлових комплексів <br/> в активній стадії будівництва"
+		"Movies": {
+			"H1": "Популярні фільми",
+			"Filter": {
+				"title": "Сортування",
+				"sortBy": "Сортувати результати за",
+				"options": {
+					"popularity": {
+						"label": "Популярні",
+						"value": "popularity"
+					},
+					"popularDesc": {
+						"label": "Непопулярні",
+						"value": "popularDesc"
+					},
+					"voteDesc": {
+						"label": "Рейтинг високий",
+						"value": "voteDesc"
+					},
+					"voteAsc": {
+						"label": "Рейтинг низький",
+						"value": "voteAsc"
+					},
+					"releaseDesc": {
+						"label": "Реліз свіжий",
+						"value": "releaseDesc"
+					},
+					"releaseAsc": {
+						"label": "Реліз давній",
+						"value": "releaseAsc"
+					},
+					"titleAsc": {
+						"label": "Назва А-Я",
+						"value": "titleAsc"
+					}
 				}
-			},
-			"ComplexesBlock": {
-				"allProjects": "Всі проекти"
-			},
-			"ChooseBlock": {
-				"title": "<span>Оберіть Вашу</span> <span>майбутню домівку</span>",
-				"chooseFlat": "Обрати квартиру",
-				"chooseFooterText1": "Пропонуємо гнучкі <br> та вигідні умови <br> придбання нерухомості",
-				"chooseFooterText2": "Перевершує сподівання <br> наших резидентів та надає їм <br> максимум комфорту"
-			},
-			"ChooseStepsBlock": {
-				"title": "Вибір квартири",
-				"subtitle": "Невелика анкета допоможе підібрати квартиру по вашим критеріям.",
-				"flatsCount": "Кімнатність квартири",
-				"complex": "Житловий комплекс",
-				"totalArea": "Загальна площа",
-				"totalAreaCount": {
-					"1": "До 55 м2",
-					"2": "55 - 80 м2",
-					"3": "Більше 80 м2"
+			}
+		},
+		"TvShows": {
+			"H1": "Популярні серіали",
+			"Filter": {
+				"title": "Сортування",
+				"sortBy": "Сортувати результати за",
+				"options": {
+					"popularity": {
+						"label": "Популярні",
+						"value": "popularity"
+					},
+					"popularDesc": {
+						"label": "Непопулярні",
+						"value": "popularDesc"
+					},
+					"voteDesc": {
+						"label": "Рейтинг високий",
+						"value": "voteDesc"
+					},
+					"voteAsc": {
+						"label": "Рейтинг низький",
+						"value": "voteAsc"
+					},
+					"releaseDesc": {
+						"label": "Реліз свіжий",
+						"value": "releaseDesc"
+					},
+					"releaseAsc": {
+						"label": "Реліз давній",
+						"value": "releaseAsc"
+					},
+					"titleAsc": {
+						"label": "Назва А-Я",
+						"value": "titleAsc"
+					}
 				}
+			}
+		},
+		"Persons": {
+			"H1": "Популярні"
+		},
+		"FilmDesc": {
+			"userscore": "Оцінка користувачів",
+			"playtrailer": "Відтворити трейлер",
+			"overview": "Опис",
+			"cast": "Акторський склад"
+		},
+		"PersonDesc": {
+			"About": {
+				"personalnfo": "Особиста інформація",
+				"knownfor": "Відомий (-а) за",
+				"knowncredits": "Кількість робіт",
+				"gender": "Стать",
+				"birthday": "День народження",
+				"placeofbirth": "Місце народження",
+				"alsoKnownAs": "Також відомий (-а) як"
+			},
+			"Bio": {
+				"biography": "Біографія",
+				"showmore": {
+					"more": "Читати більше >",
+					"less": "Згорнути"
+				},
+				"nowbiography": "Відсутня біографія для",
+				"knownfor": "Відомий (-а) за"
+			},
+			"Cast": {
+				"direction": "Режисура",
+				"acting": "Акторська гра",
+				"operatorwork": "Операторська робота",
+				"team": "Команда",
+				"scenario": "Сценарій",
+				"production": "Виробництво",
+				"assembling": "Монтаж"
 			}
 		},
 		"AboutPage": {

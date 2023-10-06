@@ -2,17 +2,52 @@
 import { onBeforeMount, ref, reactive } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
+const { t } = useI18n()
 
+const currentPage = ref(1)
 const filter = reactive({
 	panelOpen: false,
 	searchBtnOpen: false,
-	sortBy: { label: 'Популярні', value: 'popularAsc' },
+	sortBy: {
+		label: t('pages.Movies.Filter.options.popularity.label'),
+		value: t('pages.Movies.Filter.options.popularity.value'),
+	},
 })
 
-const currentPage = ref(1)
+const selectOptions = [
+	{
+		label: t('pages.Movies.Filter.options.popularity.label'),
+		value: t('pages.Movies.Filter.options.popularity.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.popularDesc.label'),
+		value: t('pages.Movies.Filter.options.popularDesc.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.voteDesc.label'),
+		value: t('pages.Movies.Filter.options.voteDesc.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.voteAsc.label'),
+		value: t('pages.Movies.Filter.options.voteAsc.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.releaseDesc.label'),
+		value: t('pages.Movies.Filter.options.releaseDesc.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.releaseAsc.label'),
+		value: t('pages.Movies.Filter.options.releaseAsc.value'),
+	},
+	{
+		label: t('pages.Movies.Filter.options.titleAsc.label'),
+		value: t('pages.Movies.Filter.options.titleAsc.value'),
+	},
+]
 
 const handleFilterSearch = () => {
 	store.MoviesSortBy(filter.sortBy.value)
@@ -32,7 +67,9 @@ onBeforeMount(() => {
 <template>
 	<main class="container">
 		<section class="movies">
-			<h1>Популярні фільми</h1>
+			<h1>
+				{{ t('pages.Movies.H1') }}
+			</h1>
 			<div class="movies__wrapper">
 				<!-- Filters -->
 				<div class="movies__filter">
@@ -40,7 +77,9 @@ onBeforeMount(() => {
 						class="block-title"
 						@click="filter.panelOpen = !filter.panelOpen"
 					>
-						<h2>Сортування</h2>
+						<h2>
+							{{ t('pages.Movies.Filter.title') }}
+						</h2>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="1em"
@@ -57,39 +96,12 @@ onBeforeMount(() => {
 						class="movies__filter-panel"
 						:class="{ closed: !filter.panelOpen }"
 					>
-						<h3>Сортувати результати за</h3>
+						<h3>
+							{{ t('pages.Movies.Filter.sortBy') }}
+						</h3>
 						<VueMultiselect
 							v-model="filter.sortBy"
-							:options="[
-								{
-									label: 'Популярні',
-									value: 'popularAsc',
-								},
-								{
-									label: 'Непопулярні',
-									value: 'popularDesc',
-								},
-								{
-									label: 'Рейтинг високий',
-									value: 'voteDesc',
-								},
-								{
-									label: 'Рейтинг низький',
-									value: 'voteAsc',
-								},
-								{
-									label: 'Реліз свіжий',
-									value: 'releaseDesc',
-								},
-								{
-									label: 'Реліз давній',
-									value: 'releaseAsc',
-								},
-								{
-									label: 'Назва (А - Я)',
-									value: 'titleAsc',
-								},
-							]"
+							:options="selectOptions"
 							:searchable="false"
 							hide-selected
 							openDirection="bottom"

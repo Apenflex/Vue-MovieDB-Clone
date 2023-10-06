@@ -3,10 +3,12 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { moviesStore } from '@/stores/moviesStore'
+import { useI18n } from 'vue-i18n'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 const router = useRouter()
+const { t } = useI18n()
 
 const currentPage = ref(Number(router.currentRoute.value.query.page))
 
@@ -29,7 +31,9 @@ onMounted(() => {
 	<main class="container">
 		<section class="persons">
 			<div class="persons__content">
-				<h1>Популярні</h1>
+				<h1>
+					{{ t('pages.Persons.H1') }}
+				</h1>
 				<div class="persons__items">
 					<RouterLink
 						v-for="person in store.getPersons"
