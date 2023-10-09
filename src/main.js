@@ -17,10 +17,31 @@ import createI18N from './i18n'
 
 const app = createApp(App)
 
+// Global PROPERTIES
+app.config.globalProperties.$applyLocale = path => {
+  const defaultLocale = i18nGlobal.fallbackLocale
+
+  let currentPath = path
+  if (currentPath === '/') {
+    currentPath = '';
+  }
+
+  let newPath = i18nGlobal.locale.value !== defaultLocale.value ?
+    `/${i18nGlobal.locale.value}${currentPath}` : currentPath;
+  console.log(newPath)
+  if (newPath === '') {
+    newPath = '/';
+  }
+
+  return newPath;
+}
+
 // I18n Translations
 const metaEnv = import.meta.env ? import.meta.env : {};
 const env = { ...metaEnv };
 const i18n = createI18N(env);
+const i18nGlobal = i18n.global;
+console.log(i18nGlobal)
 app.use(i18n);
 // Pinia
 const pinia = createPinia().use(piniaPluginPersistedstate)

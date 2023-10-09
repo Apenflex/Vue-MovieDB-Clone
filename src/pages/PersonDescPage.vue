@@ -209,7 +209,7 @@ onMounted(() => {
 					<div class="persondesc__content-list">
 						<PersonDescList
 							:getPersonData="store.getPersonDirector"
-							title="t('pages.PersonDesc.Cast.direction')"
+							:title="t('pages.PersonDesc.Cast.direction')"
 						/>
 						<PersonDescList
 							:getPersonData="store.getPersonCast"

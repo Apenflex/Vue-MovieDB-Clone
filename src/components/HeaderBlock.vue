@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUpdated, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useWindowScroll } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
@@ -12,7 +12,7 @@ const isMenuOpen = ref(false)
 const header = ref()
 const { y } = useWindowScroll(header)
 
-const { t, locale } = useI18n()
+const { t, locale, availableLocales } = useI18n()
 const locales = ref([
 	{
 		label: t('components.HeaderBlock.english'),
@@ -25,10 +25,30 @@ const locales = ref([
 ])
 const currentLocale = ref(locales.value.find((el) => el.value === locale.value))
 
-const changeLocale = (newLocale) => {
-	console.log('changeLocale')
-	console.log(newLocale.value)
+// const changeLocale = (newLocale) => {
+// 	console.log('changeLocale')
+// 	console.log(newLocale.value)
+// 	locale.value = newLocale.value
+// }
+const changeLocale = async (newLocale) => {
+	// console.log(newLocale.value)
+
+	const defaultLocale = 'ua'
+
+	let currentPath = router.currentRoute.value.fullPath
+	if (currentPath === '/') currentPath = ''
+
+	const currentPathWithoutLocale =
+	locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
+
+	let newPath =
+	newLocale !== defaultLocale ? `/${newLocale.value}${currentPathWithoutLocale}` : currentPathWithoutLocale
+
+	if (newPath === '') newPath = '/'
+
 	locale.value = newLocale.value
+
+	await router.push(newPath)
 }
 
 const toggleMenu = () => {
@@ -47,9 +67,12 @@ watch(isMenuOpen, (newValue) => {
 	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
 })
 
-onMounted(() => {
-	console.log(locale)
-})
+// onUpdated(() => console.log('Updated', locale))
+
+// onMounted(() => {
+// 	console.log('Mounted path', router.currentRoute.value),
+// 	console.log('Mounted availableLocales', availableLocales)
+// })
 </script>
 
 <template>
@@ -85,7 +108,7 @@ onMounted(() => {
 						@select="changeLocale"
 					/>
 					<RouterLink
-						:to="{ name: 'favourite', path: '/favourite' }"
+						:to="{ name: 'favourite', path: $applyLocale('/favourite') }"
 						@click="toggleMenu"
 						class="header__nav-item"
 					>
