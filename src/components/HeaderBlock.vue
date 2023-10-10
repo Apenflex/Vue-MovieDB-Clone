@@ -30,32 +30,32 @@ const locales = [
 const currentLocale = ref({})
 
 onMounted(() => {
-	currentLocale.value = locales.filter((el) => el.value === locale.value)
+    console.log(locale.value, 'locale.value');
+    currentLocale.value = locales.find((el) => el.value === locale.value)
 })
 
-onUpdated(() => console.log(currentLocale.value, 'currentLocale'))
 
-// const calcLocaleUrl = (newLocale) => {
-// 	const defaultLocale = fallbackLocale.value
-// 	let currentPath = router.currentRoute.value.fullPath
-// 	if (currentPath === '/') {
-// 		currentPath = ''
-// 	}
+const calcLocaleUrl = (newLocale) => {
+	const defaultLocale = fallbackLocale.value
+	let currentPath = router.currentRoute.value.fullPath
+	if (currentPath === '/') {
+		currentPath = ''
+	}
 
-// 	if (newLocale !== undefined) {
-// 		const currentPathWithoutLocale =
-// 			locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
+	if (newLocale !== undefined) {
+		const currentPathWithoutLocale =
+			locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
 
-// 		let newPath =
-// 			newLocale !== defaultLocale ? `/${newLocale}${currentPathWithoutLocale}` : currentPathWithoutLocale
+		let newPath =
+			newLocale !== defaultLocale ? `/${newLocale}${currentPathWithoutLocale}` : currentPathWithoutLocale
 
-// 		if (newPath === '') {
-// 			newPath = '/'
-// 		}
+		if (newPath === '') {
+			newPath = '/'
+		}
 
-// 		return newPath
-// 	}
-// }
+		return newPath
+	}
+}
 
 const changeLocale = async (newLocale) => {
 	console.log(newLocale.value, 'newLocale 1')
@@ -81,7 +81,7 @@ const changeLocale = async (newLocale) => {
 
 	await router.push(newPath)
 
-	// location.reload()
+	location.reload()
 }
 
 const toggleMenu = () => {
@@ -135,21 +135,21 @@ watch(isMenuOpen, (newValue) => {
 						@select="changeLocale"
 					/>
 					<RouterLink
-						:to="{ name: 'favourite', path: applyLocale('/favourite') }"
+						:to="applyLocale('/favourite')"
 						@click="toggleMenu"
 						class="header__nav-item"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'movies', path: applyLocale('/movies') }"
+						:to="applyLocale('/movies')"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'movies' }]"
 					>
 						{{ t('components.HeaderBlock.movies') }}
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'tv-shows', path: applyLocale('/tv-shows') }"
+						:to="applyLocale('/tv-shows')"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'tv-shows' }]"
 					>

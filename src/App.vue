@@ -12,15 +12,18 @@ const { locale, availableLocales, fallbackLocale } = useI18n()
 onBeforeMount(() => {
 	let newLocale
 
-	const currentPathParts = window.location.pathname.split('/')
-	if (currentPathParts.length === 1) {
-		newLocale = findSupportedLocale(currentPathParts[0])
-	} else if (currentPathParts.length > 1) {
-		newLocale = findSupportedLocale(currentPathParts[0])
-
+	const currentPathParts = window.location.pathname.split('/');
+    console.log(currentPathParts, 'currentPathParts', currentPathParts.length, 'currentPathParts.length');
+    if (currentPathParts.length === 2) {
+		newLocale = findSupportedLocale(currentPathParts[1])
+        console.log(findSupportedLocale(currentPathParts[1]), 1);
+    } else if (currentPathParts.length > 2) {
+		newLocale = findSupportedLocale(currentPathParts[1])
+        console.log(findSupportedLocale(currentPathParts[1]), 2)
 		if (!newLocale) {
 			locale.value = findSupportedLocale(currentPathParts[1])
-		}
+            console.log(locale.value);
+        }
 	}
 
 	if (!newLocale) {
@@ -30,6 +33,7 @@ onBeforeMount(() => {
 	if (locale.value !== newLocale) {
 		locale.value = newLocale
 	}
+    console.log(newLocale);
 })
 
 const findSupportedLocale = (localeToSearch) =>
