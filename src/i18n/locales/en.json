@@ -1,10 +1,16 @@
 {
+	"translation": {
+		"ukrainian": {
+			"label": "Укр",
+			"value": "ua"
+		},
+		"english": {
+			"label": "Eng",
+			"value": "en"
+		}
+	},
 	"components": {
 		"HeaderBlock": {
-			"ukrainian": "Українська",
-			"ukr": "Укр",
-			"english": "English",
-			"eng": "Eng",
 			"movies": "Movies",
 			"tvshows": "TV shows",
 			"persons": "Persons"

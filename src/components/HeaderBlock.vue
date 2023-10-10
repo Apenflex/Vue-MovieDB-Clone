@@ -1,9 +1,10 @@
 <script setup>
 import { onMounted, onUpdated, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+
 import { useWindowScroll } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
-
+import { applyLocale } from '@/composables/useApplyLocale'
 import IconHeart from '@/components/icons/IconHeart.vue'
 
 const router = useRouter()
@@ -12,43 +13,75 @@ const isMenuOpen = ref(false)
 const header = ref()
 const { y } = useWindowScroll(header)
 
-const { t, locale, availableLocales } = useI18n()
-const locales = ref([
-	{
-		label: t('components.HeaderBlock.english'),
-		value: t('components.HeaderBlock.eng'),
-	},
-	{
-		label: t('components.HeaderBlock.ukrainian'),
-		value: t('components.HeaderBlock.ukr'),
-	},
-])
-const currentLocale = ref(locales.value.find((el) => el.value === locale.value))
+const { t, locale, fallbackLocale } = useI18n()
 
-// const changeLocale = (newLocale) => {
-// 	console.log('changeLocale')
-// 	console.log(newLocale.value)
-// 	locale.value = newLocale.value
+const locales = [
+	{
+		label: t('translation.ukrainian.label'),
+		value: t('translation.ukrainian.value'),
+	},
+	{
+		label: t('translation.english.label'),
+		value: t('translation.english.value'),
+	},
+]
+
+// const currentLocale = ref(locales.value.find((el) => el.value === locale.value))
+const currentLocale = ref({})
+
+onMounted(() => {
+	currentLocale.value = locales.filter((el) => el.value === locale.value)
+})
+
+onUpdated(() => console.log(currentLocale.value, 'currentLocale'))
+
+// const calcLocaleUrl = (newLocale) => {
+// 	const defaultLocale = fallbackLocale.value
+// 	let currentPath = router.currentRoute.value.fullPath
+// 	if (currentPath === '/') {
+// 		currentPath = ''
+// 	}
+
+// 	if (newLocale !== undefined) {
+// 		const currentPathWithoutLocale =
+// 			locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
+
+// 		let newPath =
+// 			newLocale !== defaultLocale ? `/${newLocale}${currentPathWithoutLocale}` : currentPathWithoutLocale
+
+// 		if (newPath === '') {
+// 			newPath = '/'
+// 		}
+
+// 		return newPath
+// 	}
 // }
-const changeLocale = async (newLocale) => {
-	// console.log(newLocale.value)
 
-	const defaultLocale = 'ua'
+const changeLocale = async (newLocale) => {
+	console.log(newLocale.value, 'newLocale 1')
+	const defaultLocale = fallbackLocale.value
+	// console.log(defaultLocale, 'defaultLocale 2')
 
 	let currentPath = router.currentRoute.value.fullPath
-	if (currentPath === '/') currentPath = ''
+	if (currentPath === '/') {
+		currentPath = ''
+	}
+	console.log(currentPath, 'currentPath 3')
 
 	const currentPathWithoutLocale =
-	locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
+		locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
+	console.log(currentPathWithoutLocale, 'currentPathWithoutLocale 4')
 
 	let newPath =
-	newLocale !== defaultLocale ? `/${newLocale.value}${currentPathWithoutLocale}` : currentPathWithoutLocale
-
-	if (newPath === '') newPath = '/'
-
-	locale.value = newLocale.value
+		newLocale.value !== defaultLocale ? `/${newLocale.value}${currentPathWithoutLocale}` : currentPathWithoutLocale
+	if (newPath === '') {
+		newPath = '/'
+	}
+	console.log(newPath, 'newPath 5')
 
 	await router.push(newPath)
+
+	// location.reload()
 }
 
 const toggleMenu = () => {
@@ -66,13 +99,6 @@ watch(y, (newValue, oldValue) => {
 watch(isMenuOpen, (newValue) => {
 	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
 })
-
-// onUpdated(() => console.log('Updated', locale))
-
-// onMounted(() => {
-// 	console.log('Mounted path', router.currentRoute.value),
-// 	console.log('Mounted availableLocales', availableLocales)
-// })
 </script>
 
 <template>
@@ -86,7 +112,8 @@ watch(isMenuOpen, (newValue) => {
 					:class="['header__logo', { 'header__logo--mobile': isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
 				>
-					<RouterLink to="/">
+					<!-- to="/" -->
+					<RouterLink :to="applyLocale('/')">
 						<img
 							src="/public/images/movie_logo.svg"
 							alt="logo"
@@ -103,27 +130,26 @@ watch(isMenuOpen, (newValue) => {
 						hide-selected
 						openDirection="bottom"
 						label="label"
-						track-by="value"
+						track-by="label"
 						selectLabel=""
 						@select="changeLocale"
 					/>
 					<RouterLink
-						:to="{ name: 'favourite', path: $applyLocale('/favourite') }"
+						:to="{ name: 'favourite', path: applyLocale('/favourite') }"
 						@click="toggleMenu"
 						class="header__nav-item"
 					>
 						<IconHeart />
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'movies', path: '/movies' }"
+						:to="{ name: 'movies', path: applyLocale('/movies') }"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'movies' }]"
 					>
-						<!-- Movies -->
 						{{ t('components.HeaderBlock.movies') }}
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'tv-shows', path: '/tv-shows' }"
+						:to="{ name: 'tv-shows', path: applyLocale('/tv-shows') }"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'tv-shows' }]"
 					>
@@ -146,7 +172,7 @@ watch(isMenuOpen, (newValue) => {
 					hide-selected
 					openDirection="bottom"
 					label="label"
-					track-by="value"
+					track-by="label"
 					selectLabel=""
 					@select="changeLocale"
 					class="mobile"
