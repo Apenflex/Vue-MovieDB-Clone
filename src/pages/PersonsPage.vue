@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 
 import { moviesStore } from '@/stores/moviesStore'
 import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
@@ -38,10 +39,7 @@ onMounted(() => {
 					<RouterLink
 						v-for="person in store.getPersons"
 						:key="person.name"
-						:to="{
-							name: 'person-details',
-							params: { alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}` },
-						}"
+						:to="applyLocale(`/persons/${person.id}-${person.name.split(' ').join('-').toLowerCase()}`)"
 					>
 						<ItemCard
 							:person="person"

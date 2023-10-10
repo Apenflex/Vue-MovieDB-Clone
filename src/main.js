@@ -15,26 +15,7 @@ import Paginator from 'primevue/paginator';
 import Skeleton from 'primevue/skeleton';
 import createI18N from './i18n'
 
-export const app = createApp(App);
-
-// Global PROPERTIES
-// app.config.globalProperties.$applyLocale = path => {
-//   const defaultLocale = i18nGlobal.fallbackLocale
-
-//   let currentPath = path
-//   if (currentPath === '/') {
-//     currentPath = '';
-//   }
-
-//   let newPath = i18nGlobal.locale.value !== defaultLocale.value ?
-//     `/${i18nGlobal.locale.value}${currentPath}` : currentPath;
-//   // console.log(newPath)
-//   if (newPath === '') {
-//     newPath = '/';
-//   }
-
-//   return newPath;
-// }
+const app = createApp(App);
 
 // I18n Translations
 const metaEnv = import.meta.env ? import.meta.env : {};
@@ -42,6 +23,7 @@ const env = { ...metaEnv };
 const i18n = createI18N(env);
 export const i18nGlobal = i18n.global;
 
+// Router
 const router = createRouter(i18n);
 
 // Pinia

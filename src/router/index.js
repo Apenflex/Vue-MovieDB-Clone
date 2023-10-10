@@ -44,7 +44,7 @@ const initialRoutes = [
     props: true
   },
   {
-    path: 'persons/:alias',
+    path: 'persons/:params',
     name: 'person-details',
     component: () => import('@/pages/PersonDescPage.vue'),
     props: true
@@ -53,7 +53,6 @@ const initialRoutes = [
 
 export default i18n => {
   const i18nGlobal = i18n.global;
-  // console.log(i18nGlobal.locale, 'i18nGlobal')
   const defaultLocale = i18nGlobal.fallbackLocale.value;
   const supportedLocales = i18nGlobal.availableLocales;
 
@@ -117,61 +116,3 @@ export default i18n => {
     }
   });
 };
-
-// const router = createRouter({
-//   history: createWebHistory(import.meta.env.VITE_BASE_URL),
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'home',
-//       // component: HomePage
-//       component: () => import('@/pages/HomePage.vue'),
-//     },
-//     {
-//       path: '/search',
-//       name: 'search',
-//       // component: SearchPage
-//       component: () => import('@/pages/SearchPage.vue'),
-//     },
-//     {
-//       path: '/favourite',
-//       name: 'favourite',
-//       // component: FavouritePage
-//       component: () => import('@/pages/FavouritePage.vue'),
-//     },
-//     {
-//       path: '/movies',
-//       name: 'movies',
-//       // component: MoviesPage
-//       component: () => import('@/pages/MoviesPage.vue'),
-//     },
-//     {
-//       path: '/tv-shows',
-//       name: 'tv-shows',
-//       // component: TvShowsPage
-//       component: () => import('@/pages/TvShowsPage.vue'),
-//     },
-//     {
-//       path: '/:mediaType/:id',
-//       name: 'media-details',
-//       // component: FilmsDescPage,
-//       component: () => import('@/pages/FilmsDescPage.vue'),
-//       props: true
-//     },
-//     {
-//       path: '/persons',
-//       name: 'persons',
-//       // component: PersonsPage
-//       component: () => import('@/pages/PersonsPage.vue'),
-//     },
-//     {
-//       path: '/persons/:alias',
-//       name: 'person-details',
-//       // component: PersonDescPage,
-//       component: () => import('@/pages/PersonDescPage.vue'),
-//       props: true
-//     }
-//   ],
-// })
-
-// export default router

@@ -48,11 +48,12 @@ const personBiography = computed(() => {
 
 onBeforeMount(() => {
 	personId.value = Number(
-		router.currentRoute.value.params.alias.slice(0, router.currentRoute.value.params.alias.indexOf('-'))
+		router.currentRoute.value.params.params.slice(0, router.currentRoute.value.params.params.indexOf('-'))
 	)
 })
 
 onMounted(() => {
+	// console.log(router.currentRoute.value.params)
 	store.fetchPerson(personId.value)
 })
 </script>

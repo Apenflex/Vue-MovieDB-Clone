@@ -1,6 +1,6 @@
 import { i18nGlobal } from "@/main";
 
-export const applyLocale = path => {
+export const applyLocale = (path, { query = {}, params = {} } = {}) => {
   const defaultLocale = i18nGlobal.fallbackLocale;
 
   let currentPath = path;
@@ -14,5 +14,5 @@ export const applyLocale = path => {
     newPath = '/';
   }
 
-  return newPath;
+  return { path: newPath, query, params };
 };

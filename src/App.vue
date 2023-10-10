@@ -9,21 +9,25 @@ import ScrollUp from '@/components/scrollup/ScrollUp.vue'
 
 const { locale, availableLocales, fallbackLocale } = useI18n()
 
+const findSupportedLocale = (localeToSearch) =>
+	availableLocales.find((supportedLocale) => supportedLocale === localeToSearch)
+
 onBeforeMount(() => {
 	let newLocale
 
-	const currentPathParts = window.location.pathname.split('/');
-    console.log(currentPathParts, 'currentPathParts', currentPathParts.length, 'currentPathParts.length');
-    if (currentPathParts.length === 2) {
+	const currentPathParts = window.location.pathname.split('/')
+	// console.log(currentPathParts, 'currentPathParts', currentPathParts.length, 'currentPathParts.length')
+
+	if (currentPathParts.length === 2) {
 		newLocale = findSupportedLocale(currentPathParts[1])
-        console.log(findSupportedLocale(currentPathParts[1]), 1);
-    } else if (currentPathParts.length > 2) {
+		// console.log(findSupportedLocale(currentPathParts[1]), 1)
+	} else if (currentPathParts.length > 2) {
 		newLocale = findSupportedLocale(currentPathParts[1])
-        console.log(findSupportedLocale(currentPathParts[1]), 2)
+		// console.log(findSupportedLocale(currentPathParts[1]), 2)
 		if (!newLocale) {
 			locale.value = findSupportedLocale(currentPathParts[1])
-            console.log(locale.value);
-        }
+			// console.log(locale.value)
+		}
 	}
 
 	if (!newLocale) {
@@ -33,11 +37,8 @@ onBeforeMount(() => {
 	if (locale.value !== newLocale) {
 		locale.value = newLocale
 	}
-    console.log(newLocale);
+	// console.log(newLocale)
 })
-
-const findSupportedLocale = (localeToSearch) =>
-	availableLocales.find((supportedLocale) => supportedLocale === localeToSearch)
 </script>
 
 <template>

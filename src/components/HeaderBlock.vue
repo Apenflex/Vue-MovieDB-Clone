@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUpdated, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useWindowScroll } from '@vueuse/core'
@@ -8,12 +8,12 @@ import { applyLocale } from '@/composables/useApplyLocale'
 import IconHeart from '@/components/icons/IconHeart.vue'
 
 const router = useRouter()
+const { t, locale, fallbackLocale } = useI18n()
 
 const isMenuOpen = ref(false)
 const header = ref()
 const { y } = useWindowScroll(header)
-
-const { t, locale, fallbackLocale } = useI18n()
+const currentLocale = ref({})
 
 const locales = [
 	{
@@ -26,58 +26,44 @@ const locales = [
 	},
 ]
 
-// const currentLocale = ref(locales.value.find((el) => el.value === locale.value))
-const currentLocale = ref({})
+// const calcLocaleUrl = (newLocale) => {
+// 	const defaultLocale = fallbackLocale.value
+// 	let currentPath = router.currentRoute.value.fullPath
+// 	if (currentPath === '/') {
+// 		currentPath = ''
+// 	}
 
-onMounted(() => {
-    console.log(locale.value, 'locale.value');
-    currentLocale.value = locales.find((el) => el.value === locale.value)
-})
+// 	if (newLocale !== undefined) {
+// 		const currentPathWithoutLocale =
+// 			locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
 
+// 		let newPath =
+// 			newLocale !== defaultLocale ? `/${newLocale}${currentPathWithoutLocale}` : currentPathWithoutLocale
 
-const calcLocaleUrl = (newLocale) => {
-	const defaultLocale = fallbackLocale.value
-	let currentPath = router.currentRoute.value.fullPath
-	if (currentPath === '/') {
-		currentPath = ''
-	}
+// 		if (newPath === '') {
+// 			newPath = '/'
+// 		}
 
-	if (newLocale !== undefined) {
-		const currentPathWithoutLocale =
-			locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
-
-		let newPath =
-			newLocale !== defaultLocale ? `/${newLocale}${currentPathWithoutLocale}` : currentPathWithoutLocale
-
-		if (newPath === '') {
-			newPath = '/'
-		}
-
-		return newPath
-	}
-}
+// 		return newPath
+// 	}
+// }
 
 const changeLocale = async (newLocale) => {
-	console.log(newLocale.value, 'newLocale 1')
 	const defaultLocale = fallbackLocale.value
-	// console.log(defaultLocale, 'defaultLocale 2')
 
 	let currentPath = router.currentRoute.value.fullPath
 	if (currentPath === '/') {
 		currentPath = ''
 	}
-	console.log(currentPath, 'currentPath 3')
 
 	const currentPathWithoutLocale =
 		locale.value !== defaultLocale ? currentPath.replace(`/${locale.value}`, '') : currentPath
-	console.log(currentPathWithoutLocale, 'currentPathWithoutLocale 4')
 
 	let newPath =
 		newLocale.value !== defaultLocale ? `/${newLocale.value}${currentPathWithoutLocale}` : currentPathWithoutLocale
 	if (newPath === '') {
 		newPath = '/'
 	}
-	console.log(newPath, 'newPath 5')
 
 	await router.push(newPath)
 
@@ -99,6 +85,11 @@ watch(y, (newValue, oldValue) => {
 watch(isMenuOpen, (newValue) => {
 	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
 })
+
+onMounted(() => {
+	// console.log(locale.value, 'locale.value');
+	currentLocale.value = locales.find((el) => el.value === locale.value)
+})
 </script>
 
 <template>
@@ -112,7 +103,6 @@ watch(isMenuOpen, (newValue) => {
 					:class="['header__logo', { 'header__logo--mobile': isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
 				>
-					<!-- to="/" -->
 					<RouterLink :to="applyLocale('/')">
 						<img
 							src="/public/images/movie_logo.svg"
@@ -141,6 +131,7 @@ watch(isMenuOpen, (newValue) => {
 					>
 						<IconHeart />
 					</RouterLink>
+
 					<RouterLink
 						:to="applyLocale('/movies')"
 						@click="toggleMenu"
@@ -156,7 +147,7 @@ watch(isMenuOpen, (newValue) => {
 						{{ t('components.HeaderBlock.tvshows') }}
 					</RouterLink>
 					<RouterLink
-						:to="{ name: 'persons', query: { page: 1 } }"
+						:to="applyLocale('/persons', { query: { page: 1 } })"
 						@click="toggleMenu"
 						:class="['header__nav-item', { active: router.currentRoute.value.name === 'persons' }]"
 					>
