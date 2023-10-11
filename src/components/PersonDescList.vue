@@ -1,4 +1,6 @@
 <script setup>
+import { applyLocale } from '@/composables/useApplyLocale'
+
 const props = defineProps({
 	getPersonData: {
 		type: Array,
@@ -43,12 +45,7 @@ const getYear = (dateString) => {
 					</svg>
 				</span>
 				<div>
-					<RouterLink
-						:to="{
-							name: 'media-details',
-							params: { mediaType: movie.episode_count ? 'tv' : 'movie', id: movie.id },
-						}"
-					>
+					<RouterLink :to="applyLocale(`/${movie.episode_count ? 'tv' : 'movie'}/${movie.id}`)">
 						{{ movie.original_title || movie.original_name }}
 					</RouterLink>
 					<span> ... {{ movie.job || movie.character }} </span>

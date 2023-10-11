@@ -81,7 +81,7 @@ const movieAvgCount = computed(() => {
 			<img
 				v-if="type === 'movie'"
 				:src="moviePoster"
-				:alt="movie.original_title || movie.original_name"
+				:alt="movie.title || movie.original_name"
 				loading="lazy"
 			/>
 			<img
@@ -107,7 +107,7 @@ const movieAvgCount = computed(() => {
 
 			<div v-if="type === 'movie'">
 				<h4>
-					{{ movie.original_title || movie.name }}
+					{{ movie.title || movie.name }}
 				</h4>
 				<span>
 					{{ formatDate }}

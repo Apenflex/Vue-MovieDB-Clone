@@ -3,6 +3,7 @@ import { onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { moviesStore } from '@/stores/moviesStore'
+import { applyLocale } from '@/composables/useApplyLocale'
 import SearchForm from '@/components/form/SearchForm.vue'
 import ItemCard from '@/components/ItemCard.vue'
 
@@ -15,17 +16,15 @@ const searchQuery = reactive({
 })
 
 const handleSearch = () => {
-	console.log('search')
+	// console.log('search')
 	if (!searchQuery.query) return
 	searchQuery.page = 1
 	store.fetchSearch({
 		query: searchQuery.query,
 		page: searchQuery.page,
 	})
-	router.push({
-		name: 'search',
-		query: { query: searchQuery.query, page: searchQuery.page },
-	})
+	const newRoute = applyLocale('/search', { query: { query: searchQuery.query, page: searchQuery.page } })
+	router.push(newRoute)
 }
 
 const handleChangePage = (options) => {
@@ -35,10 +34,8 @@ const handleChangePage = (options) => {
 		query: searchQuery.query,
 		page: searchQuery.page,
 	})
-	router.push({
-		name: 'search',
-		query: { query: searchQuery.query, page: searchQuery.page },
-	})
+	const newRoute = applyLocale('/search', { query: { query: searchQuery.query, page: searchQuery.page } })
+	router.push(newRoute)
 }
 
 onMounted(() => {

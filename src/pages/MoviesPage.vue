@@ -3,10 +3,11 @@ import { onBeforeMount, ref, reactive } from 'vue'
 
 import { moviesStore } from '@/stores/moviesStore'
 import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const currentPage = ref(1)
 const filter = reactive({
@@ -56,13 +57,13 @@ const handleFilterSearch = () => {
 
 const handleLoadMore = () => {
 	currentPage.value++
-	store.fetchMoviesMore({ page: currentPage.value, sortBy: filter.sortBy.value })
+	store.fetchMoviesMore({ page: currentPage.value, sortBy: filter.sortBy.value, lang: locale.value })
 }
 
 // onMounted(() => console.log(locale.value))
 
 onBeforeMount(() => {
-	store.fetchMovies()
+	store.fetchMovies({lang: locale.value})
 })
 </script>
 
@@ -122,10 +123,7 @@ onBeforeMount(() => {
 						class="movies__content-items"
 					>
 						<RouterLink
-							:to="{
-								name: 'media-details',
-								params: { mediaType: 'movie', id: movie.id },
-							}"
+							:to="applyLocale(`/movie/${movie.id}`)"
 							v-for="movie in store.getMovies"
 							:key="movie.id"
 						>

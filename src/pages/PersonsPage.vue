@@ -9,7 +9,7 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const store = moviesStore()
 const router = useRouter()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const currentPage = ref(Number(router.currentRoute.value.query.page))
 
@@ -17,14 +17,12 @@ const handleChangePage = (options) => {
 	// console.log(options)
 	currentPage.value = options.page + 1
 	store.fetchPersons(currentPage.value)
-	router.push({
-		name: 'persons',
-		query: { page: currentPage.value },
-	})
+	const newRoute = applyLocale('/persons', { query: { page: currentPage.value } })
+	router.push(newRoute)
 }
 
 onMounted(() => {
-	store.fetchPersons(currentPage.value)
+	store.fetchPersons({page: currentPage.value, lang: locale.value})
 })
 </script>
 

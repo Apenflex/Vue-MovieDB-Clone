@@ -1,9 +1,10 @@
 <script setup>
 import { onBeforeMount, reactive, computed } from 'vue'
-import { moviesStore } from '@/stores/moviesStore'
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
+import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
+import { moviesStore } from '@/stores/moviesStore'
 import SearchForm from '@/components/form/SearchForm.vue'
 
 const store = moviesStore()
@@ -21,13 +22,11 @@ const backgroundImage = computed(() => {
 })
 
 const handleSearch = () => {
-	console.log('search')
+	// console.log('search')
 	if (!searchQuery.query) return
 	store.isLoading = true
-	router.push({
-		name: 'search',
-		query: { query: searchQuery.query, page: searchQuery.page },
-	})
+	const newRoute = applyLocale('/search', { query: { query: searchQuery.query, page: searchQuery.page } })
+	router.push(newRoute)
 	searchQuery.query = ''
 	store.isLoading = false
 }

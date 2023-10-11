@@ -7,6 +7,7 @@ import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
 import { calcVoteColor, toggleFavouriteMovie } from '@/helpers'
 import Modal from '@/components/modal/Modal.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
@@ -15,7 +16,7 @@ import ItemCard from '@/components/ItemCard.vue'
 const store = moviesStore()
 const favouriteStore = useFavouritesStore()
 const router = useRouter()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const isModalOpen = ref(false)
 
@@ -101,10 +102,11 @@ const favouriteColor = computed(() => {
 const handleToggleModal = () => (isModalOpen.value = !isModalOpen.value)
 
 onBeforeMount(() => {
-	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id })
+	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id, lang: locale.value })
 })
 
 onMounted(() => {
+	// console.log(router.currentRoute.value.params, 'router.currentRoute.value.params')
 	store.getMoviePersons({ mediaType: mediaQuery.mediaType, movieId: mediaQuery.id })
 })
 </script>
@@ -249,10 +251,7 @@ onMounted(() => {
 						:key="person.id"
 					>
 						<RouterLink
-							:to="{
-								name: 'person-details',
-								params: { alias: `${person.id}-${person.name.split(' ').join('-').toLowerCase()}` },
-							}"
+							:to="applyLocale(`/persons/${person.id}-${person.name.split(' ').join('-').toLowerCase()}`)"
 						>
 							<ItemCard
 								:person="person"
