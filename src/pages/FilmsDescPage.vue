@@ -1,14 +1,15 @@
 <script setup>
 import { onBeforeMount, onMounted, computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Mousewheel, FreeMode } from 'swiper/modules'
+
 
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
 import { useI18n } from 'vue-i18n'
 import { applyLocale } from '@/composables/useApplyLocale'
 import { calcVoteColor, toggleFavouriteMovie } from '@/helpers'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, FreeMode } from 'swiper/modules'
 import Modal from '@/components/modal/Modal.vue'
 import IconHeart from '@/components/icons/IconHeart.vue'
 import ItemCard from '@/components/ItemCard.vue'
@@ -19,6 +20,7 @@ const router = useRouter()
 const { t, locale } = useI18n()
 
 const isModalOpen = ref(false)
+const handleToggleModal = () => (isModalOpen.value = !isModalOpen.value)
 
 const mediaQuery = reactive({
 	mediaType: router.currentRoute.value.params.mediaType,
@@ -98,8 +100,6 @@ const mediaDetailsRuntime = computed(() => {
 const favouriteColor = computed(() => {
 	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.data.id) ? '#ff0000' : '#fff'
 })
-
-const handleToggleModal = () => (isModalOpen.value = !isModalOpen.value)
 
 onBeforeMount(() => {
 	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id, lang: locale.value })

@@ -15,7 +15,24 @@ const { t } = useI18n()
 // const store.isLoading = ref(true)
 
 const personId = ref(null)
+
+onBeforeMount(() => {
+	personId.value = Number(
+		router.currentRoute.value.params.params.slice(0, router.currentRoute.value.params.params.indexOf('-'))
+	)
+})
+
+onMounted(() => {
+	// console.log(router.currentRoute.value.params)
+	store.fetchPerson(personId.value)
+})
+
 const showMoreBio = ref(false)
+
+const personBiography = computed(() => {
+	const biography = store.getPerson.bio.biography
+	return showMoreBio.value ? biography : biography.slice(0, 1200) + '...'
+})
 
 const personPoster = computed(() => {
 	if (!store.getPerson.bio.profile_path) {
@@ -46,21 +63,7 @@ const personBirthPlace = computed(() => {
 	return store.getPerson.bio.place_of_birth ? store.getPerson.bio.place_of_birth : 'Відсутнє'
 })
 
-const personBiography = computed(() => {
-	const biography = store.getPerson.bio.biography
-	return showMoreBio.value ? biography : biography.slice(0, 1200) + '...'
-})
 
-onBeforeMount(() => {
-	personId.value = Number(
-		router.currentRoute.value.params.params.slice(0, router.currentRoute.value.params.params.indexOf('-'))
-	)
-})
-
-onMounted(() => {
-	// console.log(router.currentRoute.value.params)
-	store.fetchPerson(personId.value)
-})
 </script>
 
 <template>
@@ -171,7 +174,10 @@ onMounted(() => {
 								width="100%"
 								height="25px"
 							/>
-							<div v-if="!store.isLoading" class="block__info-desc">
+							<div
+								v-if="!store.isLoading"
+								class="block__info-desc"
+							>
 								<div class="head">
 									{{ t('pages.PersonDesc.About.knownfor') }}
 									<span>

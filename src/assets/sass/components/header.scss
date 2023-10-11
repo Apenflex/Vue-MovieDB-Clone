@@ -64,6 +64,9 @@
 				background: $darkGreen;
 			}
 		}
+		.router-link-active {
+			color: $lightBlue;
+		}
 		&-item {
 			position: relative;
 			color: $white;
@@ -93,9 +96,6 @@
 					width: 50%;
 					transition: width 0.3s ease-in-out;
 				}
-			}
-			&.active {
-				color: $lightBlue;
 			}
 			svg {
 				transition: 0.4s all;

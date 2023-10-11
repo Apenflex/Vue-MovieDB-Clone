@@ -14,4 +14,12 @@
 	cursor: pointer;
 	transition: all 1s;
 	z-index: 20;
+	opacity: 1;
+	&:hover {
+		background: $btnHoverColor;
+	}
+	&.hide {
+		opacity: 0;
+		visibility: hidden;
+	}
 }

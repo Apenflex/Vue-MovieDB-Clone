@@ -28,10 +28,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+	<!-- v-if="showButton" -->
 	<button
 		@click="scrollToTop"
-		class="scroll-up-btn"
-		v-if="showButton"
+		:class="['scroll-up-btn', { hide: !showButton }]"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

@@ -8,13 +8,27 @@ import { applyLocale } from '@/composables/useApplyLocale'
 import IconHeart from '@/components/icons/IconHeart.vue'
 
 const router = useRouter()
-const { t, locale, fallbackLocale } = useI18n()
 
 const isMenuOpen = ref(false)
+const toggleMenu = () => {
+	if (isMenuOpen.value) isMenuOpen.value = false
+}
+watch(isMenuOpen, (newValue) => {
+	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
+})
+
 const header = ref()
 const { y } = useWindowScroll(header)
-const currentLocale = ref({})
+watch(y, (newValue, oldValue) => {
+	if (newValue > 60 && newValue > oldValue) {
+		header.value.classList.remove('header--show')
+	} else {
+		header.value.classList.add('header--show')
+	}
+})
 
+const { t, locale, fallbackLocale } = useI18n()
+const currentLocale = ref({})
 const locales = [
 	{
 		label: t('translation.ukrainian.label'),
@@ -70,46 +84,11 @@ const changeLocale = async (newLocale) => {
 	location.reload()
 }
 
-const toggleMenu = () => {
-	if (isMenuOpen.value) isMenuOpen.value = false
-}
-
-const activeLink = (link) => {
-	switch (link) {
-		case 'movies':
-			return {
-				active: router.currentRoute.value.name === 'movies' || router.currentRoute.value.name === 'movies-en',
-			}
-		case 'tv':
-			return {
-				active: router.currentRoute.value.name === 'tv' || router.currentRoute.value.name === 'tv-en',
-			}
-		case 'persons':
-			return {
-				active: router.currentRoute.value.name === 'persons' || router.currentRoute.value.name === 'persons-en',
-			}
-		default:
-			return false
-	}
-}
-
-watch(y, (newValue, oldValue) => {
-	if (newValue > 60 && newValue > oldValue) {
-		header.value.classList.remove('header--show')
-	} else {
-		header.value.classList.add('header--show')
-	}
-})
-
-watch(isMenuOpen, (newValue) => {
-	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
-})
-
 onMounted(() => {
 	// console.log(locale.value, 'locale.value');
-	// console.log(router.currentRoute, 'router.currentRoute.value.name')
 	currentLocale.value = locales.find((el) => el.value === locale.value)
 })
+
 </script>
 
 <template>
@@ -155,21 +134,21 @@ onMounted(() => {
 					<RouterLink
 						:to="applyLocale('/movies')"
 						@click="toggleMenu"
-						:class="['header__nav-item', activeLink('movies')]"
+						class="header__nav-item"
 					>
 						{{ t('components.HeaderBlock.movies') }}
 					</RouterLink>
 					<RouterLink
 						:to="applyLocale('/tv')"
 						@click="toggleMenu"
-						:class="['header__nav-item', activeLink('tv')]"
+						class="header__nav-item"
 					>
 						{{ t('components.HeaderBlock.tvshows') }}
 					</RouterLink>
 					<RouterLink
 						:to="applyLocale('/persons', { query: { page: 1 } })"
 						@click="toggleMenu"
-						:class="['header__nav-item', activeLink('persons')]"
+						class="header__nav-item"
 					>
 						{{ t('components.HeaderBlock.persons') }}
 					</RouterLink>
