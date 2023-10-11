@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import securedAxios from '@/composables/useApi.js'
+import { correctLanguageCode } from '@/helpers';
 
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
@@ -46,7 +47,7 @@ export const moviesStore = defineStore('moviesDB', {
     // Person Details
     getPerson: state => state.person,
     getPersonCast: state => state.person.movies.cast,
-    // Режисер
+    // Media Details
     getPersonCamera: state => state.person.movies.crew.filter((item) => item.department === 'Camera'),
     getPersonCrew: state => state.person.movies.crew.filter((item) => item.department === 'Crew'),
     getPersonDirector: state => state.person.movies.crew.filter((item) => item.department === 'Directing'),
@@ -57,7 +58,7 @@ export const moviesStore = defineStore('moviesDB', {
   actions: {
     async fetchMovies({ lang }) {
       try {
-        const response = await securedAxios.get(`/movie/popular?language=${this.correctLanguageCode(lang)}`);
+        const response = await securedAxios.get(`/movie/popular?language=${correctLanguageCode(lang)}`);
         this.movies = this.addMediaType(response.data.results, 'movie');
         // console.log(this.movies.map((item) => item.media_type));
       } catch (error) {
@@ -67,7 +68,7 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchMoviesMore({ page, sortBy, lang }) {
       try {
         this.isLoading = true;
-        const response = await securedAxios.get(`/movie/popular?language=${this.correctLanguageCode(lang)}&page=${page}`);
+        const response = await securedAxios.get(`/movie/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         const newMoviesWithMediaType = this.addMediaType(response.data.results, 'movie');
         this.movies.push(...newMoviesWithMediaType);
         // console.log(this.movies.map((item) => item.media_type))
@@ -107,7 +108,7 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchMediaDetails({ mediaType, id, lang }) {
       this.mediaDetails.data = [];
       try {
-        const response = await securedAxios.get(`/${mediaType}/${id}?language=${this.correctLanguageCode(lang)}`);
+        const response = await securedAxios.get(`/${mediaType}/${id}?language=${correctLanguageCode(lang)}`);
         const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);
         this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0]?.key || 'OOkJ54oqt5Q' };
         // console.log(this.mediaDetails.data);
@@ -117,7 +118,7 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchTvShows({ lang }) {
       try {
-        const response = await securedAxios.get(`/tv/popular?language=${this.correctLanguageCode(lang)}`);
+        const response = await securedAxios.get(`/tv/popular?language=${correctLanguageCode(lang)}`);
         this.tvShows = this.addMediaType(response.data.results, 'tv');
         // console.log(this.tvShows.map((item) => item.media_type));
       } catch (error) {
@@ -127,7 +128,7 @@ export const moviesStore = defineStore('moviesDB', {
     async fetchTvShowsMore({ page, sortBy, lang }) {
       try {
         this.isLoading = true;
-        const response = await securedAxios.get(`/tv/popular?language=${this.correctLanguageCode(lang)}&page=${page}`);
+        const response = await securedAxios.get(`/tv/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         const newTvShowsWithMediaType = this.addMediaType(response.data.results, 'tv');
         this.tvShows.push(...newTvShowsWithMediaType);
         // console.log(this.tvShows.map((item) => item.media_type))
@@ -166,7 +167,7 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchPersons({page, lang}) {
       try {
-        const response = await securedAxios.get(`/person/popular?language=${this.correctLanguageCode(lang)}&page=${page}`);
+        const response = await securedAxios.get(`/person/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         // console.log(response.data);
         this.persons.data = response.data.results;
         // console.log(this.persons.data);
@@ -293,9 +294,5 @@ export const moviesStore = defineStore('moviesDB', {
     addMediaType(moviesData, type) {
       return moviesData.map(movie => ({ ...movie, media_type: type }));
     },
-    correctLanguageCode(lang) {
-      lang === 'ua' ? lang = 'uk-UA' : lang = 'en-US'
-      return lang;
-    }
   },
 })

@@ -13,16 +13,16 @@ const { t, locale } = useI18n()
 
 const currentPage = ref(Number(router.currentRoute.value.query.page))
 
-const handleChangePage = (options) => {
+const handleChangePage = async (options) => {
 	// console.log(options)
 	currentPage.value = options.page + 1
-	store.fetchPersons(currentPage.value)
+	await store.fetchPersons({ page: currentPage.value, lang: locale.value })
 	const newRoute = applyLocale('/persons', { query: { page: currentPage.value } })
 	router.push(newRoute)
 }
 
 onMounted(() => {
-	store.fetchPersons({page: currentPage.value, lang: locale.value})
+	store.fetchPersons({ page: currentPage.value, lang: locale.value })
 })
 </script>
 

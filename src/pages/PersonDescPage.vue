@@ -12,11 +12,13 @@ const store = moviesStore()
 const router = useRouter()
 const { t } = useI18n()
 
+// const store.isLoading = ref(true)
+
 const personId = ref(null)
 const showMoreBio = ref(false)
 
 const personPoster = computed(() => {
-	if(!store.getPerson.bio.profile_path) {
+	if (!store.getPerson.bio.profile_path) {
 		return '../public/images/no-image.png'
 	}
 	return `https://image.tmdb.org/t/p/w500/${store.getPerson.bio.profile_path}`
@@ -70,16 +72,32 @@ onMounted(() => {
 					<div class="block">
 						<div class="block__image">
 							<img
+								v-if="!store.isLoading"
 								:src="personPoster"
 								:alt="store.getPerson.bio.name"
 							/>
 						</div>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="450px"
+						/>
 						<!-- Mobile Tiile -->
-						<h2 class="block__title">{{ store.getPerson.bio.name }}</h2>
+						<h2
+							v-if="!store.isLoading"
+							class="block__title"
+						>
+							{{ store.getPerson.bio.name }}
+						</h2>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="30px"
+						/>
 						<div class="block__info">
 							<div class="block__info-icons">
 								<a
-									v-if="store.getPerson.externalIds.facebook_id"
+									v-if="store.getPerson.externalIds.facebook_id && !store.isLoading"
 									:href="`https://www.facebook.com/${store.getPerson.externalIds.facebook_id}`"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -94,8 +112,14 @@ onMounted(() => {
 										/>
 									</svg>
 								</a>
+								<PrimeSkeleton
+									v-if="store.isLoading"
+									width="40px"
+									height="40px"
+									shape="circle"
+								/>
 								<a
-									v-if="store.getPerson.externalIds.instagram_id"
+									v-if="store.getPerson.externalIds.instagram_id && !store.isLoading"
 									:href="`https://www.instagram.com/${store.getPerson.externalIds.instagram_id}`"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -110,8 +134,14 @@ onMounted(() => {
 										/>
 									</svg>
 								</a>
+								<PrimeSkeleton
+									v-if="store.isLoading"
+									width="40px"
+									height="40px"
+									shape="circle"
+								/>
 								<a
-									v-if="store.getPerson.externalIds.twitter_id"
+									v-if="store.getPerson.externalIds.twitter_id && !store.isLoading"
 									:href="`https://twitter.com/${store.getPerson.externalIds.twitter_id}`"
 									target="_blank"
 									rel="noopener noreferrer"
@@ -126,11 +156,22 @@ onMounted(() => {
 										/>
 									</svg>
 								</a>
+								<PrimeSkeleton
+									v-if="store.isLoading"
+									width="40px"
+									height="40px"
+									shape="circle"
+								/>
 							</div>
-							<h3>
+							<h3 v-if="!store.isLoading">
 								{{ t('pages.PersonDesc.About.personalnfo') }}
 							</h3>
-							<div class="block__info-desc">
+							<PrimeSkeleton
+								v-if="store.isLoading"
+								width="100%"
+								height="25px"
+							/>
+							<div v-if="!store.isLoading" class="block__info-desc">
 								<div class="head">
 									{{ t('pages.PersonDesc.About.knownfor') }}
 									<span>
@@ -173,13 +214,31 @@ onMounted(() => {
 								</div>
 							</div>
 						</div>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="450px"
+						/>
 					</div>
 				</div>
 
 				<!-- Content -->
 				<div class="persondesc__content">
-					<h2 class="persondesc__content-title">{{ store.getPerson.bio.name }}</h2>
-					<div class="persondesc__content-textblock">
+					<h2
+						v-if="!store.isLoading"
+						class="persondesc__content-title"
+					>
+						{{ store.getPerson.bio.name }}
+					</h2>
+					<PrimeSkeleton
+						v-if="store.isLoading"
+						width="40%"
+						height="30px"
+					/>
+					<div
+						v-if="!store.isLoading"
+						class="persondesc__content-textblock"
+					>
 						<h3>
 							{{ t('pages.PersonDesc.Bio.biography') }}
 						</h3>
@@ -200,44 +259,104 @@ onMounted(() => {
 							{{ store.getPerson.bio.name }}. <br />
 						</p>
 					</div>
+					<PrimeSkeleton
+						v-if="store.isLoading"
+						width="100%"
+						height="330px"
+					/>
 
 					<!-- Slider -->
-					<div class="persondesc__content-knownFor">
+					<div
+						v-if="!store.isLoading"
+						class="persondesc__content-knownFor"
+					>
 						<h3>
 							{{ t('pages.PersonDesc.Bio.knownfor') }}
 						</h3>
 						<div>Slider</div>
 					</div>
+					<PrimeSkeleton
+						v-if="store.isLoading"
+						width="100%"
+						height="130px"
+					/>
 
 					<!-- Film Table -->
 					<div class="persondesc__content-list">
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonDirector"
 							:title="t('pages.PersonDesc.Cast.direction')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonCast"
 							:title="t('pages.PersonDesc.Cast.acting')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
+
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonCamera"
 							:title="t('pages.PersonDesc.Cast.operatorwork')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
+
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonCrew"
 							:title="t('pages.PersonDesc.Cast.team')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
+
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonEditing"
 							:title="t('pages.PersonDesc.Cast.scenario')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
+
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonProducer"
 							:title="t('pages.PersonDesc.Cast.production')"
 						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
+						/>
+
 						<PersonDescList
+							v-if="!store.isLoading"
 							:getPersonData="store.getPersonWriter"
 							:title="t('pages.PersonDesc.Cast.assembling')"
+						/>
+						<PrimeSkeleton
+							v-if="store.isLoading"
+							width="100%"
+							height="130px"
 						/>
 					</div>
 				</div>

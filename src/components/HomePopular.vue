@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
 import { calcTabActiveClass } from '@/helpers'
 import ItemCard from './ItemCard.vue'
 
@@ -131,12 +132,7 @@ onBeforeMount(() => {
 					v-for="movie in store.popularMovies"
 					:key="movie.id"
 				>
-					<RouterLink
-						:to="{
-							name: 'media-details',
-							params: { mediaType: 'movie', id: movie.id },
-						}"
-					>
+					<RouterLink :to="applyLocale(`/${movie.media_type}/${movie.id}`)">
 						<ItemCard
 							:movie="movie"
 							type="movie"

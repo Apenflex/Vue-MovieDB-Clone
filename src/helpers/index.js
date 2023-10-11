@@ -52,3 +52,8 @@ export const calcTabActiveClass = (moviesType, variant) => {
     active: moviesType.variant.value === variant,
   }
 }
+
+export const correctLanguageCode = (lang) => {
+  lang === 'ua' ? lang = 'uk-UA' : lang = 'en-US'
+  return lang;
+}
