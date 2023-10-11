@@ -26,8 +26,8 @@ const initialRoutes = [
     props: true
   },
   {
-    path: 'tv-shows',
-    name: 'tv-shows',
+    path: 'tv',
+    name: 'tv',
     component: () => import('@/pages/TvShowsPage.vue'),
     props: true
   },

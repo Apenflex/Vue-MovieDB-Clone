@@ -122,7 +122,7 @@ onBeforeMount(() => {
 						class="tvshows__content-items"
 					>
 						<RouterLink
-							:to="applyLocale(`/tv-shows/${movie.id}`)"
+							:to="applyLocale(`/tv/${movie.id}`)"
 							v-for="movie in store.getTvShows"
 							:key="movie.id"
 						>

@@ -74,6 +74,25 @@ const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
 }
 
+const activeLink = (link) => {
+	switch (link) {
+		case 'movies':
+			return {
+				active: router.currentRoute.value.name === 'movies' || router.currentRoute.value.name === 'movies-en',
+			}
+		case 'tv':
+			return {
+				active: router.currentRoute.value.name === 'tv' || router.currentRoute.value.name === 'tv-en',
+			}
+		case 'persons':
+			return {
+				active: router.currentRoute.value.name === 'persons' || router.currentRoute.value.name === 'persons-en',
+			}
+		default:
+			return false
+	}
+}
+
 watch(y, (newValue, oldValue) => {
 	if (newValue > 60 && newValue > oldValue) {
 		header.value.classList.remove('header--show')
@@ -88,6 +107,7 @@ watch(isMenuOpen, (newValue) => {
 
 onMounted(() => {
 	// console.log(locale.value, 'locale.value');
+	// console.log(router.currentRoute, 'router.currentRoute.value.name')
 	currentLocale.value = locales.find((el) => el.value === locale.value)
 })
 </script>
@@ -135,21 +155,21 @@ onMounted(() => {
 					<RouterLink
 						:to="applyLocale('/movies')"
 						@click="toggleMenu"
-						:class="['header__nav-item', { active: router.currentRoute.value.name === 'movies' }]"
+						:class="['header__nav-item', activeLink('movies')]"
 					>
 						{{ t('components.HeaderBlock.movies') }}
 					</RouterLink>
 					<RouterLink
-						:to="applyLocale('/tv-shows')"
+						:to="applyLocale('/tv')"
 						@click="toggleMenu"
-						:class="['header__nav-item', { active: router.currentRoute.value.name === 'tv-shows' }]"
+						:class="['header__nav-item', activeLink('tv')]"
 					>
 						{{ t('components.HeaderBlock.tvshows') }}
 					</RouterLink>
 					<RouterLink
 						:to="applyLocale('/persons', { query: { page: 1 } })"
 						@click="toggleMenu"
-						:class="['header__nav-item', { active: router.currentRoute.value.name === 'persons' }]"
+						:class="['header__nav-item', activeLink('persons')]"
 					>
 						{{ t('components.HeaderBlock.persons') }}
 					</RouterLink>
