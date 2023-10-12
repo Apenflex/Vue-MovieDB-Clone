@@ -1,12 +1,12 @@
 <script setup>
-import { reactive, computed, onBeforeMount } from 'vue'
+import { reactive, onBeforeMount } from 'vue'
 
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useI18n } from 'vue-i18n'
 import { applyLocale } from '@/composables/useApplyLocale'
 import { calcTabActiveClass } from '@/helpers'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, FreeMode } from 'swiper/modules'
 import ItemCard from './ItemCard.vue'
 
 const store = moviesStore()
@@ -36,28 +36,26 @@ const selectOptions = [
 	},
 ]
 
-const swiperBreakpoints = computed(() => {
-	return {
-		320: {
-			slidesPerView: 1,
-		},
-		480: {
-			slidesPerView: 2,
-		},
-		640: {
-			slidesPerView: 3,
-		},
-		768: {
-			slidesPerView: 4,
-		},
-		1024: {
-			slidesPerView: 6,
-		},
-		1280: {
-			slidesPerView: 7,
-		},
-	}
-})
+const swiperBreakpoints = {
+	320: {
+		slidesPerView: 1,
+	},
+	480: {
+		slidesPerView: 2,
+	},
+	640: {
+		slidesPerView: 3,
+	},
+	768: {
+		slidesPerView: 4,
+	},
+	1024: {
+		slidesPerView: 6,
+	},
+	1280: {
+		slidesPerView: 7,
+	},
+}
 
 const fetchPopular = (argDay) => {
 	popularMovies.variant.value = argDay

@@ -238,9 +238,19 @@
 				"personalnfo": "Personal Info",
 				"knownfor": "Known For",
 				"knowncredits": "Known Credits",
-				"gender": "Gender",
-				"birthday": "Birthday",
-				"placeofbirth": "Place of Birth",
+				"gender": {
+					"title": "Gender",
+					"man": "Man",
+					"woman": "Woman"
+				},
+				"birthday": {
+					"title": "Birthday",
+					"unknown": "Unknown"
+				},
+				"placeofbirth": {
+					"title": "Place of Birth",
+					"unknown": "Unknown"
+				},
 				"alsoKnownAs": "Also Known As"
 			},
 			"Bio": {

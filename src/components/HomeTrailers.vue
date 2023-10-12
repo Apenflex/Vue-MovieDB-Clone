@@ -1,18 +1,16 @@
 <script setup>
-import { ref, reactive, onBeforeMount, computed } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Mousewheel, FreeMode } from 'swiper/modules'
 import { moviesStore } from '@/stores/moviesStore'
 import { useI18n } from 'vue-i18n'
 import { calcTabActiveClass } from '@/helpers'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, FreeMode } from 'swiper/modules'
 import Modal from '@/components/modal/Modal.vue'
 
 const store = moviesStore()
 const { t } = useI18n()
 
-const isModalOpen = ref(false)
-const backgroundImage = ref('')
 const trailerMovies = reactive({
 	data: store.trailerMovies.data,
 	variant: { label: t('components.HomeTrailers.tab.streaming.label'), value: '' },
@@ -37,32 +35,38 @@ const selectOptions = [
 	},
 ]
 
-const swiperBreakpoints = computed(() => {
-	return {
-		320: {
-			slidesPerView: 1,
-		},
-		576: {
-			slidesPerView: 2,
-		},
-		993: {
-			slidesPerView: 3,
-		},
-		1280: {
-			slidesPerView: 4,
-			spaceBetween: 30,
-		},
-		1600: {
-			slidesPerView: 5,
-			spaceBetween: 30,
-		},
-	}
-})
+const swiperBreakpoints = {
+	320: {
+		slidesPerView: 1,
+	},
+	576: {
+		slidesPerView: 2,
+	},
+	993: {
+		slidesPerView: 3,
+	},
+	1280: {
+		slidesPerView: 4,
+		spaceBetween: 30,
+	},
+	1600: {
+		slidesPerView: 5,
+		spaceBetween: 30,
+	},
+}
 
+const backgroundImage = ref('')
 const changeSectionBackground = (image) => {
 	backgroundImage.value = `https://image.tmdb.org/t/p/original/${image}`
 }
 
+const moviePoster = (poster) => {
+	if (!poster) '../public/images/no-image.png'
+
+	return `https://image.tmdb.org/t/p/w500/${poster}`
+}
+
+const isModalOpen = ref(false)
 const handleToggleModal = (movieId) => {
 	if (isModalOpen.value) {
 		isModalOpen.value = false
@@ -87,8 +91,7 @@ onBeforeMount(() => {
 	<section
 		class="trailers"
 		:style="{
-			background: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%),
-			url(${backgroundImage})`,
+			background: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${backgroundImage})`,
 			backgroundSize: 'cover',
 			backgroundPosition: 'center',
 		}"
@@ -159,7 +162,7 @@ onBeforeMount(() => {
 						@click="handleToggleModal(movie.id)"
 					>
 						<img
-							:src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+							:src="moviePoster(movie.poster_path)"
 							:alt="movie.title"
 						/>
 						<svg

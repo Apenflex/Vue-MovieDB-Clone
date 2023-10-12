@@ -76,7 +76,7 @@ const movieAvgCount = computed(() => {
 			<IconTrash
 				v-if="favouriteCard"
 				class="movieCard__icons-trash"
-				@click.prevent="toggleFavouriteMovie(movie, notToast = true)"
+				@click.prevent="toggleFavouriteMovie(movie, true)"
 			/>
 			<img
 				v-if="type === 'movie'"

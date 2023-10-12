@@ -13,14 +13,6 @@ const { t } = useI18n()
 
 const searchQuery = reactive({ query: '', page: 1 })
 
-const backgroundImage = computed(() => {
-	return {
-		backgroundImage: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${store.randomPosterURL})`,
-		backgroundSize: 'cover',
-		backgroundPosition: 'center',
-	}
-})
-
 const handleSearch = () => {
 	// console.log('search')
 	if (!searchQuery.query) return
@@ -33,6 +25,14 @@ const handleSearch = () => {
 
 onBeforeMount(() => {
 	store.getRandomPoster()
+})
+
+const backgroundImage = computed(() => {
+	return {
+		backgroundImage: `linear-gradient(to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.8) 100%), url(${store.randomPosterURL})`,
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+	}
 })
 </script>
 

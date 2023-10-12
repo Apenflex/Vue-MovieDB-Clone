@@ -209,9 +209,19 @@
 				"personalnfo": "Особиста інформація",
 				"knownfor": "Відомий (-а) за",
 				"knowncredits": "Кількість робіт",
-				"gender": "Стать",
-				"birthday": "День народження",
-				"placeofbirth": "Місце народження",
+				"gender": {
+					"title": "Стать",
+					"man": "Чоловіча",
+					"woman": "Жіноча"
+				},
+				"birthday": {
+					"title": "Дата народження",
+					"unknown": "Невідомо"
+				},
+				"placeofbirth": {
+					"title": "Місце народження",
+					"unknown": "Невідомо"
+				},
 				"alsoKnownAs": "Також відомий (-а) як"
 			},
 			"Bio": {

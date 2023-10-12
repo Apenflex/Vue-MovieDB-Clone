@@ -11,17 +11,14 @@ import PersonDescList from '@/components/PersonDescList.vue'
 const store = moviesStore()
 const router = useRouter()
 const { t } = useI18n()
-
 // const store.isLoading = ref(true)
 
 const personId = ref(null)
-
 onBeforeMount(() => {
 	personId.value = Number(
 		router.currentRoute.value.params.params.slice(0, router.currentRoute.value.params.params.indexOf('-'))
 	)
 })
-
 onMounted(() => {
 	// console.log(router.currentRoute.value.params)
 	store.fetchPerson(personId.value)
@@ -46,11 +43,11 @@ const personWorks = computed(() => {
 })
 
 const personGender = computed(() => {
-	return store.getPerson.bio.gender === 1 ? 'Жіноча' : 'Чоловіча'
+	return store.getPerson.bio.gender === 1 ? t('pages.PersonDesc.About.gender.woman') : t('pages.PersonDesc.About.gender.man')
 })
 
 const personBirthday = computed(() => {
-	return store.getPerson.bio.birthday ? store.getPerson.bio.birthday : 'Відсутній'
+	return store.getPerson.bio.birthday ? store.getPerson.bio.birthday : t('pages.PersonDesc.About.birthday.unknown')
 })
 
 const personFullYears = computed(() => {
@@ -60,9 +57,8 @@ const personFullYears = computed(() => {
 })
 
 const personBirthPlace = computed(() => {
-	return store.getPerson.bio.place_of_birth ? store.getPerson.bio.place_of_birth : 'Відсутнє'
+	return store.getPerson.bio.place_of_birth ? store.getPerson.bio.place_of_birth : t('pages.PersonDesc.About.placeofbirth.unknown')
 })
-
 
 </script>
 
@@ -191,20 +187,20 @@ const personBirthPlace = computed(() => {
 									</span>
 								</div>
 								<div class="head">
-									{{ t('pages.PersonDesc.About.gender') }}
+									{{ t('pages.PersonDesc.About.gender.title') }}
 									<span>
 										{{ personGender }}
 									</span>
 								</div>
 								<div class="head">
-									{{ t('pages.PersonDesc.About.birthday') }}
+									{{ t('pages.PersonDesc.About.birthday.title') }}
 									<span>
 										{{ personBirthday }}
 										{{ personFullYears }}
 									</span>
 								</div>
 								<div class="head">
-									{{ t('pages.PersonDesc.About.placeofbirth') }}
+									{{ t('pages.PersonDesc.About.placeofbirth.title') }}
 									<span>
 										{{ personBirthPlace }}
 									</span>

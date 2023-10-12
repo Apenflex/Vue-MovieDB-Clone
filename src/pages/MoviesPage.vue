@@ -60,8 +60,6 @@ const handleLoadMore = () => {
 	store.fetchMoviesMore({ page: currentPage.value, sortBy: filter.sortBy.value, lang: locale.value })
 }
 
-// onMounted(() => console.log(locale.value))
-
 onBeforeMount(() => {
 	store.fetchMovies({lang: locale.value})
 })
