@@ -267,7 +267,7 @@ onMounted(() => {
 					title: store.mediaDetails.data.original_title || store.mediaDetails.data.name,
 					path: store.mediaDetails.data.trailer,
 				}"
-				@toggle-modal="handleToggleModal()"
+				@toggle-modal="handleToggleModal"
 			/>
 		</section>
 	</main>

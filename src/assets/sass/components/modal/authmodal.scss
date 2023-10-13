@@ -1,0 +1,84 @@
+.auth__modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
+	background: rgb(255, 255, 255);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+	width: 450px;
+	height: 400px;
+	max-width: 450px;
+	position: relative;
+
+	&-close {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		background-color: unset;
+		border: unset;
+		font-weight: 700;
+		font-size: 18px;
+		cursor: pointer;
+		color: #000000;
+	}
+
+	&-form {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		padding: 20px;
+		h2 {
+			font-size: 24px;
+			font-weight: 700;
+			text-align: center;
+		}
+		input {
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid $primary;
+			outline: none;
+			font-size: 16px;
+			&:focus {
+				border: 1px solid $darkGreen;
+			}
+		}
+		.btn {
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid $primary;
+			background-color: $primary;
+			color: #ffffff;
+			font-size: 16px;
+			font-weight: 700;
+			transition: all 0.3s ease-in-out;
+			cursor: pointer;
+			&:hover {
+				background-color: $lightBlue;
+				color: $primary;
+			}
+		}
+		p {
+			font-size: 14px;
+			font-weight: 700;
+			text-align: center;
+			color: #000000;
+		}
+		.switch {
+			padding: 3px 8px;
+			margin-left: 10px;
+			border-radius: 5px;
+			border: 1px solid $primary;
+			background-color: $primary;
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 400;
+			transition: all 0.3s ease-in-out;
+			cursor: pointer;
+			&:hover {
+				background-color: $lightBlue;
+				color: $primary;
+			}
+		}
+	}
+}

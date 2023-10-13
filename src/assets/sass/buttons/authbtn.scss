@@ -1,0 +1,14 @@
+.authbtn {
+  cursor: pointer;
+	background: $lightBlue;
+	border: 1px solid $lightBlue;
+	border-radius: 5px;
+	color: $primary;
+	padding: 7px;
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+	&:hover {
+		background-color: $lightGreen;
+		color: #161616;
+	}
+}

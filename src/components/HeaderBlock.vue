@@ -2,10 +2,12 @@
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { userStore } from '@/stores/useUser'
 import { useWindowScroll } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 import { applyLocale } from '@/composables/useApplyLocale'
 import IconHeart from '@/components/icons/IconHeart.vue'
+import AuthButton from '@/components/auth/AuthButton.vue'
 
 const router = useRouter()
 
@@ -39,7 +41,6 @@ const locales = [
 		value: t('translation.english.value'),
 	},
 ]
-
 // const calcLocaleUrl = (newLocale) => {
 // 	const defaultLocale = fallbackLocale.value
 // 	let currentPath = router.currentRoute.value.fullPath
@@ -61,7 +62,6 @@ const locales = [
 // 		return newPath
 // 	}
 // }
-
 const changeLocale = async (newLocale) => {
 	const defaultLocale = fallbackLocale.value
 
@@ -83,12 +83,16 @@ const changeLocale = async (newLocale) => {
 
 	location.reload()
 }
-
 onMounted(() => {
 	// console.log(locale.value, 'locale.value');
 	currentLocale.value = locales.find((el) => el.value === locale.value)
 })
 
+const userStored = userStore()
+const isUserLogged = ref(userStored.isUserLogged)
+watch(userStored, () => {
+	isUserLogged.value = userStored.isUserLogged
+})
 </script>
 
 <template>
@@ -98,6 +102,7 @@ onMounted(() => {
 	>
 		<div class="container">
 			<div class="header__wrapper">
+				<!-- Logo -->
 				<div
 					:class="['header__logo', { 'header__logo--mobile': isMenuOpen }]"
 					@click="isMenuOpen ? (isMenuOpen = false) : null"
@@ -109,7 +114,6 @@ onMounted(() => {
 						/>
 					</RouterLink>
 				</div>
-
 				<!-- Desktop Menu -->
 				<nav :class="['header__nav', { 'menu-active': isMenuOpen }]">
 					<VueMultiselect
@@ -124,6 +128,7 @@ onMounted(() => {
 						@select="changeLocale"
 					/>
 					<RouterLink
+						v-if="isUserLogged"
 						:to="applyLocale('/favourite')"
 						@click="toggleMenu"
 						class="header__nav-item"
@@ -152,6 +157,7 @@ onMounted(() => {
 					>
 						{{ t('components.HeaderBlock.persons') }}
 					</RouterLink>
+					<AuthButton @toggle-menu="toggleMenu" />
 				</nav>
 
 				<!-- Mobile Menu -->

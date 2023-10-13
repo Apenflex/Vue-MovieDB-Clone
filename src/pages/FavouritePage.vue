@@ -1,21 +1,26 @@
 <script setup>
-import { useFavouritesStore } from '@/stores/useFavouritesStore'
+import { computed } from 'vue'
 
+import { useFavouritesStore } from '@/stores/useFavouritesStore'
+import { useI18n } from 'vue-i18n'
+import { applyLocale } from '@/composables/useApplyLocale'
 import ItemCard from '@/components/ItemCard.vue'
 
 const store = useFavouritesStore()
+const { t } = useI18n()
+const emptyFavourites = computed(() => !store.favouriteMovies.length)
 </script>
 
 <template>
 	<main class="container">
 		<section class="favourite">
 			<div class="favourite__content">
-				<h2>Улюбленні</h2>
+				<h2>{{ t('pages.Favourite.H1') }}</h2>
 				<div
-					v-if="!store.favouriteMovies.length"
+					v-if="emptyFavourites"
 					class="favourite__content-empty"
 				>
-					Ще не має улюблених....
+					{{ t('pages.Favourite.noFavourites') }}
 				</div>
 				<TransitionGroup
 					tag="div"
@@ -25,10 +30,7 @@ const store = useFavouritesStore()
 					<RouterLink
 						v-for="movie in store.favouriteMovies"
 						:key="movie.id"
-						:to="{
-							name: 'media-details',
-							params: { mediaType: movie.media_type, id: movie.id },
-						}"
+						:to="applyLocale(`/${movie.media_type}/${movie.id}`)"
 					>
 						<ItemCard
 							:movie="movie"

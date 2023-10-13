@@ -121,6 +121,10 @@
 		}
 	},
 	"pages": {
+		"Favourite": {
+			"H1": "Favourites",
+			"noFavourites": "You have no favorite movies, series or characters. Add them to save."
+		},
 		"Movies": {
 			"H1": "Popular Movies",
 			"Filter": {

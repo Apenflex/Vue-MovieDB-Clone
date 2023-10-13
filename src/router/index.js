@@ -17,7 +17,10 @@ const initialRoutes = [
     path: 'favourite',
     name: 'favourite',
     component: () => import('@/pages/FavouritePage.vue'),
-    props: true
+    props: true,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: 'movies',
@@ -41,7 +44,10 @@ const initialRoutes = [
     path: 'persons',
     name: 'persons',
     component: () => import('@/pages/PersonsPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: 'persons/:params',
@@ -97,6 +103,7 @@ export default i18n => {
   // Default locale always last one
   routes.push(createRoute(supportedLocales, defaultLocale));
   // console.log(routes, 'routes')
+
   return createRouter({
     history: createWebHistory(),
     routes,
@@ -113,6 +120,6 @@ export default i18n => {
           behavior: 'instant'
         });
       }
-    }
+    },
   });
 };

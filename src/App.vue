@@ -1,11 +1,12 @@
 <script setup>
-import { RouterView } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import { onBeforeMount } from 'vue'
+import { RouterView } from 'vue-router'
 
+import { useI18n } from 'vue-i18n'
 import HeaderBlock from '@/components/HeaderBlock.vue'
-import FooterBlock from '@/components/FooterBlock.vue'
+import ModalAuth from '@/components/modal/ModalAuth.vue'
 import ScrollUp from '@/components/scrollup/ScrollUp.vue'
+import FooterBlock from '@/components/FooterBlock.vue'
 
 const { locale, availableLocales, fallbackLocale } = useI18n()
 
@@ -42,8 +43,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-	<HeaderBlock />
 	<RouterView />
+	<HeaderBlock />
+	<ModalAuth />
 	<ScrollUp />
 	<FooterBlock />
 </template>
