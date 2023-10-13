@@ -2,7 +2,13 @@
 import { reactive, ref } from 'vue'
 
 import { userStore } from '@/stores/useUser'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+	getAuth,
+	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
+	GoogleAuthProvider,
+	signInWithPopup,
+} from 'firebase/auth'
 // import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 
@@ -24,7 +30,7 @@ const register = () => {
 			form.password = ''
 			toast.success('Succesfully registered')
 			handleCloseModal()
-      // console.log('Succesfully registered', data)
+			// console.log('Succesfully registered', data)
 		})
 		.catch((error) => {
 			console.log('Error registering', error.code)
@@ -78,6 +84,16 @@ const signIn = () => {
 
 const signInWithGoogle = () => {
 	console.log('signInWithGoogle')
+	const provider = new GoogleAuthProvider()
+	signInWithPopup(getAuth(), provider)
+		.then((result) => {
+			console.log(result.user)
+			toast.success('Succesfully signed in with Google')
+			handleCloseModal()
+		})
+		.catch((error) => {
+			console.log(error)
+		})
 }
 
 const handleCloseModal = () => {
@@ -136,15 +152,15 @@ const handleCloseModal = () => {
 				</button>
 				<p>
 					<!-- Don't have an account? -->
-          <span v-if="!isRegisterForm">Don't have an account?</span>
-          <span v-else>Already have an account?</span>
+					<span v-if="!isRegisterForm">Don't have an account?</span>
+					<span v-else>Already have an account?</span>
 					<button
 						@click.prevent="isRegisterForm = !isRegisterForm"
 						class="switch"
 					>
 						<!-- Sign up -->
-            <span v-if="!isRegisterForm">Sign up</span>
-            <span v-else>Sign in</span>
+						<span v-if="!isRegisterForm">Sign up</span>
+						<span v-else>Sign in</span>
 					</button>
 				</p>
 			</form>
