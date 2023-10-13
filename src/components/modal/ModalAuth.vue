@@ -87,7 +87,7 @@ const signInWithGoogle = () => {
 	const provider = new GoogleAuthProvider()
 	signInWithPopup(getAuth(), provider)
 		.then((result) => {
-			console.log(result.user)
+			// console.log(result.user)
 			toast.success('Succesfully signed in with Google')
 			handleCloseModal()
 		})
