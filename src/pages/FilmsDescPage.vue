@@ -1,7 +1,6 @@
 <script setup>
-import { onBeforeMount, onMounted, computed, ref, reactive } from 'vue'
+import { onBeforeMount, computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-
 
 import { moviesStore } from '@/stores/moviesStore'
 import { useFavouritesStore } from '@/stores/useFavouritesStore'
@@ -101,13 +100,13 @@ const favouriteColor = computed(() => {
 	return favouriteStore.favouriteMovies.find((item) => item.id === store.mediaDetails.data.id) ? '#ff0000' : '#fff'
 })
 
-onBeforeMount(() => {
+const handleFetchPage = () => {
 	store.fetchMediaDetails({ mediaType: mediaQuery.mediaType, id: mediaQuery.id, lang: locale.value })
-})
-
-onMounted(() => {
-	// console.log(router.currentRoute.value.params, 'router.currentRoute.value.params')
 	store.getMoviePersons({ mediaType: mediaQuery.mediaType, movieId: mediaQuery.id })
+}
+
+onBeforeMount(() => {
+	handleFetchPage()
 })
 </script>
 

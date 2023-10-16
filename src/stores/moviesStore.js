@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import securedAxios from '@/composables/useApi.js'
 import { correctLanguageCode } from '@/helpers';
+import { app } from '@/main.js'
+
 
 export const moviesStore = defineStore('moviesDB', {
   state: () => ({
@@ -36,6 +38,7 @@ export const moviesStore = defineStore('moviesDB', {
       totalResults: 0,
     },
     isLoading: false,
+    progressData: 0,
   }),
   getters: {
     // Movies
@@ -58,15 +61,20 @@ export const moviesStore = defineStore('moviesDB', {
   actions: {
     async fetchMovies({ lang }) {
       try {
+        app.config.globalProperties.$Progress.start()
         const response = await securedAxios.get(`/movie/popular?language=${correctLanguageCode(lang)}`);
         this.movies = this.addMediaType(response.data.results, 'movie');
         // console.log(this.movies.map((item) => item.media_type));
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async fetchMoviesMore({ page, sortBy, lang }) {
       try {
+        app.config.globalProperties.$Progress.start()
         this.isLoading = true;
         const response = await securedAxios.get(`/movie/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         const newMoviesWithMediaType = this.addMediaType(response.data.results, 'movie');
@@ -74,8 +82,11 @@ export const moviesStore = defineStore('moviesDB', {
         // console.log(this.movies.map((item) => item.media_type))
         await this.MoviesSortBy(sortBy);
         this.isLoading = false;
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async MoviesSortBy(sortBy) {
@@ -106,27 +117,36 @@ export const moviesStore = defineStore('moviesDB', {
       }
     },
     async fetchMediaDetails({ mediaType, id, lang }) {
-      this.mediaDetails.data = [];
       try {
+        app.config.globalProperties.$Progress.start()
+        this.mediaDetails.data = [];
         const response = await securedAxios.get(`/${mediaType}/${id}?language=${correctLanguageCode(lang)}`);
         const getTrailer = await securedAxios.get(`/${mediaType}/${id}/videos`);
         this.mediaDetails.data = { ...response.data, media_type: mediaType, trailer: getTrailer.data.results[0]?.key || 'OOkJ54oqt5Q' };
         // console.log(this.mediaDetails.data);
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async fetchTvShows({ lang }) {
       try {
+        app.config.globalProperties.$Progress.start()
         const response = await securedAxios.get(`/tv/popular?language=${correctLanguageCode(lang)}`);
         this.tvShows = this.addMediaType(response.data.results, 'tv');
         // console.log(this.tvShows.map((item) => item.media_type));
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async fetchTvShowsMore({ page, sortBy, lang }) {
       try {
+        app.config.globalProperties.$Progress.start()
         this.isLoading = true;
         const response = await securedAxios.get(`/tv/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         const newTvShowsWithMediaType = this.addMediaType(response.data.results, 'tv');
@@ -134,8 +154,11 @@ export const moviesStore = defineStore('moviesDB', {
         // console.log(this.tvShows.map((item) => item.media_type))
         await this.TvShowsSortBy(sortBy);
         this.isLoading = false;
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async TvShowsSortBy(sortBy) {
@@ -165,8 +188,9 @@ export const moviesStore = defineStore('moviesDB', {
           break;
       }
     },
-    async fetchPersons({page, lang}) {
+    async fetchPersons({ page, lang }) {
       try {
+        app.config.globalProperties.$Progress.start()
         const response = await securedAxios.get(`/person/popular?language=${correctLanguageCode(lang)}&page=${page}`);
         // console.log(response.data);
         this.persons.data = response.data.results;
@@ -174,8 +198,11 @@ export const moviesStore = defineStore('moviesDB', {
         this.persons.totalPages = response.data.total_pages;
         this.persons.totalResults = response.data.total_results;
         // console.log(this.persons.totalResults);
+        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
+      } finally {
+        app.config.globalProperties.$Progress.finish()
       }
     },
     async fetchPerson(id) {

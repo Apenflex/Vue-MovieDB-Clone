@@ -49,4 +49,7 @@ app.use(VueAxios, axios)
   .component('VueMultiselect', VueMultiselect)
   .mount('#app')
 
-export default i18n
+export {
+  i18n,
+  app
+}

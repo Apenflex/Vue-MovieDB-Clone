@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, computed } from 'vue'
 
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { useToast } from 'vue-toastification'
@@ -7,10 +7,7 @@ import { userStore } from '@/stores/useUser'
 
 const userStored = userStore()
 
-const name = ref(userStored.isUserLogged ? 'Sign out' : 'Sign in/Sign up')
-watch(userStored, () => {
-	name.value = userStored.isUserLogged ? 'Sign out' : 'Sign in/Sign up'
-})
+const name = computed(() => (userStored.isUserLogged ? 'Sign out' : 'Sign in/Sign up'))
 
 const auth = getAuth()
 onMounted(() => {
@@ -40,7 +37,6 @@ const handleAuth = () => {
 		// console.log('click', userStored.showAuthModal)
 	}
 }
-
 </script>
 <template>
 	<button

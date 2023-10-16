@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { userStore } from '@/stores/useUser'
@@ -89,10 +89,7 @@ onMounted(() => {
 })
 
 const userStored = userStore()
-const isUserLogged = ref(userStored.isUserLogged)
-watch(userStored, () => {
-	isUserLogged.value = userStored.isUserLogged
-})
+const isUserLogged = computed(() => userStored.isUserLogged)
 </script>
 
 <template>
