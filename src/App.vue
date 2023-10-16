@@ -3,13 +3,53 @@ import { onBeforeMount } from 'vue'
 import { RouterView } from 'vue-router'
 
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { getCurrentInstance } from 'vue'
+import { useToast } from 'vue-toastification'
+import { getAuth } from 'firebase/auth'
 import HeaderBlock from '@/components/HeaderBlock.vue'
 import ModalAuth from '@/components/modal/ModalAuth.vue'
 import ScrollUp from '@/components/scrollup/ScrollUp.vue'
 import FooterBlock from '@/components/FooterBlock.vue'
 
-const { locale, availableLocales, fallbackLocale } = useI18n()
+// Progress Bar
+const router = useRouter()
+const internalInstance = getCurrentInstance()
+const progress = internalInstance.appContext.config.globalProperties.$Progress
 
+const startProgress = () => progress.start()
+const finishProgress = () => progress.finish()
+
+router.beforeEach((to, from, next) => {
+	if (to.meta.progress !== undefined) {
+		let meta = to.meta.progress
+		progress.parseMeta(meta)
+	}
+	startProgress()
+	next()
+})
+router.afterEach(() => {
+	finishProgress()
+})
+// Auth Router Guard
+const toast = useToast();
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (getAuth().currentUser) {
+      next();
+    } else {
+      toast.error('You must be logged in to see this page');
+      next({
+        // path: '/signin'
+      });
+    }
+  } else {
+    next();
+  }
+});
+
+// Locale change
+const { locale, availableLocales, fallbackLocale } = useI18n()
 const findSupportedLocale = (localeToSearch) =>
 	availableLocales.find((supportedLocale) => supportedLocale === localeToSearch)
 
@@ -44,6 +84,7 @@ onBeforeMount(() => {
 
 <template>
 	<RouterView />
+	<vue-progress-bar />
 	<HeaderBlock />
 	<ModalAuth />
 	<ScrollUp />

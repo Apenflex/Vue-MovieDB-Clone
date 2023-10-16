@@ -10,14 +10,15 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMultiselect from 'vue-multiselect'
 import Toast from "vue-toastification";
+import { toastOptions } from './helpers/configs/toast'
 import PrimeVue from 'primevue/config';
 import Paginator from 'primevue/paginator';
 import Skeleton from 'primevue/skeleton';
 import createI18N from './i18n'
-import { useToast } from 'vue-toastification'
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from './composables/useAuth'
-import { getAuth } from 'firebase/auth'
+import { firebaseConfig } from './helpers/configs/firebase'
+import VueProgressBar from '@aacassandra/vue3-progressbar'
+import { progressBarOptions } from './helpers/configs/progressbar'
 
 //Firebase
 // Initialize Firebase
@@ -31,21 +32,6 @@ export const i18nGlobal = i18n.global;
 
 // Router
 const router = createRouter(i18n);
-const toast = useToast();
-router.beforeEach((to, from, next) => {
-      if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (getAuth().currentUser) {
-          next();
-        } else {
-          toast.error('You must be logged in to see this page');
-          next({
-            // path: '/signin'
-          });
-        }
-      } else {
-        next();
-      }
-    });
 
 // Pinia
 const pinia = createPinia().use(piniaPluginPersistedstate)
@@ -55,22 +41,9 @@ app.use(VueAxios, axios)
   .use(router)
   .use(RouterLink)
   .use(i18n)
-  .use(Toast, {
-    position: "top-center",
-    timeout: 2800,
-    closeOnClick: true,
-    pauseOnFocusLoss: false,
-    pauseOnHover: false,
-    draggable: false,
-    draggablePercent: 0.7,
-    showCloseButtonOnHover: false,
-    hideProgressBar: true,
-    closeButton: "button",
-    icon: false,
-    rtl: false,
-    zIndex: 999999,
-  })
+  .use(Toast, toastOptions)
   .use(PrimeVue)
+  .use(VueProgressBar, progressBarOptions)
   .component('PrimePaginator', Paginator)
   .component('PrimeSkeleton', Skeleton)
   .component('VueMultiselect', VueMultiselect)

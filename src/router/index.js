@@ -1,17 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+const progressOptions = {
+  func: [
+    { call: 'color', modifier: 'temp', argument: '#00d2ff' },
+    { call: 'fail', modifier: 'temp', argument: '#6e0000' },
+    { call: 'location', modifier: 'temp', argument: 'top' },
+    { call: 'transition', modifier: 'temp', argument: { speed: '1.5s', opacity: '0.6s', termination: 400 } },
+  ],
+}
+
 const initialRoutes = [
   {
     path: '',
     name: 'home',
     component: () => import('@/pages/HomePage.vue'),
-    props: true
+    props: true,
+    meta: {
+      progress: progressOptions
+    }
   },
   {
     path: 'search',
     name: 'search',
     component: () => import('@/pages/SearchPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      progress: progressOptions
+    }
   },
   {
     path: 'favourite',
@@ -19,26 +34,36 @@ const initialRoutes = [
     component: () => import('@/pages/FavouritePage.vue'),
     props: true,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      progress: progressOptions
     }
   },
   {
     path: 'movies',
     name: 'movies',
     component: () => import('@/pages/MoviesPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      progress: progressOptions
+    }
   },
   {
     path: 'tv',
     name: 'tv',
     component: () => import('@/pages/TvShowsPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      progress: progressOptions
+    }
   },
   {
     path: ':mediaType/:id',
     name: 'media-details',
     component: () => import('@/pages/FilmsDescPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      progress: progressOptions
+    }
   },
   {
     path: 'persons',
@@ -46,14 +71,19 @@ const initialRoutes = [
     component: () => import('@/pages/PersonsPage.vue'),
     props: true,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      progress: progressOptions
     }
   },
   {
     path: 'persons/:params',
     name: 'person-details',
     component: () => import('@/pages/PersonDescPage.vue'),
-    props: true
+    props: true,
+    meta: {
+      requiresAuth: true,
+      progress: progressOptions
+    }
   }
 ]
 
