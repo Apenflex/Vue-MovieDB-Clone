@@ -61,15 +61,11 @@ export const moviesStore = defineStore('moviesDB', {
   actions: {
     async fetchMovies({ lang }) {
       try {
-        app.config.globalProperties.$Progress.start()
         const response = await securedAxios.get(`/movie/popular?language=${correctLanguageCode(lang)}`);
         this.movies = this.addMediaType(response.data.results, 'movie');
         // console.log(this.movies.map((item) => item.media_type));
-        app.config.globalProperties.$Progress.set(100);
       } catch (error) {
         console.error(error);
-      } finally {
-        app.config.globalProperties.$Progress.finish()
       }
     },
     async fetchMoviesMore({ page, sortBy, lang }) {
@@ -258,7 +254,16 @@ export const moviesStore = defineStore('moviesDB', {
     },
     async fetchTrandingMovies(argDay) {
       try {
-        const response = await securedAxios.get(`/trending/all/${argDay}`);
+        const response = await securedAxios.get(`/trending/all/${argDay}`, {
+          onDownloadProgress: (progressEvent) => {
+            console.log(progressEvent);
+            if (progressEvent) {
+              // Отримуємо прогрес і оновлюємо змінну в store
+              const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              this.progressData = percentCompleted;
+            }
+          }
+        });
         this.trandingMovies = response.data.results;
         // console.log('Trending Movies',this.trandingMovies);
       } catch (error) {

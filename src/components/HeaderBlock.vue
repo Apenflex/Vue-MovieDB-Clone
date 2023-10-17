@@ -15,6 +15,14 @@ const isMenuOpen = ref(false)
 const toggleMenu = () => {
 	if (isMenuOpen.value) isMenuOpen.value = false
 }
+
+const blockBodyScroll = computed(() => {
+	if (isMenuOpen.value) {
+		return document.body.style.overflow = 'hidden'
+	} else {
+		return document.body.style.overflow = ''
+	}
+})
 watch(isMenuOpen, (newValue) => {
 	newValue ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = '')
 })
