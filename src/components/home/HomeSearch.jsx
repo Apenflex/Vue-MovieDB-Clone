@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -13,8 +13,6 @@ export default function HomeSearch() {
   const getRandomPoster = useMoviesStore((s) => s.getRandomPoster)
   const randomPosterURL = useMoviesStore((s) => s.randomPosterURL)
 
-  const searchQueryRef = useRef({ query: '', page: 1 })
-
   useEffect(() => {
     getRandomPoster()
   }, [getRandomPoster])
@@ -27,12 +25,10 @@ export default function HomeSearch() {
     }
   }, [randomPosterURL])
 
-  const handleSearch = () => {
-    const searchQuery = searchQueryRef.current
-    if (!searchQuery.query) return
-    const newRoute = applyLocale(`/search?query=${encodeURIComponent(searchQuery.query)}&page=${searchQuery.page}`)
+  const handleSearch = (query) => {
+    if (!query?.trim()) return
+    const newRoute = applyLocale(`/search?query=${encodeURIComponent(query.trim())}&page=1`)
     navigate(newRoute)
-    searchQuery.query = ''
   }
 
   return (
@@ -43,7 +39,7 @@ export default function HomeSearch() {
             <h1>{t('components.HomeSearch.h1')}</h1>
             <h2>{t('components.HomeSearch.h2')}</h2>
           </div>
-          <SearchForm searchQuery={searchQueryRef.current} onSubmit={handleSearch} />
+          <SearchForm onSubmit={handleSearch} />
         </div>
       </section>
     </div>

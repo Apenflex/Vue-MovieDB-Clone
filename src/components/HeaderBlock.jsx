@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import i18n, { defaultLocale } from '../i18n/i18n.js'
-import { applyLocale, stripLocalePrefix } from '../lib/locale.js'
+import { defaultLocale } from '../i18n/i18n.js'
+import { applyLocale, getLocaleFromPathname, stripLocalePrefix } from '../lib/locale.js'
 import { useUserStore } from '../stores/useUserStore.js'
 import IconHeart from './icons/IconHeart.jsx'
 import AuthButton from './auth/AuthButton.jsx'
 
 export default function HeaderBlock() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const location = useLocation()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -51,21 +50,21 @@ export default function HeaderBlock() {
 
   const locales = useMemo(
     () => [
-      { label: t('translation.ukrainian.label'), value: t('translation.ukrainian.value') },
-      { label: t('translation.english.label'), value: t('translation.english.value') },
+      { label: 'Укр', value: 'ua' },
+      { label: 'Eng', value: 'en' },
     ],
-    [t],
+    [],
   )
 
-  const currentLocale = useMemo(() => locales.find((l) => l.value === i18n.language) ?? locales[0], [locales])
+  const localeFromUrl = getLocaleFromPathname(location.pathname)
+  const currentLocaleValue = ['ua', 'en'].includes(localeFromUrl) ? localeFromUrl : defaultLocale
 
-  const changeLocale = async (newLocaleValue) => {
+  const changeLocale = (newLocaleValue) => {
+    if (newLocaleValue === currentLocaleValue) return
     const normalized = stripLocalePrefix(location.pathname) + location.search + location.hash
-    const nextUrl = applyLocale(normalized === '' ? '/' : normalized, newLocaleValue)
-    await i18n.changeLanguage(newLocaleValue)
-    navigate(nextUrl)
-    // Vue version reloads the page after changing locale; we keep it to stay identical for now.
-    window.location.reload()
+    const path = normalized === '' ? '/' : normalized
+    const nextPath = applyLocale(path, newLocaleValue)
+    window.location.assign(nextPath)
   }
 
   return (
@@ -79,9 +78,8 @@ export default function HeaderBlock() {
           </div>
 
           <nav className={`header__nav ${isMenuOpen ? 'menu-active' : ''}`}>
-            {/* Temporary locale switcher (replaces vue-multiselect). */}
             <select
-              value={currentLocale?.value ?? defaultLocale}
+              value={currentLocaleValue}
               onChange={(e) => changeLocale(e.target.value)}
               style={{ marginRight: 12 }}
             >
@@ -109,19 +107,6 @@ export default function HeaderBlock() {
             </Link>
             <AuthButton onToggleMenu={toggleMenu} />
           </nav>
-
-          {/* Mobile locale switcher (keeps `.mobile` class parity) */}
-          <select
-            className="mobile"
-            value={currentLocale?.value ?? defaultLocale}
-            onChange={(e) => changeLocale(e.target.value)}
-          >
-            {locales.map((l) => (
-              <option key={l.value} value={l.value}>
-                {l.label}
-              </option>
-            ))}
-          </select>
 
           <div className={`hamburger hamburger--spring ${isMenuOpen ? 'is-active' : ''}`} onClick={() => setIsMenuOpen((v) => !v)}>
             <div className="hamburger-box">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { applyLocale } from '../lib/locale.js'
@@ -14,42 +14,35 @@ export default function SearchPage() {
   const fetchSearch = useMoviesStore((s) => s.fetchSearch)
   const searchMovies = useMoviesStore((s) => s.searchMovies)
 
-  const searchQueryRef = useRef({
-    query: searchParams.get('query') || '',
-    page: Number(searchParams.get('page') || '1'),
-  })
+  const queryFromUrl = searchParams.get('query') || ''
+  const pageFromUrl = Number(searchParams.get('page') || '1')
 
-  // Keep ref in sync with URL (so SearchForm input reflects current query)
-  useEffect(() => {
-    searchQueryRef.current.query = searchParams.get('query') || ''
-    searchQueryRef.current.page = Number(searchParams.get('page') || '1')
-  }, [searchParams])
-
-  const handleSearch = async () => {
-    const q = searchQueryRef.current.query
+  const handleSearch = (query) => {
+    const q = (query ?? queryFromUrl).trim()
     if (!q) return
-    searchQueryRef.current.page = 1
-    await fetchSearch({ query: q, page: 1 })
     navigate(applyLocale(`/search?query=${encodeURIComponent(q)}&page=1`))
   }
 
-  const handleChangePage = async (options) => {
+  const handleChangePage = (options) => {
     const nextPage = options.page + 1
-    searchQueryRef.current.page = nextPage
-    await fetchSearch({ query: searchQueryRef.current.query, page: nextPage })
-    navigate(applyLocale(`/search?query=${encodeURIComponent(searchQueryRef.current.query)}&page=${nextPage}`))
+    const q = queryFromUrl
+    if (!q) return
+    navigate(applyLocale(`/search?query=${encodeURIComponent(q)}&page=${nextPage}`))
   }
 
   useEffect(() => {
-    if (!searchQueryRef.current.query) return
-    fetchSearch({ query: searchQueryRef.current.query, page: searchQueryRef.current.page })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (!queryFromUrl) return
+    fetchSearch({ query: queryFromUrl, page: pageFromUrl })
+  }, [queryFromUrl, pageFromUrl])
 
   return (
     <main className="container">
       <section className="search">
-        <SearchForm searchQuery={searchQueryRef.current} onSubmit={handleSearch} />
+        <SearchForm
+          key={queryFromUrl || 'search'}
+          initialQuery={queryFromUrl}
+          onSubmit={handleSearch}
+        />
 
         <div className="search__content">
           <div className="search__content-items">
@@ -60,7 +53,7 @@ export default function SearchPage() {
             ))}
           </div>
 
-          <Paginator page={searchQueryRef.current.page || 1} rows={20} totalRecords={searchMovies.totalResults} onPage={handleChangePage} />
+          <Paginator page={pageFromUrl} rows={20} totalRecords={searchMovies.totalResults} onPage={handleChangePage} />
         </div>
       </section>
     </main>
