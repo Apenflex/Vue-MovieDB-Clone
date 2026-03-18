@@ -1,35 +1,15 @@
-# vue_movieDB_clone
+# React 19 port (work in progress)
 
-This template should help get you started developing with Vue 3 in Vite.
+This branch (`react19-port`) contains an incremental port of the existing Vue app to **React 19**, aiming to keep UI/UX identical.
 
-## Recommended IDE Setup
+## Run
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+From `react/`:
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+The React app runs on port `3001` to avoid clashing with the Vue dev server (`3000`).
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```

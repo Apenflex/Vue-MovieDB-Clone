@@ -1,22 +1,15 @@
-import { defineStore } from 'pinia'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-export const useFavouritesStore = defineStore('favouritesDB', {
-  state: () => ({
-    favouriteMovies: [],
-  }),
-  getters: {
-    getFavouriteMovies: (state) => state.favouriteMovies,
-  },
-  actions: {
-    addFavouriteMovie(movie) {
-      this.favouriteMovies.push(movie);
-      // console.log(this.favouriteMovies);
-    },
-    removeFavouriteMovie(movie) {
-      this.favouriteMovies = this.favouriteMovies.filter((item) => item.id !== movie.id);
-    },
-  },
-  persist: {
-    enabled: true,
-  },
-},)
+export const useFavouritesStore = create(
+  persist(
+    (set, get) => ({
+      favouriteMovies: [],
+      getFavouriteMovies: () => get().favouriteMovies,
+      addFavouriteMovie: (movie) => set((s) => ({ favouriteMovies: [...s.favouriteMovies, movie] })),
+      removeFavouriteMovie: (movie) => set((s) => ({ favouriteMovies: s.favouriteMovies.filter((i) => i.id !== movie.id) })),
+    }),
+    { name: 'favourites-store' },
+  ),
+)
+
