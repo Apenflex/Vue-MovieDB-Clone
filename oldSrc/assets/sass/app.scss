@@ -1,0 +1,51 @@
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+@import 'buttons';
+@import 'components';
+@import 'pages';
+@import "vue-toastification/dist/index.css";
+@import "primevue/resources/themes/lara-light-blue/theme.css";
+
+@include font-face('Source Sans 3', 'SourceSans3-Regular', 400);
+@include font-face('Source Sans 3', 'SourceSans3-SemiBold', 600);
+@include font-face('Source Sans 3', 'SourceSans3-Bold', 700);
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Source Sans 3', sans-serif;
+}
+
+main {
+	padding-top: 64px;
+}
+
+.container {
+	width: min(100% - 40px, 1300px);
+	margin-inline: auto;
+}

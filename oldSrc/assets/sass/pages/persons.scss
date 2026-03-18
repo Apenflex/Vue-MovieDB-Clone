@@ -1,0 +1,16 @@
+.persons {
+	padding: 20px 0;
+	&__content {
+		h1 {
+			margin-bottom: 20px;
+		}
+	}
+	&__items {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		grid-gap: 20px;
+	}
+	&__pagination {
+		margin-top: 20px;
+	}
+}

@@ -1,0 +1,40 @@
+// React app styles — all assets live in src/assets (sass, images, fonts).
+
+@import '../assets/sass/variables';
+@import '../assets/sass/mixins';
+@import '../assets/sass/animations';
+@import '../assets/sass/buttons';
+
+@import '../assets/sass/components/header.scss';
+@import '../assets/sass/components/footer.scss';
+@import '../assets/sass/components/itemcard.scss';
+@import '../assets/sass/components/search.scss';
+@import '../assets/sass/components/trend.scss';
+@import '../assets/sass/components/trailers.scss';
+@import '../assets/sass/components/popular.scss';
+@import '../assets/sass/components/formsearch.scss';
+@import '../assets/sass/components/persondesclist.scss';
+@import '../assets/sass/components/modal/modal.scss';
+@import '../assets/sass/components/modal/authmodal.scss';
+@import '../assets/sass/components/multiselect/multiselect.scss';
+@import '../assets/sass/components/paginator/primepaginator.scss';
+@import '../assets/sass/components/scrollup/scrollup.scss';
+@import './primeskeleton.scss';
+
+@import 'swiper/css';
+
+@import '../assets/sass/pages';
+
+@include font-face('Source Sans 3', 'SourceSans3-Regular', 400);
+@include font-face('Source Sans 3', 'SourceSans3-SemiBold', 600);
+@include font-face('Source Sans 3', 'SourceSans3-Bold', 700);
+
+h1, h2, h3, h4, h5, h6, p { margin: 0; padding: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+a { cursor: pointer; text-decoration: none; color: inherit; }
+body {
+  position: relative; margin: 0; padding: 0; box-sizing: border-box;
+  font-family: 'Source Sans 3', sans-serif;
+}
+main { padding-top: 64px; }
+.container { width: min(100% - 40px, 1300px); margin-inline: auto; }

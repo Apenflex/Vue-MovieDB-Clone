@@ -1,308 +1,210 @@
 {
-	"translation": {
-		"ukrainian": {
-			"label": "Укр",
-			"value": "ua"
-		},
-		"english": {
-			"label": "Eng",
-			"value": "en"
-		}
-	},
-	"components": {
-		"HeaderBlock": {
-			"movies": "Фільми",
-			"tvshows": "Серіали",
-			"persons": "Персони"
-		},
-		"FooterBlock": {
-			"foundations": {
-				"title": "ОСНОВИ",
-				"links": {
-					"AboutTMDB": "Про TMDB",
-					"ContactUs": "Зв’язок із нами",
-					"SupportForums": "Форуми підтримки",
-					"API": "API",
-					"SystemStatus": "Стан системи"
-				}
-			},
-			"participate": {
-				"title": "УЗЯТИ УЧАСТЬ",
-				"links": {
-					"BibleWithSupport": "Біблія зі сприяння",
-					"AddNewMovie": "Додати новий фільм",
-					"AddNewTVShow": "Додати новий серіал"
-				}
-			},
-			"community": {
-				"title": "СПІЛЬНОТА",
-				"links": {
-					"Advice": "Поради",
-					"Discussions": "Обговорення",
-					"Leaderboard": "Таблиця лідерів",
-					"Twitter": "Twitter"
-				}
-			},
-			"terms": {
-				"title": "УГОДИ",
-				"links": {
-					"TermsOfUse": "Умови користування",
-					"APIUsageRules": "Правила використання API",
-					"PrivacyPolicy": "Політика конфіденційності",
-					"DMCARequest": "Запит DMCA"
-				}
-			}
-		},
-		"HomeSearch": {
-			"h1": "Ласкаво просимо.",
-			"h2": "Мільйони фільмів, серіалів і персон. Досліджуйте зараз."
-		},
-		"SearchForm": {
-			"placeholder": {
-				"desktop": "Пошук фільму, серіалу, персони...",
-				"mobile": "Пошук"
-			},
-			"button": "Пошук"
-		},
-		"HomeTrends": {
-			"tab": {
-				"title": "У Тренді",
-				"day": {
-					"label": "Сьогодні",
-					"value": "day"
-				},
-				"week": {
-					"label": "Цього тижня",
-					"value": "week"
-				}
-			}
-		},
-		"HomeTrailers": {
-			"tab": {
-				"title": "Останні трейлери",
-				"streaming": {
-					"label": "Наживо",
-					"value": "now_playing"
-				},
-				"onTv": {
-					"label": "На ТБ",
-					"value": "popular"
-				},
-				"forRent": {
-					"label": "Для прокату",
-					"value": "top_rated"
-				},
-				"inTheaters": {
-					"label": "У кінотеатрах",
-					"value": "upcoming"
-				}
-			}
-		},
-		"HomePopular": {
-			"tab": {
-				"title": "Що популярне",
-				"streaming": {
-					"label": "Наживо",
-					"value": "now_playing"
-				},
-				"onTv": {
-					"label": "На ТБ",
-					"value": "popular"
-				},
-				"forRent": {
-					"label": "Для прокату",
-					"value": "top_rated"
-				},
-				"inTheaters": {
-					"label": "У кінотеатрах",
-					"value": "upcoming"
-				}
-			}
-		}
-	},
-	"pages": {
-		"Favourite": {
-			"H1": "Улюбленні",
-			"noFavourites": "У вас немає улюблених фільмів, серіалів або персон. Додайте їх, щоб зберегти."
-		},
-		"Movies": {
-			"H1": "Популярні фільми",
-			"Filter": {
-				"title": "Сортування",
-				"sortBy": "Сортувати результати за",
-				"options": {
-					"popularity": {
-						"label": "Популярні",
-						"value": "popularity"
-					},
-					"popularDesc": {
-						"label": "Непопулярні",
-						"value": "popularDesc"
-					},
-					"voteDesc": {
-						"label": "Рейтинг високий",
-						"value": "voteDesc"
-					},
-					"voteAsc": {
-						"label": "Рейтинг низький",
-						"value": "voteAsc"
-					},
-					"releaseDesc": {
-						"label": "Реліз свіжий",
-						"value": "releaseDesc"
-					},
-					"releaseAsc": {
-						"label": "Реліз давній",
-						"value": "releaseAsc"
-					},
-					"titleAsc": {
-						"label": "Назва А-Я",
-						"value": "titleAsc"
-					}
-				}
-			}
-		},
-		"TvShows": {
-			"H1": "Популярні серіали",
-			"Filter": {
-				"title": "Сортування",
-				"sortBy": "Сортувати результати за",
-				"options": {
-					"popularity": {
-						"label": "Популярні",
-						"value": "popularity"
-					},
-					"popularDesc": {
-						"label": "Непопулярні",
-						"value": "popularDesc"
-					},
-					"voteDesc": {
-						"label": "Рейтинг високий",
-						"value": "voteDesc"
-					},
-					"voteAsc": {
-						"label": "Рейтинг низький",
-						"value": "voteAsc"
-					},
-					"releaseDesc": {
-						"label": "Реліз свіжий",
-						"value": "releaseDesc"
-					},
-					"releaseAsc": {
-						"label": "Реліз давній",
-						"value": "releaseAsc"
-					},
-					"titleAsc": {
-						"label": "Назва А-Я",
-						"value": "titleAsc"
-					}
-				}
-			}
-		},
-		"Persons": {
-			"H1": "Популярні"
-		},
-		"FilmDesc": {
-			"userscore": "Оцінка користувачів",
-			"playtrailer": "Відтворити трейлер",
-			"overview": "Опис",
-			"cast": "Акторський склад"
-		},
-		"PersonDesc": {
-			"About": {
-				"personalnfo": "Особиста інформація",
-				"knownfor": "Відомий (-а) за",
-				"knowncredits": "Кількість робіт",
-				"gender": {
-					"title": "Стать",
-					"man": "Чоловіча",
-					"woman": "Жіноча"
-				},
-				"birthday": {
-					"title": "Дата народження",
-					"unknown": "Невідомо"
-				},
-				"placeofbirth": {
-					"title": "Місце народження",
-					"unknown": "Невідомо"
-				},
-				"alsoKnownAs": "Також відомий (-а) як"
-			},
-			"Bio": {
-				"biography": "Біографія",
-				"showmore": {
-					"more": "Читати більше >",
-					"less": "Згорнути"
-				},
-				"nowbiography": "Відсутня біографія для",
-				"knownfor": "Відомий (-а) за"
-			},
-			"Cast": {
-				"direction": "Режисура",
-				"acting": "Акторська гра",
-				"operatorwork": "Операторська робота",
-				"team": "Команда",
-				"scenario": "Сценарій",
-				"production": "Виробництво",
-				"assembling": "Монтаж"
-			}
-		}
-	},
-	"general": {
-		"further": "Далі",
-		"back": "Назад",
-		"menu": "Меню",
-		"close": "Закрити",
-		"date": "Дата",
-		"result": "Результат",
-		"detailed": "Детальніше",
-		"image": "Зображення",
-		"residentialComplex": "Житловий комплекс",
-		"readiness": "Готовність",
-		"district": "Район",
-		"priceM2": "Ціна за м<sup>2</sup>",
-		"m2": "м2",
-		"meters": "м",
-		"kilometers": "км",
-		"priceFrom": "Ціна від",
-		"onMap": "На мапі",
-		"status": "Статус",
-		"category": "Категорія",
-		"news": "Новини",
-		"send": "Відправити",
-		"projects": "Проекти",
-		"aboutCompany": "Про компанію",
-		"actions": "Акції",
-		"loadMore": "Завантажити ще",
-		"distance": "Відстань",
-		"contacts": "Контакти",
-		"validity": "Термін дії",
-		"publication": "Публікація",
-		"share": "ПОДІЛИТИСЬ",
-		"complex": "Житловий комплекс",
-		"phoneNumber": "+38 (073) 073 46 80",
-		"callUs": "Зателефонувати нам",
-		"addresses": "Адреси",
-		"touch": "Переміщуйте карту двома пальцями",
-		"scroll": "Щоб змінити масштаб карти використайте ctrl + прокручування",
-		"scrollMac": "Щоб змінити масштаб карти використайте ⌘ + прокручування",
-		"roominess": {
-			"1": "Однокімнатна",
-			"2": "Двокімнатна",
-			"3": "Трикімнатна",
-			"4": "Чотирикімнатна",
-			"5": "П'ятикімнатна",
-			"6": "Шестикімнатна"
-		}
-	},
-	"validations": {
-		"required": "Поле є обов'язковим.",
-		"minLength": "Поле повинно містити мінімум {min} символів.",
-		"email": "Введіть коректну поштову адресу."
-	},
-	"month": {
-		"1": "місяць",
-		"2": "місяців",
-		"3": "місяці"
-	}
+  "translation": {
+    "ukrainian": {
+      "label": "Укр",
+      "value": "ua"
+    },
+    "english": {
+      "label": "Eng",
+      "value": "en"
+    }
+  },
+  "components": {
+    "HeaderBlock": {
+      "movies": "Фільми",
+      "tvshows": "Серіали",
+      "persons": "Персони"
+    },
+    "FooterBlock": {
+      "foundations": {
+        "title": "ОСНОВИ",
+        "links": {
+          "AboutTMDB": "Про TMDB",
+          "ContactUs": "Зв’язок із нами",
+          "SupportForums": "Форуми підтримки",
+          "API": "API",
+          "SystemStatus": "Стан системи"
+        }
+      },
+      "participate": {
+        "title": "УЗЯТИ УЧАСТЬ",
+        "links": {
+          "BibleWithSupport": "Біблія зі сприяння",
+          "AddNewMovie": "Додати новий фільм",
+          "AddNewTVShow": "Додати новий серіал"
+        }
+      },
+      "community": {
+        "title": "СПІЛЬНОТА",
+        "links": {
+          "Advice": "Поради",
+          "Discussions": "Обговорення",
+          "Leaderboard": "Таблиця лідерів",
+          "Twitter": "Twitter"
+        }
+      },
+      "terms": {
+        "title": "УГОДИ",
+        "links": {
+          "TermsOfUse": "Умови користування",
+          "APIUsageRules": "Правила використання API",
+          "PrivacyPolicy": "Політика конфіденційності",
+          "DMCARequest": "Запит DMCA"
+        }
+      }
+    },
+    "HomeSearch": {
+      "h1": "Ласкаво просимо.",
+      "h2": "Мільйони фільмів, серіалів і персон. Досліджуйте зараз."
+    },
+    "SearchForm": {
+      "placeholder": {
+        "desktop": "Пошук фільму, серіалу, персони...",
+        "mobile": "Пошук"
+      },
+      "button": "Пошук"
+    },
+    "HomeTrends": {
+      "tab": {
+        "title": "У Тренді",
+        "day": {
+          "label": "Сьогодні",
+          "value": "day"
+        },
+        "week": {
+          "label": "Цього тижня",
+          "value": "week"
+        }
+      }
+    },
+    "HomeTrailers": {
+      "tab": {
+        "title": "Останні трейлери",
+        "streaming": {
+          "label": "Наживо",
+          "value": "now_playing"
+        },
+        "onTv": {
+          "label": "На ТБ",
+          "value": "popular"
+        },
+        "forRent": {
+          "label": "Для прокату",
+          "value": "top_rated"
+        },
+        "inTheaters": {
+          "label": "У кінотеатрах",
+          "value": "upcoming"
+        }
+      }
+    },
+    "HomePopular": {
+      "tab": {
+        "title": "Що популярне",
+        "streaming": {
+          "label": "Наживо",
+          "value": "now_playing"
+        },
+        "onTv": {
+          "label": "На ТБ",
+          "value": "popular"
+        },
+        "forRent": {
+          "label": "Для прокату",
+          "value": "top_rated"
+        },
+        "inTheaters": {
+          "label": "У кінотеатрах",
+          "value": "upcoming"
+        }
+      }
+    }
+  },
+  "pages": {
+    "Favourite": {
+      "H1": "Улюбленні",
+      "noFavourites": "У вас немає улюблених фільмів, серіалів або персон. Додайте їх, щоб зберегти."
+    },
+    "Persons": {
+      "H1": "Популярні"
+    },
+    "PersonDesc": {
+      "About": {
+        "personalnfo": "Особиста інформація",
+        "knownfor": "Відомий (-а) за",
+        "knowncredits": "Кількість робіт",
+        "gender": {
+          "title": "Стать",
+          "man": "Чоловіча",
+          "woman": "Жіноча"
+        },
+        "birthday": {
+          "title": "Дата народження",
+          "unknown": "Невідомо"
+        },
+        "placeofbirth": {
+          "title": "Місце народження",
+          "unknown": "Невідомо"
+        },
+        "alsoKnownAs": "Також відомий (-а) як"
+      },
+      "Bio": {
+        "biography": "Біографія",
+        "showmore": {
+          "more": "Читати більше >",
+          "less": "Згорнути"
+        },
+        "nowbiography": "Відсутня біографія для",
+        "knownfor": "Відомий (-а) за"
+      },
+      "Cast": {
+        "direction": "Режисура",
+        "acting": "Акторська гра",
+        "operatorwork": "Операторська робота",
+        "team": "Команда",
+        "scenario": "Сценарій",
+        "production": "Виробництво",
+        "assembling": "Монтаж"
+      }
+    },
+    "FilmDesc": {
+      "userscore": "Оцінка користувачів",
+      "playtrailer": "Відтворити трейлер",
+      "overview": "Опис",
+      "cast": "Акторський склад"
+    },
+    "Movies": {
+      "H1": "Популярні фільми",
+      "Filter": {
+        "title": "Сортування",
+        "sortBy": "Сортувати результати за",
+        "options": {
+          "popularity": { "label": "Популярні", "value": "popularity" },
+          "popularDesc": { "label": "Непопулярні", "value": "popularDesc" },
+          "voteDesc": { "label": "Рейтинг високий", "value": "voteDesc" },
+          "voteAsc": { "label": "Рейтинг низький", "value": "voteAsc" },
+          "releaseDesc": { "label": "Реліз свіжий", "value": "releaseDesc" },
+          "releaseAsc": { "label": "Реліз давній", "value": "releaseAsc" },
+          "titleAsc": { "label": "Назва А-Я", "value": "titleAsc" }
+        }
+      }
+    },
+    "TvShows": {
+      "H1": "Популярні серіали",
+      "Filter": {
+        "title": "Сортування",
+        "sortBy": "Сортувати результати за",
+        "options": {
+          "popularity": { "label": "Популярні", "value": "popularity" },
+          "popularDesc": { "label": "Непопулярні", "value": "popularDesc" },
+          "voteDesc": { "label": "Рейтинг високий", "value": "voteDesc" },
+          "voteAsc": { "label": "Рейтинг низький", "value": "voteAsc" },
+          "releaseDesc": { "label": "Реліз свіжий", "value": "releaseDesc" },
+          "releaseAsc": { "label": "Реліз давній", "value": "releaseAsc" },
+          "titleAsc": { "label": "Назва А-Я", "value": "titleAsc" }
+        }
+      }
+    }
+  }
 }
+

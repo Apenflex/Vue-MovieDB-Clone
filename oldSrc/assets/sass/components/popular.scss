@@ -1,0 +1,95 @@
+.popular {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 0;
+	gap: 20px;
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		@include media($sm) {
+			flex-direction: column;
+		}
+		h2 {
+			font-size: 24px;
+			font-weight: 600;
+		}
+		.multiselect {
+			display: none;
+			@include media($mdPlus) {
+				display: block;
+			}
+			width: 180px;
+			&__tags {
+				border-radius: 20px;
+				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
+				border: none;
+			}
+			&__single {
+				font-size: 18px;
+				text-align: center;
+				font-weight: 600;
+			}
+			&__content-wrapper {
+				background: linear-gradient(to right, $lightGreen 0%, $lightBlue 100%);
+				border-radius: 0 0 20px 20px;
+				border: none;
+				color: $primary;
+				text-align: center;
+				font-size: 18px;
+				font-weight: 600;
+			}
+			&__option--highlight {
+				background: $primary;
+				&::after {
+					background: $primary;
+				}
+			}
+			&--active {
+				.multiselect__tags {
+					border-radius: 20px 20px 0 0;
+				}
+			}
+		}
+	}
+	&__tab {
+		display: flex;
+		border-radius: 20px;
+		border: 1px solid $primary;
+		gap: 5px;
+		cursor: pointer;
+		@include media($mdPlus) {
+			display: none;
+		}
+		h3 {
+			align-self: center;
+			font-size: 16px;
+			border-radius: 20px;
+			padding: 5px 25px;
+			color: $primary;
+		}
+		.active {
+			transition: 0.3s ease-in-out;
+			background-color: $primary;
+			color: $lightGreen;
+		}
+	}
+	.swiper {
+		padding: 10px 3px;
+	}
+	.p-dropdown {
+		background-color: $lightGreen;
+		border-radius: 20px;
+		&-label {
+			margin: auto;
+			font-size: 16px;
+			padding: 2px 15px;
+			&:focus-visible {
+				outline: none;
+			}
+		}
+		&.p-overlay-open {
+			border-radius: 20px 20px 0 0;
+		}
+	}
+}
